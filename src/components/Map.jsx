@@ -18,8 +18,10 @@ const TaskMap = ({ points, origin }) => (
 );
 
 TaskMap.propTypes = {
-  points: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number, PropTypes.number)).isRequired,
-  origin: PropTypes.arrayOf(PropTypes.number, PropTypes.number).isRequired,
+  points: PropTypes.arrayOf(
+    PropTypes.arrayOf(PropTypes.number, PropTypes.number)
+  ).isRequired,
+  origin: PropTypes.arrayOf(PropTypes.number, PropTypes.number).isRequired
 };
 
 export default TaskMap;
