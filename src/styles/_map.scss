@@ -1,0 +1,16 @@
+.leaflet-container {
+    flex: 1;
+    z-index: 0;
+}
+
+.leaflet-popup-content-wrapper {
+    border-radius: 4px;
+    font-size: 1rem;
+    box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.1);
+    font-family: 'Roboto Slab', sans-serif; 
+    width: 250px;
+}
+
+.leaflet-bottom.leaflet-right {
+    display: none;
+}
