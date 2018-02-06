@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class MenuButton extends Component {
   state = {
@@ -9,9 +10,7 @@ class MenuButton extends Component {
     this.setState(
       ({ open }) => ({ open: !open }),
       () => {
-        if (this.props.onChange) {
-          this.props.onChange(this.state.open);
-        }
+        this.props.onChange(this.state.open);
       }
     );
   };
@@ -20,7 +19,11 @@ class MenuButton extends Component {
     const { open } = this.state;
     return (
       <div className={`menu-button ${open ? 'open' : ''}`}>
-        <input type="checkbox" id="menu-button--inputbox" onChange={this.toggle} />
+        <input
+          type="checkbox"
+          id="menu-button--inputbox"
+          onChange={this.toggle}
+        />
         <label className="menu-button--label" htmlFor="menu-button--inputbox">
           <div className="menu-button--bar" />
           <div className="menu-button--bar" />
@@ -30,5 +33,9 @@ class MenuButton extends Component {
     );
   }
 }
+
+MenuButton.propTypes = {
+  onChange: PropTypes.func.isRequired
+};
 
 export default MenuButton;

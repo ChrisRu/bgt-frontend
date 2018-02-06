@@ -8,29 +8,25 @@ const theHague = [52.070498, 4.3007];
 class App extends Component {
   state = {
     sidebar: false,
-    points: [],
+    results: [],
+    origin: theHague
   };
-
-  componentWillMount() {
-    this.setState({ points: this.getPoints() });
-  }
-
-  getPoints = () =>
-    Array(Math.ceil(Math.random() * 10) + 3)
-      .fill(0)
-      .map(() => theHague.map(val => val + ((Math.random() - 0.25) / 30)));
 
   toggleSidebar = open => {
     this.setState(({ sidebar }) => ({ sidebar: open }));
   };
 
   render() {
-    const { sidebar, points } = this.state;
+    const { sidebar, results, origin } = this.state;
     return (
       <div className="App">
-        <Header toggleSidebar={this.toggleSidebar} />
-        <Sidebar points={points} visible={sidebar} />
-        <Map points={points} origin={theHague} />
+        <Header
+          toggleSidebar={this.toggleSidebar}
+          onSubmit={origin => this.setState({ origin })}
+          onResults={(value, results) => this.setState({ results })}
+        />
+        <Sidebar data={results} visible={sidebar} />
+        <Map data={results} origin={origin} />
       </div>
     );
   }

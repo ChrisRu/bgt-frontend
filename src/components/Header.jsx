@@ -1,21 +1,25 @@
-import React from "react";
-import PropTypes from "prop-types";
-import logo from "../assets/DenHaag.svg";
-import MenuButton from "./MenuButton";
+import React from 'react';
+import PropTypes from 'prop-types';
+import logo from '../assets/DenHaag.svg';
+import MenuButton from './MenuButton';
+import Search from './Search';
 
-const Header = ({ toggleSidebar }) => (
+const Header = ({ toggleSidebar, onSubmit, onResults }) => (
   <div className="header">
     <div className="header--logo">
       <img src={logo} alt="Logo Den Haag - Vrede en Recht" />
     </div>
     <div className="header--navigation">
+      <Search onSubmit={onSubmit} onChange={onResults} />
       <MenuButton onChange={toggleSidebar} />
     </div>
   </div>
 );
 
 Header.propTypes = {
-  toggleSidebar: PropTypes.func.isRequired
+  toggleSidebar: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func,
+  onResults: PropTypes.func
 };
 
 export default Header;

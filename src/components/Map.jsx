@@ -1,28 +1,51 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Map, TileLayer, Polyline, Marker, Popup } from 'react-leaflet';
 
-// https://nominatim.openstreetmap.org/search?q=Frederik+Hendrikstraat+26,Naaldwijk&format=json&polygon=1&addressdetails=1
+const MarkerPopup = ({ lat, lon, display_name }) => {
+  if (!lat || !lon) {
+    return null;
+  }
 
-const TaskMap = ({ points, origin }) => (
-  <Map center={origin} zoom={13}>
-    <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-    {points.map(position => (
-      <Marker key={position[0]} position={position}>
-        <Popup>
-          <span>
-            A pretty CSS3 popup. <br /> Easily customizable.
-          </span>
-        </Popup>
-      </Marker>
-    ))}
-  </Map>
-);
+  return (
+    <Marker position={[lat, lon]}>
+      <Popup>
+        <span>{display_name}</span>
+      </Popup>
+    </Marker>
+  );
+};
+
+const StreetHighlight = ({ polygonpoints, place_id, display_name }) => {
+  if (!polygonpoints) {
+    return null;
+  }
+
+  return (
+    <Polyline positions={polygonpoints.map(([x, y]) => [y, x])} color="red">
+      <Popup>
+        <span>{display_name}</span>
+      </Popup>
+    </Polyline>
+  );
+};
+
+const TaskMap = ({ data, origin }) =>
+  console.log(data) || (
+    <Map center={origin} zoom={13} animate={true}>
+      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      {data.map(street =>
+        [
+          <StreetHighlight key={street.place_id} {...street} />,
+          <MarkerPopup key={street.osm_id} {...street} />
+        ].filter(el => el)
+      )}
+    </Map>
+  );
 
 TaskMap.propTypes = {
-  points: PropTypes.arrayOf(
-    PropTypes.arrayOf(PropTypes.number, PropTypes.number)
-  ).isRequired,
+  data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number, PropTypes.number))
+    .isRequired,
   origin: PropTypes.arrayOf(PropTypes.number, PropTypes.number).isRequired
 };
 
