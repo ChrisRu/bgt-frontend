@@ -1,6 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import logo from '../assets/DenHaag.svg';
+import React from "react";
+import PropTypes from "prop-types";
+import logo from "../assets/DenHaag.svg";
+import MenuButton from "./MenuButton";
 
 const Header = ({ toggleSidebar }) => (
   <div className="header">
@@ -8,15 +9,13 @@ const Header = ({ toggleSidebar }) => (
       <img src={logo} alt="Logo Den Haag - Vrede en Recht" />
     </div>
     <div className="header--navigation">
-      <button className="header--navigation-item" onClick={toggleSidebar}>
-        TakenLijst {'<'}
-      </button>
+      <MenuButton onChange={toggleSidebar} />
     </div>
   </div>
 );
 
 Header.propTypes = {
-  toggleSidebar: PropTypes.func.isRequired,
+  toggleSidebar: PropTypes.func.isRequired
 };
 
 export default Header;

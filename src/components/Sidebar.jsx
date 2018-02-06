@@ -5,7 +5,7 @@ const Sidebar = ({ visible, points }) => (
   <div className={`sidebar ${visible ? '' : 'hidden'}`}>
     {points.map(position => (
       <div key={position[0]} className="sidebar--item">
-        {position}
+        Haagse Hogeschool Something Something
       </div>
       ))}
   </div>

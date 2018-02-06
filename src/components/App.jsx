@@ -7,7 +7,7 @@ const theHague = [52.070498, 4.3007];
 
 class App extends Component {
   state = {
-    sidebar: true,
+    sidebar: false,
     points: [],
   };
 
@@ -20,8 +20,8 @@ class App extends Component {
       .fill(0)
       .map(() => theHague.map(val => val + ((Math.random() - 0.25) / 30)));
 
-  toggleSidebar = () => {
-    this.setState(({ sidebar }) => ({ sidebar: !sidebar }));
+  toggleSidebar = open => {
+    this.setState(({ sidebar }) => ({ sidebar: open }));
   };
 
   render() {

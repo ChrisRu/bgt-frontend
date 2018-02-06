@@ -1,0 +1,60 @@
+.menu-button {
+  height: 2rem;
+  width: 2.4rem;
+  padding: 0.4rem 0.8rem;
+  position: relative;
+
+  &--label {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+	cursor: pointer;
+  }
+
+  &--bar {
+    background: black;
+	opacity: 0.5;
+    position: absolute;
+    width: 2.4rem;
+    height: 3px;
+    border-radius: 5px;
+	transition: opacity 0.3s ease, transform 0.3s ease, top 0.3s ease, bottom 0.3s ease;
+	
+    &:nth-child(1) {
+      top: 0.6rem;
+    }
+    &:nth-child(2) {
+      top: calc(50% - 1.5px);
+    }
+    &:nth-child(3) {
+      bottom: 0.6rem;
+    }
+  }
+
+  &:hover &--bar {
+    opacity: 1;
+  }
+
+  #menu-button--inputbox {
+    display: none;
+  }
+
+  &.open {
+    .menu-button--bar {
+      &:nth-child(1) {
+        transform: rotate(45deg);
+        top: 1.3rem;
+      }
+      &:nth-child(2) {
+        opacity: 0;
+      }
+      &:nth-child(3) {
+        transform: rotate(-45deg);
+        bottom: 1.3rem;
+      }
+    }
+  }
+}

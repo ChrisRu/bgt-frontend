@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
+import React from "react";
+import PropTypes from "prop-types";
+import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 
 const TaskMap = ({ points, origin }) => (
   <Map center={origin} zoom={13}>
