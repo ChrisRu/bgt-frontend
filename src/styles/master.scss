@@ -2,10 +2,12 @@
 @import 'components/map';
 @import 'components/sidebar';
 @import 'components/search';
+
 @import 'util/menu-button';
+@import 'util/modal';
 
 body {
-    font-family: 'Roboto Slab', sans-serif;
+    font-family: 'Lato', sans-serif;
 }
 
 .App {

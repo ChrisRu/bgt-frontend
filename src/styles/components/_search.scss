@@ -1,12 +1,12 @@
 .search {
   display: inline-block;
-  margin-right: 1em;
+  margin-right: 1.4rem;
   height: 2rem;
-  margin-top: 0.4em;
+  margin-top: 0.3rem;
   position: relative;
 
   &--input {
-    padding: 0.3em;
+    padding: 0.3em 2em 0.3em 0.8em;
     width: 20em;
     font-size: 0.9em;
     outline: none;
@@ -15,10 +15,22 @@
     z-index: 5;
     position: relative;
     border-radius: 3px;
+    color: #222;
 
     &:focus {
       box-shadow: 0 0 8px 3px rgba(0, 0, 0, 0.2);
     }
+  }
+
+  &--icon {
+    position: absolute;
+    width: 1em;
+    height: 1em;
+    z-index: 10;
+    top: -0.75em;
+    transform: translateY(100%);
+    right: 0.5em;
+    fill: #888;
   }
 
   &--dropdown {
@@ -31,12 +43,15 @@
     border-top-right-radius: 0;
 
     &-item {
+      font-size: 0.9em;
+      color: #444;
       padding: 0.25em 0.5em;
       cursor: pointer;
-      transition: background-color 0.2s ease;
+      transition: background-color 0.2s ease, color 0.2s ease;
 
       &:hover {
         background-color: darken(#fff, 10%);
+        color: #000;
       }
 
       &:last-child {

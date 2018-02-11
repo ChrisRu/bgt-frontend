@@ -1,51 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Map, TileLayer, Polyline, Marker, Popup } from 'react-leaflet';
+import {
+  withScriptjs,
+  withGoogleMap,
+  GoogleMap,
+  Marker,
+  Polyline
+} from 'react-google-maps';
 
-const MarkerPopup = ({ lat, lon, display_name }) => {
-  if (!lat || !lon) {
-    return null;
-  }
-
-  return (
-    <Marker position={[lat, lon]}>
-      <Popup>
-        <span>{display_name}</span>
-      </Popup>
-    </Marker>
-  );
-};
-
-const StreetHighlight = ({ polygonpoints, place_id, display_name }) => {
-  if (!polygonpoints) {
-    return null;
-  }
-
-  return (
-    <Polyline positions={polygonpoints.map(([x, y]) => [y, x])} color="red">
-      <Popup>
-        <span>{display_name}</span>
-      </Popup>
-    </Polyline>
-  );
-};
-
-const TaskMap = ({ data, origin }) =>
-  console.log(data) || (
-    <Map center={origin} zoom={13} animate={true}>
-      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-      {data.map(street =>
-        [
-          <StreetHighlight key={street.place_id} {...street} />,
-          <MarkerPopup key={street.osm_id} {...street} />
-        ].filter(el => el)
+const TaskMap = withScriptjs(
+  withGoogleMap(({ data, origin }) => (
+    <GoogleMap
+      defaultCenter={{ lat: Number(origin[0]), lng: Number(origin[1]) }}
+      defaultZoom={13}>
+      {data.map(
+        ({ lat, lon, polygonpoints }) =>
+          console.log(data) || [
+            <Marker position={{ lat: Number(lat), lng: Number(lon) }} />,
+            polygonpoints && <Polyline
+              path={polygonpoints.map(([lng, lat]) => ({
+                lng: Number(lng),
+                lat: Number(lat)
+              }))}
+            />
+          ]
       )}
-    </Map>
-  );
+    </GoogleMap>
+  ))
+);
 
 TaskMap.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number, PropTypes.number))
-    .isRequired,
+  data: PropTypes.array.isRequired,
   origin: PropTypes.arrayOf(PropTypes.number, PropTypes.number).isRequired
 };
 

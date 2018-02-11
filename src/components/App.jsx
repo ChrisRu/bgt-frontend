@@ -26,7 +26,14 @@ class App extends Component {
           onResults={(value, results) => this.setState({ results })}
         />
         <Sidebar data={results} visible={sidebar} />
-        <Map data={results} origin={origin} />
+        <Map
+          googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={<div style={{ height: `100%` }} />}
+          mapElement={<div style={{ height: `100%` }} />}
+          data={results}
+          origin={origin}
+        />
       </div>
     );
   }
