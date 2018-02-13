@@ -5,7 +5,6 @@ $header-size: 3.65em;
   display: block;
   right: 0;
   top: $header-size;
-  padding: 0.5em 1em;
   height: calc(100% - #{$header-size});
   width: auto;
   z-index: 10;
@@ -19,6 +18,15 @@ $header-size: 3.65em;
 
   &--item {
     font-size: 1.1em;
-    margin: 0.5em 0;
+    padding: 0.5em 1em;
+    cursor: pointer;
+
+    &:hover {
+      background: #e2e2e2;
+    }
+
+    &.gray {
+      opacity: 0.5;
+    }
   }
 }

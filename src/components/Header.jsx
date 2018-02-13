@@ -4,14 +4,14 @@ import logo from '../assets/bgt.png';
 import MenuButton from './MenuButton';
 import Search from './Search';
 
-const Header = ({ toggleSidebar, onSubmit, onResults }) => (
+const Header = ({ toggleSidebar, onSearch }) => (
   <div className="header">
     <div className="header--logo">
       <img src={logo} alt="Logo Den Haag - Vrede en Recht" />
       <span>BGT</span>
     </div>
     <div className="header--navigation">
-      <Search onSubmit={onSubmit} onChange={onResults} />
+      <Search onChange={onSearch} />
       <MenuButton onChange={toggleSidebar} />
     </div>
   </div>
@@ -19,8 +19,7 @@ const Header = ({ toggleSidebar, onSubmit, onResults }) => (
 
 Header.propTypes = {
   toggleSidebar: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func,
-  onResults: PropTypes.func
+  onSearch: PropTypes.func.isRequired
 };
 
 export default Header;

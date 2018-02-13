@@ -5,26 +5,48 @@ import {
   withGoogleMap,
   GoogleMap,
   Marker,
-  Polyline
+  InfoWindow
 } from 'react-google-maps';
 
+const InfoMarker = ({
+  lat,
+  lon,
+  polygonpoints,
+  place_id,
+  location,
+  category,
+  onderweg,
+  open,
+  onClick
+}) => (
+  <Marker
+    position={{ lat: Number(lat), lng: Number(lon) }}
+    onClick={() => {
+      onClick(place_id);
+    }}>
+    {open && (
+      <InfoWindow>
+        <div>
+          <h3 style={{ margin: 0 }}>{location}</h3>
+          <p style={{ marginTop: '3px', marginBottom: 0 }}>
+            <span>Categorie: {category}</span>
+            <br />
+            <span>Onderweg: {onderweg}</span>
+          </p>
+        </div>
+      </InfoWindow>
+    )}
+  </Marker>
+);
+
 const TaskMap = withScriptjs(
-  withGoogleMap(({ data, origin }) => (
+  withGoogleMap(({ data, origin, onClick }) => (
     <GoogleMap
       defaultCenter={{ lat: Number(origin[0]), lng: Number(origin[1]) }}
       defaultZoom={13}>
-      {data.map(
-        ({ lat, lon, polygonpoints }) =>
-          console.log(data) || [
-            <Marker position={{ lat: Number(lat), lng: Number(lon) }} />,
-            polygonpoints && <Polyline
-              path={polygonpoints.map(([lng, lat]) => ({
-                lng: Number(lng),
-                lat: Number(lat)
-              }))}
-            />
-          ]
-      )}
+      {data.map(location => (
+        <InfoMarker key={location.place_id} {...location} onClick={onClick} />
+      ))}
     </GoogleMap>
   ))
 );

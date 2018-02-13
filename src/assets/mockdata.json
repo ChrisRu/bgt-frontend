@@ -1,0 +1,22 @@
+[
+  {
+    "location": "Oostmadeweg 9a, Den Haag",
+    "category": "nieuwbouw",
+    "onderweg": 108
+  },
+  {
+    "location": "Dr. Lelykade 28, Den Haag",
+    "category": "wijkmap",
+    "onderweg": 125
+  },
+  {
+    "location": "Westduinweg 127, Den Haag",
+    "category": "nieuwbouw",
+    "onderweg": 10
+  },
+  {
+    "location": "St. Hubertusweg 8, Den Haag",
+    "category": "nieuwbouw",
+    "onderweg": 25
+  }
+]
