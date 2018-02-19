@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import logo from '../assets/bgt.png';
 import MenuButton from './MenuButton';
 import Search from './Search';
+import { FilterIcon } from '../util/icons';
 
 const Header = ({ toggleSidebar, onSearch }) => (
   <div className="header">
@@ -11,9 +12,17 @@ const Header = ({ toggleSidebar, onSearch }) => (
       <span>BGT</span>
     </div>
     <div className="header--navigation">
+      <Filter />
       <Search onChange={onSearch} />
       <MenuButton onChange={toggleSidebar} />
     </div>
+  </div>
+);
+
+const Filter = () => (
+  <div className="filter">
+    <FilterIcon />
+    <span>Filter</span>
   </div>
 );
 

@@ -1,0 +1,18 @@
+.filter {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 1.2em;
+  color: #444;
+  font-size: 0.9em;
+  padding: 0.3em;
+  border-radius: 3px;
+
+  &--icon {
+	width: 1.2em;
+	height: 1.2em;
+	display: inline-block;
+	vertical-align: top;
+	margin: 0 0.5em;
+	fill: #888;
+  }
+}
