@@ -1,4 +1,4 @@
-const fuzzysearch = (needle, haystack) => {
+export const fuzzysearch = (needle, haystack) => {
   needle = needle.toLowerCase();
   haystack = haystack.toLowerCase();
 
@@ -27,5 +27,8 @@ const fuzzysearch = (needle, haystack) => {
 
   return true;
 };
+
+export const searchKeys = (needle, haystackObject) =>
+  Object.values(haystackObject).some(value => fuzzysearch(needle, value));
 
 export default fuzzysearch;

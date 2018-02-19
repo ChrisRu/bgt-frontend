@@ -5,7 +5,7 @@ import Map from './Map';
 import Sidebar from './Sidebar';
 import data from '../assets/mockdata.json';
 import geocode from '../util/geocode';
-import search from '../util/search';
+import { searchKeys } from '../util/search';
 
 const theHague = [52.070498, 4.3007];
 
@@ -69,7 +69,7 @@ class App extends Component {
     const filteredResults = results.map(result => ({
       ...result,
       open: openResults.includes(result.place_id),
-      hidden: search(searchValue, result.location)
+      hidden: searchKeys(searchValue, result.address)
     }));
 
     return (

@@ -16,9 +16,15 @@ $header-size: 3.65em;
     transform: translateX(100%);
   }
 
+  &--header {
+    margin: 0;
+    padding: 1em 0.5em 0.5em;
+    font-family: $font-header;
+  }
+
   &--item {
     font-size: 1.1em;
-    padding: 0.5em 1em;
+    padding: 0.5em 1.5em;
     cursor: pointer;
 
     &:hover {
