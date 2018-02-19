@@ -7,6 +7,7 @@ import {
   Marker,
   InfoWindow
 } from 'react-google-maps';
+import { MarkerClusterer } from "react-google-maps/lib/components/addons/MarkerClusterer";
 
 const InfoMarker = ({
   lat,
@@ -44,9 +45,16 @@ const TaskMap = withScriptjs(
     <GoogleMap
       defaultCenter={{ lat: Number(origin[0]), lng: Number(origin[1]) }}
       defaultZoom={13}>
-      {data.map(location => (
-        <InfoMarker key={location.place_id} {...location} onClick={onClick} />
-      ))}
+      <MarkerClusterer
+        averageCenter
+        enableRetinaIcons
+        onClick={() => {}}
+        gridSize={60}
+      >
+        {data.map(location => (
+          <InfoMarker key={location.place_id} {...location} onClick={onClick} />
+        ))}
+      </MarkerClusterer>
     </GoogleMap>
   ))
 );
