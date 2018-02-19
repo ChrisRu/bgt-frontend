@@ -23,8 +23,8 @@ class Search extends Component {
       <div className="search">
         <input
           className="search--input"
-          title="Zoek een straat"
-          placeholder="Zoek een straat..."
+          title="Zoek een locatie of nummer"
+          placeholder="Zoeken..."
           onChange={this.onChange}
           ref={input => {
             this.input = input;
