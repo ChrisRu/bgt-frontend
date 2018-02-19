@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { SearchIcon } from '../util/icons';
+import { SearchIcon } from '../../util/icons';
 
 class Search extends Component {
   state = {
@@ -8,6 +8,8 @@ class Search extends Component {
   };
 
   onChange = async event => {
+    this.open();
+
     const { value } = event.target;
 
     if (this.props.onChange) {
@@ -15,12 +17,41 @@ class Search extends Component {
     }
   };
 
+  open = (force) => {
+    this.props.onOpen(!this.input.value);
+
+    if (force) {
+      this.props.onOpen(false);
+      this.focus();
+    }
+  }
+
+  focus = () => {
+    this.input.focus();
+  }
+
+  blur = () => {
+    this.setState({ open: false, focus: false });
+
+    if (this.input.value === '') {
+      this.props.onOpen(true);
+    }
+  }
+
+  componentDidMount() {
+    window.addEventListener('keydown', this.focus);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.focus);
+  }
+
   render() {
     const { results, open } = this.state;
-    const { onSubmit } = this.props;
+    const { closed, onSubmit } = this.props;
 
     return (
-      <div className="search">
+      <div className={`search ${closed ? 'closed' : ''}`}>
         <input
           className="search--input"
           title="Zoek een locatie of nummer"
@@ -30,9 +61,9 @@ class Search extends Component {
             this.input = input;
           }}
           onFocus={() => this.setState({ focus: true })}
-          onBlur={() => this.setState({ open: false, focus: false })}
+          onBlur={this.blur}
         />
-        <SearchIcon />
+        <SearchIcon onClick={() => this.open(true)} />
         {open && (
           <div className="search--dropdown">
             {results.map(result => (
@@ -54,7 +85,8 @@ class Search extends Component {
 }
 
 Search.propTypes = {
-  onChange: PropTypes.func.isRequired
+  onChange: PropTypes.func.isRequired,
+  onOpen: PropTypes.func.isRequired
 };
 
 export default Search;

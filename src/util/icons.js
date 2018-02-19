@@ -1,13 +1,14 @@
 import React from 'react';
 
-export const SearchIcon = () => (
+export const SearchIcon = ({ onClick }) => (
   <svg
     className="search--icon"
     width="66"
     height="67"
     viewBox="0 0 66 67"
     xmlns="http://www.w3.org/2000/svg"
-    xmlnsXlink="http://www.w3.org/1999/xlink">
+    xmlnsXlink="http://www.w3.org/1999/xlink"
+    onClick={onClick}>
     <title>Search</title>
     <g transform="translate(236 57)">
       <mask id="b">
@@ -50,13 +51,15 @@ export const SearchIcon = () => (
   </svg>
 );
 
-export const FilterIcon = () => (
+export const FilterIcon = ({ onClick }) => (
   <svg
-    className="filter--icon"
     xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 247.46 247.46">
+    width="66"
+    height="67"
+    className="filter--icon"
+    viewBox="0 0 485.008 485.008"
+    onClick={onClick}>
     <title>Filter</title>
-    <path
-      d="M246.744 13.984a7.5 7.5 0 0 0-6.784-4.301H7.5a7.501 7.501 0 0 0-5.787 12.271l89.361 108.384v99.94a7.5 7.5 0 0 0 10.83 6.72l50.208-24.885a7.499 7.499 0 0 0 4.169-6.71l.098-75.062 89.366-108.388a7.497 7.497 0 0 0 .999-7.969zM143.097 122.873a7.498 7.498 0 0 0-1.713 4.761l-.096 73.103-35.213 17.453v-90.546a7.496 7.496 0 0 0-1.713-4.771L23.404 24.682h200.651l-80.958 98.191z"/>
+    <path d="M171.501 464.698v-237.9l-166.3-192.6c-8.9-10.9-7.9-33.3 15.1-33.3h443.6c21.6 0 26.6 19.8 15.1 33.3l-162.3 187.5v147.2c0 6-2 11.1-7.1 15.1l-103.8 95.8c-12 8.9-34.3 4.1-34.3-15.1zm-106.8-423.4l142.2 164.3c3 4 5 8.1 5 13.1v200.6l64.5-58.5v-146.1c0-5 2-9.1 5-13.1l138.1-160.3h-354.8z" />
   </svg>
-)
+);
