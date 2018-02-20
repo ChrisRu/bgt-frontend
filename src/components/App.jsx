@@ -85,9 +85,9 @@ class App extends Component {
         />
         <Map
           googleMapURL={`${googleMapURL}?${googleMapOptions}`}
-          loadingElement={<div style={{ height: `100%` }} />}
-          containerElement={<div style={{ height: `100%` }} />}
-          mapElement={<div style={{ height: `100%` }} />}
+          loadingElement={<div />}
+          containerElement={<div className="map--container" />}
+          mapElement={<div className="map--element" />}
           data={filteredResults.filter(res => res.hidden)}
           origin={origin}
           onClick={this.toggleOpenResult}

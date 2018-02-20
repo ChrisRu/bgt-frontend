@@ -29,3 +29,36 @@
     padding: 0 1em 0.5em;
   }
 }
+
+.filter-appear {
+  opacity: 0.01;
+  transform: translateY(-100%);
+
+  &.filter-appear-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+}
+
+.filter-enter {
+  opacity: 0.01;
+  transform: translateY(-100%);
+
+  &.filter-enter-active {
+    opacity: 1;
+    transform: translateY(0);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+}
+
+.filter-leave {
+  opacity: 1;
+  transform: translateY(0);
+
+  &.filter-leave-active {
+    opacity: 0.01;
+    transform: translateY(-100%);
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+  }
+}

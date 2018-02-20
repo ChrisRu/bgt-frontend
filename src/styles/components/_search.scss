@@ -13,6 +13,7 @@
     .search--icon {
       transform: translateY(100%) scale(1.2);
       fill: #888;
+      pointer-events: all;
     }
   }
 
@@ -50,6 +51,7 @@
     fill: #ccc;
     cursor: pointer;
     transition: transform 0.2s ease, fill 0.2s ease;
+    pointer-events: none;
   }
 
   &--dropdown {
