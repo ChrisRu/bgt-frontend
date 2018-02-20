@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { FilterIcon } from '../../util/icons';
 
@@ -22,5 +23,10 @@ const Filter = ({ onOpen, closed }) => (
     </ReactCSSTransitionGroup>
   </div>
 );
+
+Filter.propTypes = {
+  onOpen: PropTypes.func.isRequired,
+  closed: PropTypes.bool.isRequired
+};
 
 export default Filter;

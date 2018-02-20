@@ -60,7 +60,8 @@ const TaskMap = withScriptjs(
 
 TaskMap.propTypes = {
   data: PropTypes.array.isRequired,
-  origin: PropTypes.arrayOf(PropTypes.number, PropTypes.number).isRequired
+  origin: PropTypes.arrayOf(PropTypes.number, PropTypes.number).isRequired,
+  onClick: PropTypes.func.isRequired
 };
 
 export default TaskMap;

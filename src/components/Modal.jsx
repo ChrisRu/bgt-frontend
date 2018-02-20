@@ -8,10 +8,6 @@ class Modal extends Component {
   }
 
   close = () => {
-    if (!this.props.onClose) {
-      return;
-    }
-
     this.setState({ fadeOut: true });
 
     setTimeout(() => {
@@ -39,7 +35,8 @@ class Modal extends Component {
 }
 
 Modal.propTypes = {
-  onClose: PropTypes.func.isRequired
+  onClose: PropTypes.func.isRequired,
+  children: PropTypes.arrayOf(PropTypes.node).isRequired
 };
 
 export default Modal;

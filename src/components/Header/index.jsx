@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 import logo from '../../assets/bgt.png';
 import MenuButton from './MenuButton';
 import Search from './Search';
@@ -16,12 +17,16 @@ class Header extends Component {
     const { toggleSidebar, onSearch, onFilter } = this.props;
 
     return (
-      <div className="header">
+      <header className="header">
         <div className="header--logo">
           <img src={logo} alt="Logo Den Haag - Vrede en Recht" />
           <span>BGT</span>
         </div>
-        <div className="header--navigation">
+        <nav className="header--navigation">
+          <NavLink to="/kaart">Kaart</NavLink>
+          <NavLink to="/lijst">Lijst</NavLink>
+        </nav>
+        <div className="header--icons">
           <Search
             closed={searchClosed}
             onOpen={state => this.setState({ searchClosed: state })}
@@ -34,7 +39,7 @@ class Header extends Component {
           />
           <MenuButton onChange={toggleSidebar} />
         </div>
-      </div>
+      </header>
     );
   }
 }

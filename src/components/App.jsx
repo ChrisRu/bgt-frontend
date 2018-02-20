@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import queryString from 'query-string';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import Header from './Header';
 import Map from './Map';
 import Sidebar from './Sidebar';
+import List from './List';
 import data from '../assets/mockdata.json';
 import geocode from '../util/geocode';
 import { searchKeys } from '../util/search';
@@ -78,20 +80,31 @@ class App extends Component {
           toggleSidebar={this.toggleSidebar}
           onSearch={searchValue => this.setState({ searchValue })}
         />
-        <Sidebar
-          data={filteredResults}
-          visible={sidebar}
-          onClick={this.toggleOpenResult}
-        />
-        <Map
-          googleMapURL={`${googleMapURL}?${googleMapOptions}`}
-          loadingElement={<div />}
-          containerElement={<div className="map--container" />}
-          mapElement={<div className="map--element" />}
-          data={filteredResults.filter(res => res.hidden)}
-          origin={origin}
-          onClick={this.toggleOpenResult}
-        />
+        <Switch>
+          <Route
+            path="/kaart"
+            render={() => [
+              <Sidebar
+                key={1}
+                data={filteredResults}
+                visible={sidebar}
+                onClick={this.toggleOpenResult}
+              />,
+              <Map
+                key={2}
+                googleMapURL={`${googleMapURL}?${googleMapOptions}`}
+                loadingElement={<div />}
+                containerElement={<div className="map--container" />}
+                mapElement={<div className="map--element" />}
+                data={filteredResults.filter(res => res.hidden)}
+                origin={origin}
+                onClick={this.toggleOpenResult}
+              />
+            ]}
+          />
+          <Route path="/lijst" component={List} />
+          <Redirect exact from="/" to="/kaart" />
+        </Switch>
       </div>
     );
   }

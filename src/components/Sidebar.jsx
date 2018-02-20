@@ -41,7 +41,8 @@ const Sidebar = ({ visible, data, onClick }) => {
 
 Sidebar.propTypes = {
   data: PropTypes.array.isRequired,
-  visible: PropTypes.bool.isRequired
+  visible: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired
 };
 
 export default Sidebar;

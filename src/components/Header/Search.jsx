@@ -48,7 +48,7 @@ class Search extends Component {
 
   render() {
     const { results, open } = this.state;
-    const { closed, onSubmit } = this.props;
+    const { closed, onDropdown } = this.props;
 
     return (
       <div className={`search ${closed ? 'closed' : ''}`}>
@@ -64,14 +64,14 @@ class Search extends Component {
           onBlur={this.blur}
         />
         <SearchIcon onClick={() => this.open(true)} />
-        {open && (
+        {onDropdown && open && (
           <div className="search--dropdown">
             {results.map(result => (
               <div
                 key={result.place_id}
                 className="search--dropdown-item"
                 onClick={() => {
-                  onSubmit(result);
+                  onDropdown(result);
                   this.setState({ open: false });
                 }}>
                 {result.display_name}
@@ -86,6 +86,8 @@ class Search extends Component {
 
 Search.propTypes = {
   onChange: PropTypes.func.isRequired,
+  onDropdown: PropTypes.func,
+  closed: PropTypes.bool.isRequired,
   onOpen: PropTypes.func.isRequired
 };
 
