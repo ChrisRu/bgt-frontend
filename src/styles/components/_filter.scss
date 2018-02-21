@@ -16,6 +16,11 @@
     margin: 0 0.2em;
     fill: #888;
     cursor: pointer;
+    transition: fill 0.2s ease;
+
+    &:hover {
+      fill: #444;
+    }
   }
 
   &--popup {

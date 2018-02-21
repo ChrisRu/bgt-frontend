@@ -92,16 +92,16 @@ class App extends Component {
           onSearch={searchValue => this.setState({ searchValue })}
           onFilter={filter => this.setState({ filter })}
         />
+        <Sidebar
+          key={1}
+          data={filteredResults}
+          visible={sidebar}
+          onClick={this.toggleOpenResult}
+        />
         <Switch>
           <Route
             path="/kaart"
-            render={() => [
-              <Sidebar
-                key={1}
-                data={filteredResults}
-                visible={sidebar}
-                onClick={this.toggleOpenResult}
-              />,
+            render={() => (
               <Map
                 key={2}
                 googleMapURL={`${googleMapURL}?${googleMapOptions}`}
@@ -112,7 +112,7 @@ class App extends Component {
                 origin={origin}
                 onClick={this.toggleOpenResult}
               />
-            ]}
+            )}
           />
           <Route
             path="/lijst"
@@ -123,8 +123,13 @@ class App extends Component {
           <Redirect exact from="/" to="/kaart" />
         </Switch>
         <CreateButton onClick={() => this.setState({ create: true })} />
-        <Modal visible={create} onClose={() => this.setState({ create: false })}>
-          <div>Create new Modal</div>
+        <Modal
+          visible={create}
+          onClose={() => this.setState({ create: false })}>
+          <div class="content">
+            <h2>Maak een nieuw project</h2>
+            <p>Vul hieronder de gegevens in van het nieuwe project</p>
+          </div>
         </Modal>
       </div>
     );

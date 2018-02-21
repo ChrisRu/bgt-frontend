@@ -1,0 +1,33 @@
+.cross--icon {
+  position: relative;
+  $size: 1.5em;
+  $height: $size * 0.1;
+  width: $size;
+  height: $size;
+  cursor: pointer;
+
+  &:hover span {
+    background-color: #444;
+  }
+
+  span {
+    position: absolute;
+    background-color: #888;
+    top: 0;
+    left: 0;
+    border-radius: 1px;
+    transition: background-color 0.2s ease;
+
+    &:first-child {
+      width: $size;
+      height: $height;
+      transform: translate(0, $size / 2 - $height / 2) rotate(225deg);
+    }
+
+    &:last-child {
+      width: $height;
+      height: $size;
+      transform: translate($size / 2 - $height / 2, 0) rotate(45deg);
+    }
+  }
+}

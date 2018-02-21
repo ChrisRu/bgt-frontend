@@ -43,6 +43,7 @@
       display: inline-block;
       text-decoration: none;
       padding: 1.2rem 1.5rem;
+      transition: background-color 0.2s ease;
 
       &.active {
         color: $bgt-text-color;

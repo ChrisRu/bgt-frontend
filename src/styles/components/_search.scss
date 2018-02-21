@@ -15,6 +15,11 @@
       transform: translateY(100%) scale(1.2);
       fill: #888;
       pointer-events: all;
+      transition: fill 0.2s ease;
+
+      &:hover {
+        fill: #444;
+      }
     }
   }
 
@@ -29,7 +34,7 @@
     position: relative;
     border-radius: 3px;
     color: #222;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, width 0.2s ease;
     transform-origin: center right;
 
     &:focus {

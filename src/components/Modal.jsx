@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import { CrossIcon } from '../util/icons';
 
 class Modal extends Component {
   render() {
@@ -20,7 +21,7 @@ class Modal extends Component {
             <div className="modal">
               <div className="modal--title">{title}</div>
               <div className="modal--close">
-                <button onClick={onClose}>X</button>
+                <CrossIcon onClick={onClose} />
               </div>
               <div className="modal--body">{children}</div>
             </div>
