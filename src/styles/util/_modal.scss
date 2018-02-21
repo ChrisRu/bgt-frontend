@@ -15,19 +15,6 @@
     font-size: 1.6em;
   }
 
-  &--wrapper {
-    opacity: 0;
-    transition: opacity 0.5s ease;
-
-    &.fade-in {
-      opacity: 1;
-    }
-
-    &.fade-out {
-      opacity: 0;
-    }
-  }
-
   &--overlay {
     position: absolute;
     top: $header-size;
@@ -37,6 +24,12 @@
     background: #000;
     opacity: 0.2;
     z-index: 0;
+    transition: opacity 0.3s ease;
+
+    &:not(.visible) {
+      pointer-events: none;
+      opacity: 0;
+    }
   }
 
   &--close {
@@ -49,5 +42,39 @@
       border: 0;
       outline: none;
     }
+  }
+}
+
+
+.modal-animation-appear {
+  opacity: 0.01;
+  transform: scale(0);
+
+  &.modal-animation-appear-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+}
+
+.modal-animation-enter {
+  opacity: 0.01;
+  transform: scale(0);
+
+  &.modal-animation-enter-active {
+    opacity: 1;
+    transform: scale(1);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+}
+
+.modal-animation-leave {
+  opacity: 1;
+  transform: scale(1);
+
+  &.modal-animation-leave-active {
+    opacity: 0.01;
+    transform: scale(0);
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
   }
 }

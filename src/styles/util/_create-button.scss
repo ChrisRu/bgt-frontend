@@ -1,0 +1,40 @@
+.create-button {
+  $size: 50px;
+
+  width: $size;
+  height: $size;
+  position: absolute;
+  bottom: 1em;
+  right: 1em;
+  background: $bgt-text-color;
+  border-radius: 50%;
+  display: block;
+  box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.1);
+
+  &--icon {
+    $icon-size: $size * 0.5;
+    $icon-width: $size * 0.08;
+
+    span {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #fff;
+      border-radius: 1px;
+
+      &:first-child {
+        width: $icon-size;
+        height: $icon-width;
+        transform: translate($icon-width * 3, $size / 2 - $icon-width / 2);
+      }
+
+      &:last-child {
+        width: $icon-width;
+        height: $icon-size;
+        transform: translate($size / 2 - $icon-width / 2, $icon-width * 3);
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+.ReactTable {
+  flex: 1;
+  margin: 2rem;
+}
+
+.rt-thead {
+  text-transform: uppercase;
+  text-align: left;
+  font-weight: bold;
+  background-color: $bg-white;
+}
+
+.-pagination {
+  background-color: $bg-white;
+}
+
+.rt-tr-group {
+}
+
+.rt-th {
+  text-align: left;
+  padding: 15px 0 15px 15px !important;
+}

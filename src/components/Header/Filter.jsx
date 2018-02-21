@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { FilterIcon } from '../../util/icons';
 
-const Filter = ({ onOpen, closed }) => (
+const Filter = ({ onOpen, onChange, closed }) => (
   <div className="filter">
     <FilterIcon onClick={() => onOpen(!closed)} />
     <ReactCSSTransitionGroup
@@ -26,6 +26,7 @@ const Filter = ({ onOpen, closed }) => (
 
 Filter.propTypes = {
   onOpen: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
   closed: PropTypes.bool.isRequired
 };
 

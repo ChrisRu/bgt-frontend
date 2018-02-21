@@ -1,6 +1,3 @@
-$green: #155429;
-$light-green: #227b3c;
-
 .header {
   width: 100%;
   z-index: 20;
@@ -9,11 +6,12 @@ $light-green: #227b3c;
   display: flex;
   flex-flow: row nowrap;
   font-size: 1.2em;
+  background-color: $bg-white;
 
   &--logo {
     padding: 0.5em 0;
     height: 2.4rem;
-    margin-left: 1.4rem;
+    margin: 0 1.4rem;
 
     img {
       height: 100%;
@@ -22,7 +20,7 @@ $light-green: #227b3c;
     span {
       font-weight: bold;
       opacity: 0.8;
-      color: #00295d;
+      color: $bgt-text-color;
       vertical-align: top;
       height: 2.4rem;
       line-height: 2.4rem;
@@ -35,18 +33,20 @@ $light-green: #227b3c;
 
   &--navigation {
     line-height: 100%;
-    margin-left: 1em;
+    margin-left: auto;
+    margin-right: auto;
 
     a {
       font-size: 1rem;
       font-family: $font-header;
-      color: #444;
+      color: rgba($bgt-text-color, 0.6);
       display: inline-block;
       text-decoration: none;
       padding: 1.2rem 1.5rem;
 
       &.active {
-        border-bottom: 3px solid #444;
+        color: $bgt-text-color;
+        border-bottom: 3px solid $bgt-text-color;
         padding-bottom: calc(1.2rem - 2px);
       }
 
@@ -57,7 +57,6 @@ $light-green: #227b3c;
   }
 
   &--icons {
-    margin-left: auto;
     padding: 0.5em 0;
 
     .menu-button {

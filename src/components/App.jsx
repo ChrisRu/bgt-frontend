@@ -4,7 +4,9 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import Header from './Header';
 import Map from './Map';
 import Sidebar from './Sidebar';
-import List from './List';
+import List from './Table';
+import Modal from './Modal';
+import CreateButton from './CreateButton';
 import data from '../assets/mockdata.json';
 import geocode from '../util/geocode';
 import { searchKeys } from '../util/search';
@@ -14,9 +16,11 @@ const theHague = [52.070498, 4.3007];
 class App extends Component {
   state = {
     sidebar: false,
+    create: false,
     results: [],
     openResults: [],
     origin: theHague,
+    filter: null,
     searchValue: ''
   };
 
@@ -60,7 +64,14 @@ class App extends Component {
   }
 
   render() {
-    const { sidebar, results, openResults, origin, searchValue } = this.state;
+    const {
+      sidebar,
+      results,
+      openResults,
+      origin,
+      searchValue,
+      create
+    } = this.state;
     const googleMapURL = 'https://maps.googleapis.com/maps/api/js';
     const googleMapOptions = queryString.stringify({
       v: '3.exp',
@@ -79,6 +90,7 @@ class App extends Component {
         <Header
           toggleSidebar={this.toggleSidebar}
           onSearch={searchValue => this.setState({ searchValue })}
+          onFilter={filter => this.setState({ filter })}
         />
         <Switch>
           <Route
@@ -102,9 +114,18 @@ class App extends Component {
               />
             ]}
           />
-          <Route path="/lijst" component={List} />
+          <Route
+            path="/lijst"
+            render={() => (
+              <List data={filteredResults.filter(res => res.hidden)} />
+            )}
+          />
           <Redirect exact from="/" to="/kaart" />
         </Switch>
+        <CreateButton onClick={() => this.setState({ create: true })} />
+        <Modal visible={create} onClose={() => this.setState({ create: false })}>
+          <div>Create new Modal</div>
+        </Modal>
       </div>
     );
   }

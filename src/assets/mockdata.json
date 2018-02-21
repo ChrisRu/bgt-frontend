@@ -18,5 +18,20 @@
     "location": "St. Hubertusweg 8, Den Haag",
     "category": "nieuwbouw",
     "onderweg": 25
+  },
+  {
+    "location": "Jacob de Graefflaan 14a",
+    "category": "nieuwbouw",
+    "onderweg": 38
+  },
+  {
+    "location": "Bosbesstraat 71",
+    "category": "nieuwbouw",
+    "onderweg": 208
+  },
+  {
+    "location": "Spaarwaterstraat 17",
+    "category": "nieuwbouw",
+    "onderweg": 4
   }
 ]

@@ -26,7 +26,11 @@ class Search extends Component {
     }
   }
 
-  focus = () => {
+  focus = event => {
+    if (event && event.target.nodeName === 'input') {
+      return;
+    }
+
     this.input.focus();
   }
 
@@ -39,11 +43,11 @@ class Search extends Component {
   }
 
   componentDidMount() {
-    window.addEventListener('keydown', this.focus);
+    window.addEventListener('keypress', this.focus);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('keydown', this.focus);
+    window.removeEventListener('keypress', this.focus);
   }
 
   render() {

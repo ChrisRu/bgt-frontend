@@ -14,6 +14,11 @@
         display: none;
       }
     }
+
+    .gmnoprint.gm-bundled-control.gm-bundled-control-on-bottom {
+      right: auto;
+      left: 0;
+    }
   }
 
   &--element {

@@ -8,6 +8,7 @@
   &.closed {
     .search--input {
       transform: scaleX(0);
+      width: 0;
     }
 
     .search--icon {
