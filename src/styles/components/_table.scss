@@ -1,23 +1,55 @@
 .ReactTable {
   flex: 1;
-  margin: 2rem;
-}
 
-.rt-thead {
-  text-transform: uppercase;
-  text-align: left;
-  font-weight: bold;
-  background-color: $bg-white;
-}
+  // margin: 2rem;
+  // .rt-thead {
+  //   text-transform: uppercase;
+  //   text-align: left;
+  //   font-weight: bold;
+  //   background-color: $bg-white;
+  // }
 
-.-pagination {
-  background-color: $bg-white;
-}
+  // .-pagination {
+  //   background-color: $bg-white;
+  // }
 
-.rt-tr-group {
-}
+  // .rt-tr-group {
+  // }
 
-.rt-th {
-  text-align: left;
-  padding: 15px 0 15px 15px !important;
+  // .rt-th {
+  //   text-align: left;
+  //   padding: 15px 0 15px 15px !important;
+  // }
+
+  margin: 1em 0 0;
+  padding: 0 1em;
+  border: 0;
+  .rt-thead.-header {
+    box-shadow: none;
+    text-transform: uppercase;
+    text-align: left;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .rt-tbody .rt-tr-group {
+    background: $bg-white;
+    border-bottom: 0;
+    margin-bottom: 5px;
+    border-radius: 3px;
+    padding: 5px 0;
+  }
+
+  button, select, input, .-pageInfo {
+    font-family: $font-text;
+  }
+
+  .pagination-bottom {
+    .-pagination {
+      border: 0;
+      box-shadow: none;
+      padding: 1.5em;
+      padding-right: 5em;
+    }
+  }
 }

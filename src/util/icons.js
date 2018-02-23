@@ -65,7 +65,7 @@ export const FilterIcon = ({ onClick }) => (
 );
 
 export const CrossIcon = ({ onClick }) => (
-  <div class="cross--icon" onClick={onClick}>
+  <div className="cross--icon" onClick={onClick}>
     <span />
     <span />
   </div>

@@ -126,7 +126,7 @@ class App extends Component {
         <Modal
           visible={create}
           onClose={() => this.setState({ create: false })}>
-          <div class="content">
+          <div className="content">
             <h2>Maak een nieuw project</h2>
             <p>Vul hieronder de gegevens in van het nieuwe project</p>
           </div>
