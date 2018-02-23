@@ -23,21 +23,28 @@
         position: relative;
 
         &:after {
+          content: '';
           position: absolute;
           right: 1em;
-          top: 0.2em;
+          top: 0.6em;
+          width: 7px * 22 / 12;
+          height: 7px;
+          background-repeat: no-repeat;
+          background-size: 100% 100%;
+          background-position: left center;
+          opacity: 0.4;
         }
       }
 
       &.-sort-desc {
         &:after {
-          content: '\\/';
+          background-image: url('../assets/sort-desc.svg');
         }
       }
 
       &.-sort-asc {
         &:after {
-          content: '\/\\';
+          background-image: url('../assets/sort-asc.svg');
         }
       }
     }
