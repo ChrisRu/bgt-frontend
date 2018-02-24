@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
-import logo from '../../assets/bgt.png';
+import logo from '../../assets/logos/bgt.png';
 import MenuButton from './MenuButton';
 import Search from './Search';
 import Filter from './Filter';
