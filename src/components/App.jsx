@@ -15,17 +15,12 @@ const theHague = [52.070498, 4.3007];
 
 class App extends Component {
   state = {
-    sidebar: false,
     create: false,
     results: [],
     openResults: [],
     origin: theHague,
     filter: null,
     searchValue: ''
-  };
-
-  toggleSidebar = open => {
-    this.setState(({ sidebar }) => ({ sidebar: open }));
   };
 
   toggleOpenResult = (result, state) => {
@@ -65,7 +60,6 @@ class App extends Component {
 
   render() {
     const {
-      sidebar,
       results,
       openResults,
       origin,
@@ -88,49 +82,45 @@ class App extends Component {
     return (
       <div className="App">
         <Header
-          toggleSidebar={this.toggleSidebar}
           onSearch={searchValue => this.setState({ searchValue })}
           onFilter={filter => this.setState({ filter })}
         />
-        <Sidebar
-          key={1}
-          data={filteredResults}
-          visible={sidebar}
-          onClick={this.toggleOpenResult}
-        />
-        <Switch>
-          <Route
-            path="/kaart"
-            render={() => (
-              <Map
-                key={2}
-                googleMapURL={`${googleMapURL}?${googleMapOptions}`}
-                loadingElement={<div />}
-                containerElement={<div className="map--container" />}
-                mapElement={<div className="map--element" />}
-                data={filteredResults.filter(res => res.hidden)}
-                origin={origin}
-                onClick={this.toggleOpenResult}
-              />
-            )}
-          />
-          <Route
-            path="/lijst"
-            render={() => (
-              <List data={filteredResults.filter(res => res.hidden)} />
-            )}
-          />
-          <Redirect exact from="/" to="/kaart" />
-        </Switch>
-        <CreateButton onClick={() => this.setState({ create: true })} />
-        <Modal
-          visible={create}
-          onClose={() => this.setState({ create: false })}>
-          <div className="content">
-            <h2>Maak een nieuw project</h2>
-            <p>Vul hieronder de gegevens in van het nieuwe project</p>
-          </div>
-        </Modal>
+        <div className="App--content">
+          <Sidebar />
+          <Switch>
+            <Route
+              path="/kaart"
+              render={() => (
+                <Map
+                  key={2}
+                  googleMapURL={`${googleMapURL}?${googleMapOptions}`}
+                  loadingElement={<div />}
+                  containerElement={<div className="map--container" />}
+                  mapElement={<div className="map--element" />}
+                  data={filteredResults.filter(res => res.hidden)}
+                  origin={origin}
+                  onClick={this.toggleOpenResult}
+                />
+              )}
+            />
+            <Route
+              path="/lijst"
+              render={() => (
+                <List data={filteredResults.filter(res => res.hidden)} />
+              )}
+            />
+            <Redirect exact from="/" to="/kaart" />
+          </Switch>
+          <CreateButton onClick={() => this.setState({ create: true })} />
+          <Modal
+            visible={create}
+            onClose={() => this.setState({ create: false })}>
+            <div className="content">
+              <h2>Maak een nieuw project</h2>
+              <p>Vul hieronder de gegevens in van het nieuwe project</p>
+            </div>
+          </Modal>
+        </div>
       </div>
     );
   }

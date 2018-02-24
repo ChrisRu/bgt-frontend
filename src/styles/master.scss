@@ -4,6 +4,7 @@ $font-header: 'Montserrat', sans-serif;
 $bg: #F4F8F9;
 $bg-white: #FFF;
 $bgt-text-color: #00295d;
+$bgt-highlight: lighten($bgt-text-color, 20%);
 
 @import 'components/header';
 @import 'components/map';
@@ -29,4 +30,10 @@ body {
   flex-flow: column nowrap;
   overflow-x: hidden;
   position: relative;
+
+  &--content {
+    flex: 1;
+    display: flex;
+    flex-flow: row nowrap;
+  }
 }

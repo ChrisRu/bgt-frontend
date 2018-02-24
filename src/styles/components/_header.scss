@@ -31,33 +31,8 @@
     }
   }
 
-  &--navigation {
-    line-height: 100%;
-    margin-left: auto;
-    margin-right: auto;
-
-    a {
-      font-size: 1rem;
-      font-family: $font-header;
-      color: rgba($bgt-text-color, 0.6);
-      display: inline-block;
-      text-decoration: none;
-      padding: 1.2rem 1.5rem;
-      transition: background-color 0.2s ease;
-
-      &.active {
-        color: $bgt-text-color;
-        border-bottom: 3px solid $bgt-text-color;
-        padding-bottom: calc(1.2rem - 2px);
-      }
-
-      &:hover {
-        background-color: rgba(0, 0, 0, 0.1);
-      }
-    }
-  }
-
   &--icons {
+    margin-left: auto;
     padding: 0.5em 0;
 
     .menu-button {
