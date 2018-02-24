@@ -38,13 +38,13 @@
 
       &.-sort-desc {
         &:after {
-          background-image: url('../assets/sort-desc.svg');
+          background-image: url('../assets/icons/sort-desc.svg');
         }
       }
 
       &.-sort-asc {
         &:after {
-          background-image: url('../assets/sort-asc.svg');
+          background-image: url('../assets/icons/sort-asc.svg');
         }
       }
     }
