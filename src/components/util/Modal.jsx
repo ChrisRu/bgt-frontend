@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import TransitionGroup from 'react-addons-css-transition-group';
-import { CrossIcon } from '../util/icons';
+import { CrossIcon } from '../../util/icons';
 
 class Modal extends Component {
   render() {

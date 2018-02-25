@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import logo from '../../assets/logos/bgt.png';
+import logo from '../../../assets/logos/bgt.png';
 import Search from './Search';
 import Filter from './Filter';
 
@@ -12,13 +12,14 @@ class Header extends Component {
 
   render() {
     const { searchClosed, filterClosed } = this.state;
-    const { onSearch, onFilter } = this.props;
+    const { onSearch, onFilter, offline } = this.props;
 
     return (
       <header className="header">
         <div className="header--logo">
           <img src={logo} alt="Logo Den Haag - Vrede en Recht" />
           <span>BGT</span>
+          {offline && <span>OFFLINE</span>}
         </div>
         <div className="header--icons">
           <Search

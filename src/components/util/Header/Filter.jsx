@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import TransitionGroup from 'react-addons-css-transition-group';
-import { FilterIcon } from '../../util/icons';
+import { FilterIcon } from '../../../util/icons';
 
 const Filter = ({ onOpen, onChange, closed }) => (
   <div className="filter">

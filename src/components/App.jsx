@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import queryString from 'query-string';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import Header from './Header';
-import Map from './Map';
-import Sidebar from './Sidebar';
-import List from './Table';
-import Modal from './Modal';
-import Dashboard from './Dashboard';
-import CreateButton from './CreateButton';
-import data from '../assets/mockdata.json';
-import geocode from '../util/geocode';
+
+import Map from './content/Map';
+import List from './content/Table';
+import Dashboard from './content/Dashboard';
+
+import Header from './util/Header';
+import Sidebar from './util/Sidebar';
+import Modal from './util/Modal';
+import CreateButton from './util/CreateButton';
+
 import { searchKeys } from '../util/search';
+import geocode from '../util/geocode';
+import { onStateChange } from '../registerServiceWorker';
+import data from '../assets/mockdata.json';
 
 const theHague = [52.070498, 4.3007];
 
@@ -29,8 +33,15 @@ class App extends Component {
     openResults: [],
     origin: theHague,
     filter: null,
-    searchValue: ''
+    searchValue: '',
+    connected: true
   };
+
+  componentDidMount() {
+    onStateChange(connected => {
+      this.setState({ connected });
+    });
+  }
 
   toggleOpenResult = (result, state) => {
     const { openResults } = this.state;
@@ -78,11 +89,12 @@ class App extends Component {
   }
 
   render() {
-    const { origin, create } = this.state;
+    const { origin, create, connected } = this.state;
 
     return (
       <div className="App">
         <Header
+          offline={connected}
           onSearch={searchValue => this.setState({ searchValue })}
           onFilter={filter => this.setState({ filter })}
         />

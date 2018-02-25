@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { MapsIcon, ListIcon, DashboardIcon } from '../util/icons';
+import { MapsIcon, ListIcon, DashboardIcon } from '../../util/icons';
 
 const Sidebar = () => {
   return (

@@ -8,7 +8,7 @@ import {
   InfoWindow
 } from 'react-google-maps';
 import { MarkerClusterer } from 'react-google-maps/lib/components/addons/MarkerClusterer';
-import mapsStyles from '../assets/maps-styles.json';
+import mapsStyles from '../../assets/maps-styles.json';
 
 const InfoMarker = ({
   lat,

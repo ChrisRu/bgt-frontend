@@ -7,7 +7,6 @@
   padding: 0.3em;
   position: relative;
   border-radius: 3px;
-
   &--icon {
     width: 1.5em;
     height: 1.5em;
@@ -17,12 +16,10 @@
     fill: #888;
     cursor: pointer;
     transition: fill 0.2s ease;
-
     &:hover {
       fill: #444;
     }
   }
-
   &--popup {
     position: absolute;
     right: 0;
@@ -35,35 +32,37 @@
   }
 }
 
-.filter-appear {
-  opacity: 0.01;
-  transform: translateY(-100%);
-
-  &.filter-appear-active {
-    opacity: 1;
-    transform: translateY(0);
-    transition: transform 0.3s ease, opacity 0.3s ease;
-  }
-}
-
-.filter-enter {
-  opacity: 0.01;
-  transform: translateY(-100%);
-
-  &.filter-enter-active {
-    opacity: 1;
-    transform: translateY(0);
-    transition: transform 0.3s ease, opacity 0.3s ease;
-  }
-}
-
-.filter-leave {
-  opacity: 1;
-  transform: translateY(0);
-
-  &.filter-leave-active {
+.filter {
+  &-appear {
     opacity: 0.01;
     transform: translateY(-100%);
-    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+
+    &-active {
+      opacity: 1;
+      transform: translateY(0);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+  }
+
+  &-enter {
+    opacity: 0.01;
+    transform: translateY(-100%);
+
+    &-active {
+      opacity: 1;
+      transform: translateY(0);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+  }
+
+  &-leave {
+    opacity: 1;
+    transform: translateY(0);
+
+    &-active {
+      opacity: 0.01;
+      transform: translateY(-100%);
+      transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    }
   }
 }

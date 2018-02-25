@@ -8,6 +8,20 @@
 // To learn more about the benefits of this model, read https://goo.gl/KwvDNy.
 // This link also includes instructions on opting out of this behavior.
 
+let connectedToServer = false;
+const swListeners = [];
+export function onStateChange(func) {
+  swListeners.push(func);
+  func(connectedToServer);
+}
+
+export function removeOnStateChange(func) {
+  const index = swListeners.indexOf(func);
+  if (index > -1) {
+    swListeners.splice(index, 1);
+  }
+}
+
 const isLocalhost = Boolean(
   window.location.hostname === 'localhost' ||
     // [::1] is the IPv6 localhost address.
@@ -93,6 +107,8 @@ function checkValidServiceWorker(swUrl) {
         // No service worker found. Probably a different app. Reload the page.
         navigator.serviceWorker.ready.then(registration => {
           registration.unregister().then(() => {
+            swListeners.forEach(listener => listener(true));
+            connectedToServer = true;
             window.location.reload();
           });
         });
@@ -105,6 +121,9 @@ function checkValidServiceWorker(swUrl) {
       console.log(
         'No internet connection found. App is running in offline mode.'
       );
+
+      swListeners.forEach(listener => listener(false));
+      connectedToServer = false;
     });
 }
 

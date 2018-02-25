@@ -18,6 +18,7 @@ $bgt-highlight: lighten($bgt-text-color, 20%);
 @import 'util/create-button';
 @import 'util/modal';
 @import 'util/icons';
+@import 'util/bar-chart';
 
 body {
   font-family: $font-text;
@@ -37,7 +38,7 @@ body {
     display: flex;
     flex-flow: row nowrap;
 
-    & > span {
+    > span {
       display: flex;
       flex: 1;
     }
