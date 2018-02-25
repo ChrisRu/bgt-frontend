@@ -12,6 +12,7 @@ $bgt-highlight: lighten($bgt-text-color, 20%);
 @import 'components/search';
 @import 'components/filter';
 @import 'components/table';
+@import 'components/dashboard';
 
 @import 'util/menu-button';
 @import 'util/create-button';
@@ -35,5 +36,10 @@ body {
     flex: 1;
     display: flex;
     flex-flow: row nowrap;
+
+    & > span {
+      display: flex;
+      flex: 1;
+    }
   }
 }

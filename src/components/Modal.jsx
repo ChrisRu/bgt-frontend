@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import TransitionGroup from 'react-addons-css-transition-group';
 import { CrossIcon } from '../util/icons';
 
 class Modal extends Component {
@@ -9,7 +9,7 @@ class Modal extends Component {
 
     return (
       <div className="modal--wrapper">
-        <ReactCSSTransitionGroup
+        <TransitionGroup
           transitionName="modal-animation"
           transitionAppear
           transitionEnter
@@ -26,7 +26,7 @@ class Modal extends Component {
               <div className="modal--body">{children}</div>
             </div>
           ) : null}
-        </ReactCSSTransitionGroup>
+        </TransitionGroup>
         <div
           className={`modal--overlay ${visible ? 'visible' : ''}`}
           onClick={onClose}

@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import TransitionGroup from 'react-addons-css-transition-group';
 import { FilterIcon } from '../../util/icons';
 
 const Filter = ({ onOpen, onChange, closed }) => (
   <div className="filter">
     <FilterIcon onClick={() => onOpen(!closed)} />
-    <ReactCSSTransitionGroup
+    <TransitionGroup
       transitionName="filter"
       transitionAppear
       transitionEnter
@@ -20,7 +20,7 @@ const Filter = ({ onOpen, onChange, closed }) => (
           <p>Test</p>
         </div>
       )}
-    </ReactCSSTransitionGroup>
+    </TransitionGroup>
   </div>
 );
 

@@ -6,12 +6,21 @@ import Map from './Map';
 import Sidebar from './Sidebar';
 import List from './Table';
 import Modal from './Modal';
+import Dashboard from './Dashboard';
 import CreateButton from './CreateButton';
 import data from '../assets/mockdata.json';
 import geocode from '../util/geocode';
 import { searchKeys } from '../util/search';
 
 const theHague = [52.070498, 4.3007];
+
+const googleMapURL =
+  'https://maps.googleapis.com/maps/api/js?' +
+  queryString.stringify({
+    v: '3.exp',
+    libraries: 'geometry,drawing,places',
+    key: process.env.REACT_APP_GOOGLE_API_KEY
+  });
 
 class App extends Component {
   state = {
@@ -58,26 +67,18 @@ class App extends Component {
     });
   }
 
-  render() {
-    const {
-      results,
-      openResults,
-      origin,
-      searchValue,
-      create
-    } = this.state;
-    const googleMapURL = 'https://maps.googleapis.com/maps/api/js';
-    const googleMapOptions = queryString.stringify({
-      v: '3.exp',
-      libraries: 'geometry,drawing,places',
-      key: process.env.REACT_APP_GOOGLE_API_KEY
-    });
+  get filteredResults() {
+    const { results, openResults, searchValue } = this.state;
 
-    const filteredResults = results.map(result => ({
+    return results.map(result => ({
       ...result,
       open: openResults.includes(result.place_id),
       hidden: searchKeys(searchValue, result.address)
     }));
+  }
+
+  render() {
+    const { origin, create } = this.state;
 
     return (
       <div className="App">
@@ -88,16 +89,17 @@ class App extends Component {
         <div className="App--content">
           <Sidebar />
           <Switch>
+            <Route path="/dashboard" component={Dashboard} />
             <Route
               path="/kaart"
               render={() => (
                 <Map
                   key={2}
-                  googleMapURL={`${googleMapURL}?${googleMapOptions}`}
+                  googleMapURL={googleMapURL}
                   loadingElement={<div />}
                   containerElement={<div className="map--container" />}
                   mapElement={<div className="map--element" />}
-                  data={filteredResults.filter(res => res.hidden)}
+                  data={this.filteredResults.filter(res => res.hidden)}
                   origin={origin}
                   onClick={this.toggleOpenResult}
                 />
@@ -106,7 +108,7 @@ class App extends Component {
             <Route
               path="/lijst"
               render={() => (
-                <List data={filteredResults.filter(res => res.hidden)} />
+                <List data={this.filteredResults.filter(res => res.hidden)} />
               )}
             />
             <Redirect exact from="/" to="/kaart" />

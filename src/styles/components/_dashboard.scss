@@ -1,0 +1,16 @@
+.dashboard {
+  flex: 1;
+  padding: 1em;
+  display: flex;
+  flex-flow: row wrap;
+
+  &--item {
+    flex: 1;
+    display: flex;
+    flex-flow: column nowrap;
+
+    &-month {
+      flex: 1;
+    }
+  }
+}
