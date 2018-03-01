@@ -24,13 +24,13 @@ const Dashboard = () => (
       <h2 className="dashboard--title">Jaar Rapport</h2>
       <AreaChart
         width={800}
-        height={390}
+        height={440}
         data={[
           { x: 100, name: 'Januari' },
           { x: 621, name: 'Februari' },
           { x: 340, name: 'Maart' }
         ]}
-        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+        margin={{ top: 20, right: 20 }}>
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip />
@@ -41,41 +41,33 @@ const Dashboard = () => (
       <div className="dashboard--item dashboard--item-stats">
         <h2 className="dashboard--title">Statistieken</h2>
         <div className="dashboard--numbers">
-          <div className="dashboard--number">
+          <div className="dashboard--number" style={{ borderColor: COLORS[0] }}>
+            <span className="dashboard--number-value">34</span>
             <span className="dashboard--number-title">Open taken</span>
-            <span
-              className="dashboard--number-value"
-              style={{ borderColor: COLORS[0] }}>
-              34
-            </span>
           </div>
-          <div className="dashboard--number">
+          <div className="dashboard--number" style={{ borderColor: COLORS[3] }}>
+            <span className="dashboard--number-value">7</span>
             <span className="dashboard--number-title">
               Hoge prioriteit taken
-            </span>
-            <span
-              className="dashboard--number-value"
-              style={{ borderColor: COLORS[3] }}>
-              7
             </span>
           </div>
         </div>
       </div>
       <div className="dashboard--item dashboard--item-pie">
         <h2 className="dashboard--title">Type metingen</h2>
-        <PieChart width={432} height={180}>
+        <PieChart width={322} height={180}>
           <Pie
             data={pieData}
             dataKey="value"
             nameKey="type"
-            cx="50%"
+            cx={80}
             cy="50%"
             outerRadius={80}>
             {pieData.map((entry, index) => (
               <Cell key={entry} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
-          <Legend align="right" vertical-align="middle" layout="vertical" />
+          <Legend align="right" verticalAlign="middle" layout="vertical" />
           <Tooltip />
         </PieChart>
       </div>

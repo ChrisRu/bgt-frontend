@@ -12,7 +12,7 @@ class Header extends Component {
 
   render() {
     const { searchClosed, filterClosed } = this.state;
-    const { onSearch, onFilter, offline } = this.props;
+    const { onSearch, onFilter, offline, showSearch } = this.props;
 
     return (
       <header className="header">
@@ -22,11 +22,13 @@ class Header extends Component {
           {offline && <span>OFFLINE</span>}
         </div>
         <div className="header--icons">
-          <Search
-            closed={searchClosed}
-            onOpen={state => this.setState({ searchClosed: state })}
-            onChange={onSearch}
-          />
+          {showSearch ? (
+            <Search
+              closed={searchClosed}
+              onOpen={state => this.setState({ searchClosed: state })}
+              onChange={onSearch}
+            />
+          ) : null}
           <Filter
             closed={filterClosed}
             onOpen={state => this.setState({ filterClosed: state })}

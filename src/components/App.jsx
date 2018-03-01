@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import queryString from 'query-string';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 
 import Map from './content/Map';
 import List from './content/Table';
@@ -90,11 +90,13 @@ class App extends Component {
 
   render() {
     const { origin, create, connected } = this.state;
+    const { location: { pathname } } = this.props;
 
     return (
       <div className="App">
         <Header
           offline={connected}
+          showSearch={!pathname.startsWith('/dashboard')}
           onSearch={searchValue => this.setState({ searchValue })}
           onFilter={filter => this.setState({ filter })}
         />
@@ -140,4 +142,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

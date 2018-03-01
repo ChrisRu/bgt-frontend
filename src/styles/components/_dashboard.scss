@@ -12,12 +12,12 @@
     box-shadow: 0 2px 6px 3px rgba(0, 0, 0, 0.05);
 
     &-pie {
-      width: 432px;
+      width: 332px;
       height: 220px;
     }
 
     &-stats {
-      width: 432px;
+      width: 332px;
       height: 220px;
     }
 
@@ -37,30 +37,31 @@
     font-size: 1.3em;
   }
 
-
-
   &--number {
     display: inline-block;
+    vertical-align: top;
     margin: 1em 0 0 1em;
-    width: 200px;
+    width: 130px;
+    height: 130px;
+    text-align: center;
+    border-radius: 50%;
+    border: 0.4rem solid #8884d8;
 
     &-title {
       display: block;
       text-align: center;
-      font-size: 1.1em;
+      font-size: 1em;
       margin-bottom: 0.5em;
+      position: relative;
+      top: 20%;
+      color: #666;
     }
 
     &-value {
       display: block;
-      width: 100px;
-      height: 100px;
-      line-height: 100px;
-      border-radius: 50%;
-      border: 0.4rem solid #8884d8;
-      text-align: center;
       font-size: 2.6em;
-      margin: 0 auto;
+      position: relative;
+      top: 20%;
     }
   }
 }
