@@ -1,8 +1,8 @@
 $font-text: 'Lato', sans-serif;
 $font-header: 'Montserrat', sans-serif;
 
-$bg: #F4F8F9;
-$bg-white: #FFF;
+$bg: #f4f8f9;
+$bg-white: #fff;
 $bgt-text-color: #00295d;
 $bgt-highlight: lighten($bgt-text-color, 20%);
 
@@ -18,7 +18,12 @@ $bgt-highlight: lighten($bgt-text-color, 20%);
 @import 'util/create-button';
 @import 'util/modal';
 @import 'util/icons';
-@import 'util/bar-chart';
+
+html,
+body,
+#root {
+  height: 100%;
+}
 
 body {
   font-family: $font-text;
@@ -27,20 +32,14 @@ body {
 
 .App {
   display: flex;
-  height: 100vh;
+  height: 100%;
   width: 100%;
   flex-flow: column nowrap;
-  overflow-x: hidden;
   position: relative;
 
   &--content {
     flex: 1;
     display: flex;
     flex-flow: row nowrap;
-
-    > span {
-      display: flex;
-      flex: 1;
-    }
   }
 }

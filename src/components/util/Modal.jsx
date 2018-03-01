@@ -1,7 +1,29 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import TransitionGroup from 'react-addons-css-transition-group';
+import Transition from 'react-transition-group/Transition';
 import { CrossIcon } from '../../util/icons';
+
+const duration = 500;
+
+const defaultStyle = {
+  transition: `opacity ${duration}ms ease, transform ${duration}ms ease`,
+  opacity: 0,
+  pointerEvents: 'none',
+  transform: 'scale(0)'
+};
+
+const transitionStyles = {
+  entering: {
+    opacity: 0,
+    pointerEvents: 'all',
+    transform: 'scale(0)'
+  },
+  entered: {
+    opacity: 1,
+    pointerEvents: 'all',
+    transform: 'scale(1)'
+  }
+};
 
 class Modal extends Component {
   render() {
@@ -9,24 +31,22 @@ class Modal extends Component {
 
     return (
       <div className="modal--wrapper">
-        <TransitionGroup
-          transitionName="modal-animation"
-          transitionAppear
-          transitionEnter
-          transitionLeave
-          transitionAppearTimeout={300}
-          transitionEnterTimeout={300}
-          transitionLeaveTimeout={300}>
-          {visible ? (
-            <div className="modal">
+        <Transition in={visible} timeout={duration}>
+          {state => (
+            <div
+              style={{
+                ...defaultStyle,
+                ...transitionStyles[state]
+              }}
+              className="modal">
               <div className="modal--title">{title}</div>
               <div className="modal--close">
                 <CrossIcon onClick={onClose} />
               </div>
               <div className="modal--body">{children}</div>
             </div>
-          ) : null}
-        </TransitionGroup>
+          )}
+        </Transition>
         <div
           className={`modal--overlay ${visible ? 'visible' : ''}`}
           onClick={onClose}

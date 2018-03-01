@@ -8,7 +8,6 @@ import 'normalize.css';
 import 'react-table/react-table.css'
 import './styles/master.css';
 
-// eslint-disable-next-line
 ReactDOM.render(
   <BrowserRouter>
     <App />

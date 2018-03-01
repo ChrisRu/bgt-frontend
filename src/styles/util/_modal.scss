@@ -1,11 +1,12 @@
 $header-size: 3.65em;
+$sidebar-size: 4em;
 
 .modal {
   position: fixed;
   width: 80vw;
   height: 80vh;
   top: calc(10vh + #{$header-size / 2});
-  left: 10vw;
+  left: calc(10vw + #{$sidebar-size / 2});
   background: #fff;
   z-index: 5;
   border-radius: 5px;
@@ -20,7 +21,7 @@ $header-size: 3.65em;
   &--overlay {
     position: absolute;
     top: $header-size;
-    left: 0;
+    left: $sidebar-size;
     bottom: 0;
     right: 0;
     background: #000;

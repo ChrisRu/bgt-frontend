@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  withScriptjs,
-  withGoogleMap,
-  GoogleMap,
-  Marker,
-  InfoWindow
-} from 'react-google-maps';
+
+import withScriptjs from 'react-google-maps/lib/withScriptjs';
+import withGoogleMap from 'react-google-maps/lib/withGoogleMap';
+import GoogleMap from 'react-google-maps/lib/components/GoogleMap';
+import Marker from 'react-google-maps/lib/components/Marker';
+import InfoWindow from 'react-google-maps/lib/components/InfoWindow';
 import { MarkerClusterer } from 'react-google-maps/lib/components/addons/MarkerClusterer';
+
 import mapsStyles from '../../assets/maps-styles.json';
 
 const InfoMarker = ({

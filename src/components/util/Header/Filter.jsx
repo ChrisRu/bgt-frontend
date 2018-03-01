@@ -1,26 +1,46 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TransitionGroup from 'react-addons-css-transition-group';
+import Transition from 'react-transition-group/Transition';
 import { FilterIcon } from '../../../util/icons';
+
+const duration = 300;
+
+const defaultStyle = {
+  transition: `opacity ${duration}ms ease, transform ${duration}ms ease`,
+  opacity: 0,
+  pointerEvents: 'none',
+  transform: 'translateY(-100%)'
+};
+
+const transitionStyles = {
+  entering: {
+    opacity: 0,
+    pointerEvents: 'all',
+    transform: 'translateY(-100%)'
+  },
+  entered: {
+    opacity: 1,
+    pointerEvents: 'all',
+    transform: 'translateY(0)'
+  }
+};
 
 const Filter = ({ onOpen, onChange, closed }) => (
   <div className="filter">
     <FilterIcon onClick={() => onOpen(!closed)} />
-    <TransitionGroup
-      transitionName="filter"
-      transitionAppear
-      transitionEnter
-      transitionLeave
-      transitionAppearTimeout={300}
-      transitionEnterTimeout={300}
-      transitionLeaveTimeout={300}>
-      {!closed && (
-        <div className="filter--popup">
+    <Transition in={!closed} timeout={duration}>
+      {state => (
+        <div
+          style={{
+            ...defaultStyle,
+            ...transitionStyles[state]
+          }}
+          className="filter--popup">
           <h3>Filter on categories:</h3>
-          <p>Test</p>
+          <p>W.I.P.</p>
         </div>
       )}
-    </TransitionGroup>
+    </Transition>
   </div>
 );
 
