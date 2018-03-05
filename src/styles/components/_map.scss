@@ -1,27 +1,11 @@
-.map {
-  &--container {
-    flex: 1;
+.olControlLoadingPanel {
+  display: none !important;
+}
 
-    a[href^="http://maps.google.com/maps"] {
-      display: none !important;
-    }
-    a[href^="https://maps.google.com/maps"] {
-      display: none !important;
-    }
+.olControlZoom {
+  bottom: 8px !important;
+  top: auto !important;
+}
 
-    .gm-style {
-      &-cc {
-        display: none;
-      }
-    }
-
-    .gmnoprint.gm-bundled-control.gm-bundled-control-on-bottom {
-      right: auto;
-      left: 0;
-    }
-  }
-
-  &--element {
-    height: 100%;
-  }
+#map_1394 {
 }

@@ -12,14 +12,13 @@ class Header extends Component {
 
   render() {
     const { searchClosed, filterClosed } = this.state;
-    const { onSearch, onFilter, offline, showSearch } = this.props;
+    const { onSearch, onFilter, showSearch } = this.props;
 
     return (
       <header className="header">
         <div className="header--logo">
           <img src={logo} alt="Logo Den Haag - Vrede en Recht" />
           <span>BGT</span>
-          {offline && <span>OFFLINE</span>}
         </div>
         <div className="header--icons">
           {showSearch ? (

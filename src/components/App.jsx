@@ -13,7 +13,6 @@ import CreateButton from './util/CreateButton';
 
 import { searchKeys } from '../util/search';
 import geocode from '../util/geocode';
-import { onStateChange } from '../registerServiceWorker';
 import data from '../assets/mockdata.json';
 
 const theHague = [52.070498, 4.3007];
@@ -33,15 +32,8 @@ class App extends Component {
     openResults: [],
     origin: theHague,
     filter: null,
-    searchValue: '',
-    connected: true
+    searchValue: ''
   };
-
-  componentDidMount() {
-    onStateChange(connected => {
-      this.setState({ connected });
-    });
-  }
 
   toggleOpenResult = (result, state) => {
     const { openResults } = this.state;
@@ -89,13 +81,12 @@ class App extends Component {
   }
 
   render() {
-    const { origin, create, connected } = this.state;
+    const { origin, create } = this.state;
     const { location: { pathname } } = this.props;
 
     return (
       <div className="App">
         <Header
-          offline={connected}
           showSearch={!pathname.startsWith('/dashboard')}
           onSearch={searchValue => this.setState({ searchValue })}
           onFilter={filter => this.setState({ filter })}
