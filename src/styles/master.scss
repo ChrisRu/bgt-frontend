@@ -13,11 +13,13 @@ $bgt-highlight: lighten($bgt-text-color, 20%);
 @import 'components/filter';
 @import 'components/table';
 @import 'components/dashboard';
+@import 'components/login';
 
 @import 'util/menu-button';
 @import 'util/create-button';
 @import 'util/modal';
 @import 'util/icons';
+@import 'util/spinner';
 
 html,
 body,
@@ -28,6 +30,10 @@ body,
 body {
   font-family: $font-text;
   background: $bg;
+}
+
+.hidden {
+  display: none;
 }
 
 .App {

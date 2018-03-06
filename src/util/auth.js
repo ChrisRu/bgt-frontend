@@ -1,15 +1,12 @@
-export const fetchAPI = (endpoint, method = 'GET', body = null) => {
-  const jwt = getJWT();
-
-  return fetch(process.env.API_URL + endpoint, {
+export const fetchAPI = (endpoint, method = 'GET', body = null) =>
+  fetch(process.env.REACT_APP_API_URL + endpoint, {
     method,
     headers: {
-      Authorization: 'Bearer ' + jwt,
+      Authorization: 'Bearer ' + getJWT(),
       'Content-Type': 'application/x-www-form-urlencoded'
     },
     body
   });
-};
 
 export const setJWT = token => {
   window.localStorage.setItem('jwt', JSON.stringify({ token }));
@@ -25,6 +22,11 @@ export const getJWT = () => {
   return jwt.token;
 };
 
-export const isAuthenticated = () => {
-  return fetchAPI('authenticated');
-};
+export const isAuthenticated = () =>
+  fetchAPI('/authenticated').catch(() => false);
+
+export const authenticate = (username, password, remember = true) =>
+  fetchAPI('/authenticate', 'POST', {
+    username,
+    password
+  });

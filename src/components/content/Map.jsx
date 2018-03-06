@@ -1,101 +1,99 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class Map extends Component {
-  componentDidMount() {
-    const { Pdok } = window;
+const ready = () => {
+  const { Pdok: { Api } } = window;
 
-    Pdok.addcss(
-      'http://geonovum.github.io/pdokkaart/api/styles/default/style.css'
-    );
-    Pdok.addcss('http://geonovum.github.io/pdokkaart/api/styles/api.css');
+  const convertPointToXML = ({ name, description, coordinates, color }) => {
+    const id = String(Date.now()) + String(Math.floor(Math.random() * 10));
 
-    let api;
-    Pdok.ready(() => {
-      const getConfig = () => ({
-        mapdiv: 'map_1394',
-        zoom: 6,
-        showlayerswitcher: false,
-        loc: '89507.84, 459172.4',
-        baselayers: [
-          {
-            id: 'BRT',
-            visible: true
-          },
-          {
-            id: 'LUFO',
-            visible: false
-          }
-        ],
-        markersdef: 'http://kaart.pdok.nl/api/js/pdok-markers.js',
-        layersdef: 'http://kaart.pdok.nl/api/js/pdok-layers.js',
-        features: `
+    return {
+      style: `
+        <Style id="style_${id}">
+          <PolyStyle>
+            <color>3ffffff</color>
+            <fill>1</fill>
+          </PolyStyle>
+          <IconStyle>
+            <Icon>
+              <href>http://kaart.pdok.nl/api/markertypes/flag-red.png</href>
+            </Icon>
+            <scale>1</scale>
+          </IconStyle>
+        </Style>`,
+
+      placemark: `
+        <Placemark>
+          <name>${name}</name>
+          <description>${description}</description>
+          <styleUrl>#style_${id}</styleUrl>
+          <Point>
+            <coordinates>${coordinates}</coordinates>
+          </Point>
+          <ExtendedData>
+            <Data name="styletype">
+              <value>mt8</value>
+            </Data>
+          </ExtendedData>
+        </Placemark>`
+    };
+  };
+
+  const points = [
+    {
+      name: 'Zuiderpark',
+      description: 'Meting doen bij het zuiderpark',
+      coordinates: '4.291874, 52.057805'
+    },
+    {
+      name: 'Koningsplein',
+      description: 'Meting doen bij het koningsplein',
+      coordinates: '4.282862, 52.075715'
+    },
+    {
+      name: 'Archipelbuurt',
+      description: 'Meting doen bij de archipelbuurt',
+      coordinates: '4.303425, 52.090194'
+    }
+  ].map(convertPointToXML);
+
+  const config = {
+    mapdiv: 'map_1394',
+    zoom: 7,
+    showlayerswitcher: false,
+    loc: '81507.84, 454172.4',
+    baselayers: [
+      {
+        id: 'BRT',
+        visible: true
+      },
+      {
+        id: 'LUFO',
+        visible: false
+      }
+    ],
+    markersdef: 'http://kaart.pdok.nl/api/js/pdok-markers.js',
+    layersdef: 'http://kaart.pdok.nl/api/js/pdok-layers.js',
+    features: `
       <?xml version="1.0" encoding="UTF-8"?>
       <kml xmlns="http://earth.google.com/kml/2.2">
         <Document>
           <name>null</name>
           <description>null</description>
-
-          <Style id="style_1390">
-            <PolyStyle>
-              <color>3ffffff</color>
-              <fill>1</fill>
-            </PolyStyle>
-            <IconStyle>
-              <Icon>
-                <href>http://kaart.pdok.nl/api/markertypes/flag-red.png</href>
-              </Icon>
-              <scale>1</scale>
-            </IconStyle>
-          </Style>
-
-          <Style id="style_1394">
-            <PolyStyle>
-              <color>3ffffff</color>
-              <fill>1</fill>
-            </PolyStyle>
-            <IconStyle>
-              <Icon>
-                <href>http://kaart.pdok.nl/api/markertypes/flag-blue.png</href>
-              </Icon>
-              <scale>1</scale>
-            </IconStyle>
-          </Style>
-
+            ${points.map(res => res.style)}
           <Folder>
-            <Placemark>
-              <name>titel</name>
-              <description>beschrijving</description>
-              <styleUrl>#style_1390</styleUrl>
-              <Point>
-                <coordinates>4.357034253671091,52.10746644544081</coordinates>
-              </Point>
-              <ExtendedData>
-                <Data name="styletype">
-                  <value>mt8</value>
-                </Data>
-              </ExtendedData>
-            </Placemark>
-            <Placemark>
-              <name>&amp;nbsp;</name>
-              <description>&amp;nbsp;</description>
-              <styleUrl>#style_1394</styleUrl>
-              <Point>
-                <coordinates>4.326509088699442,52.070953317013014</coordinates>
-              </Point>
-              <ExtendedData>
-                <Data name="styletype">
-                  <value>mt7</value>
-                </Data>
-              </ExtendedData>
-            </Placemark>
+            ${points.map(res => res.placemark)}
           </Folder>
         </Document>
       </kml>`
-      });
+  };
 
-      api = new Pdok.Api(getConfig());
-    });
+  new Api(config);
+};
+
+class Map extends Component {
+  componentDidMount() {
+    window.Pdok.ready(ready);
   }
 
   render() {
@@ -103,6 +101,8 @@ class Map extends Component {
   }
 }
 
-Map.propTypes = {};
+Map.propTypes = {
+  markers: PropTypes.array
+};
 
 export default Map;
