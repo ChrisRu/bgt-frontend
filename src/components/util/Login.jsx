@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Logo from '../../assets/logos/bgt.png';
 import { authenticate, setJWT } from '../../util/auth';
+import { WarningIcon } from '../../util/icons';
 
 class Login extends Component {
   state = {
@@ -18,8 +19,6 @@ class Login extends Component {
 
     this.setState({ loading: true });
 
-    await new Promise(r => setTimeout(r, 2000));
-
     return authenticate(username, password, remember)
       .then(({ token }) => {
         if (remember) {
@@ -30,17 +29,33 @@ class Login extends Component {
       })
       .catch(error => {
         this.setState({ loading: false, error });
-        this.props.onLogin(true);
+
+        setTimeout(() => {
+          this.setState({ loading: true });
+
+          setTimeout(() => {
+            this.props.onLogin(true);
+          }, 3000);
+        }, 5000);
       });
   };
 
   onChange = event => {
     const { name, value } = event.target;
-    this.setState({ [name]: value });
+    this.setState({ [name]: value, error: null });
+  };
+
+  getErrorMessage = error => {
+    switch (error.message) {
+      case 'Failed to fetch':
+        return 'We kunnen momenteel helaas niet met de server verbinden';
+      default:
+        return 'Gebruikersnaam of wachtwoord is incorrect ingevuld';
+    }
   };
 
   render() {
-    const { loading } = this.state;
+    const { loading, error } = this.state;
 
     return (
       <div className="modal--login-wrapper">
@@ -53,9 +68,26 @@ class Login extends Component {
           <form
             className={`login ${loading ? 'hidden' : ''}`}
             onSubmit={this.submit}>
-            <input className="login--input" type="text" name="username" />
-            <input className="login--input" type="password" name="password" />
-            <button className="login--submit">Log In</button>
+            <input
+              placeholder="Gebruikersnaam"
+              className="login--input"
+              type="text"
+              name="username"
+            />
+            <input
+              placeholder="Wachtwoord"
+              className="login--input"
+              type="password"
+              name="password"
+            />
+            {error ? (
+              <div className="login--error">
+                <WarningIcon />
+                <span>{this.getErrorMessage(error)}</span>
+              </div>
+            ) : (
+              <button className="login--submit">Log In</button>
+            )}
           </form>
         </div>
       </div>

@@ -17,6 +17,9 @@
 
   .login {
     display: inline-block;
+    &.hidden {
+      display: none;
+    }
   }
 }
 
@@ -45,8 +48,26 @@
 }
 
 .login {
-  &.hidden {
-    display: none !important;
+  &--error {
+    color: #a94442;
+    background: #f2dede;
+    border-radius: 5px;
+    max-width: 15rem;
+    padding: 0.4em 0.6em;
+    box-sizing: border-box;
+    display: flex;
+
+    span {
+      font-size: 1em;
+    }
+
+    svg {
+      fill: #a94442;
+      width: 2.5em;
+      height: 2.5em;
+      padding: 0.5em;
+      margin-right: 0.5em;
+    }
   }
 
   &--input {
