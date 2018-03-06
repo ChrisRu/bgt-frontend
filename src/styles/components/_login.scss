@@ -1,11 +1,10 @@
 .modal.modal--login {
-  width: 30rem;
+  width: 29rem;
   height: auto;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   margin: 0;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -17,6 +16,7 @@
 
   .login {
     display: inline-block;
+
     &.hidden {
       display: none;
     }

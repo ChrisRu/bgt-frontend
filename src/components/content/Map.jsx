@@ -7,88 +7,95 @@ const ready = () => {
   const convertPointToXML = ({ name, description, coordinates, color }) => {
     const id = String(Date.now()) + String(Math.floor(Math.random() * 10));
 
-    return {
-      style: `
-        <Style id="style_${id}">
-          <PolyStyle>
-            <color>3ffffff</color>
-            <fill>1</fill>
-          </PolyStyle>
-          <IconStyle>
-            <Icon>
-              <href>https://kaart.pdok.nl/api/markertypes/flag-red.png</href>
-            </Icon>
-            <scale>1</scale>
-          </IconStyle>
-        </Style>`,
+    let colorCode;
+    switch (color) {
+      case 'red':
+        colorCode = 'mt1';
+        break;
+      case 'yellow':
+        colorCode = 'mt2';
+        break;
+      case 'green':
+        colorCode = 'mt3';
+        break;
+      default:
+        colorCode = 'mt4';
+        break;
+    }
 
-      placemark: `
-        <Placemark>
-          <name>${name}</name>
-          <description>${description}</description>
-          <styleUrl>#style_${id}</styleUrl>
-          <Point>
-            <coordinates>${coordinates}</coordinates>
-          </Point>
-          <ExtendedData>
-            <Data name="styletype">
-              <value>mt8</value>
-            </Data>
-          </ExtendedData>
-        </Placemark>`
-    };
+    return `
+      <Placemark>
+        <name>${name}</name>
+        <description>${description}</description>
+        <styleUrl>#style_${id}</styleUrl>
+        <Point>
+          <coordinates>${coordinates}</coordinates>
+        </Point>
+        <ExtendedData>
+          <Data name="styletype">
+            <value>${colorCode}</value>
+          </Data>
+        </ExtendedData>
+      </Placemark>`;
   };
 
   const points = [
     {
       name: 'Zuiderpark',
       description: 'Meting doen bij het zuiderpark',
-      coordinates: '4.291874, 52.057805'
+      coordinates: '4.291874, 52.057805',
+      color: 'red'
     },
     {
       name: 'Koningsplein',
       description: 'Meting doen bij het koningsplein',
-      coordinates: '4.282862, 52.075715'
+      coordinates: '4.282862, 52.075715',
+      color: 'yellow'
     },
     {
       name: 'Archipelbuurt',
       description: 'Meting doen bij de archipelbuurt',
-      coordinates: '4.303425, 52.090194'
+      coordinates: '4.303425, 52.090194',
+      color: 'green'
+    },
+    {
+      name: 'Schildersbuurt-West',
+      description: 'Test description',
+      coordinates: '4.295929, 52.069097',
+      color: 'green'
     }
   ].map(convertPointToXML);
 
   const config = {
     mapdiv: 'map_1394',
     zoom: 7,
-    showlayerswitcher: false,
-    loc: '81507.84, 454172.4',
-    baselayers: [
-      {
-        id: 'BRT',
-        visible: true
-      },
-      {
-        id: 'LUFO',
-        visible: false
-      }
-    ],
-    markersdef: 'https://kaart.pdok.nl/api/js/pdok-markers.js',
-    layersdef: 'https://kaart.pdok.nl/api/js/pdok-layers.js',
+    loc: '82007.84, 453172.4',
     features: `
       <?xml version="1.0" encoding="UTF-8"?>
       <kml xmlns="https://earth.google.com/kml/2.2">
         <Document>
-          <name>null</name>
-          <description>null</description>
-            ${points.map(res => res.style)}
+          <name>BGT</name>
+          <description>Kaart van de BGT metingen</description>
           <Folder>
-            ${points.map(res => res.placemark)}
+            ${points}
           </Folder>
         </Document>
       </kml>`
   };
 
-  new Api(config);
+  const setImage = (index, color) => {
+    const { PUBLIC_URL } = process.env;
+    const { defaultStyles } = window.Pdok.Api.prototype;
+
+    defaultStyles[index].externalGraphic = `${PUBLIC_URL}/marker-${color}.png`;
+    defaultStyles[index].graphicYOffset = -32;
+  };
+
+  setImage(0, 'red');
+  setImage(1, 'yellow');
+  setImage(2, 'green');
+
+  const api = new Api(config);
 };
 
 class Map extends Component {
