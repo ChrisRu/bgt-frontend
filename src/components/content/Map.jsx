@@ -16,7 +16,7 @@ const ready = () => {
           </PolyStyle>
           <IconStyle>
             <Icon>
-              <href>http://kaart.pdok.nl/api/markertypes/flag-red.png</href>
+              <href>https://kaart.pdok.nl/api/markertypes/flag-red.png</href>
             </Icon>
             <scale>1</scale>
           </IconStyle>
@@ -72,11 +72,11 @@ const ready = () => {
         visible: false
       }
     ],
-    markersdef: 'http://kaart.pdok.nl/api/js/pdok-markers.js',
-    layersdef: 'http://kaart.pdok.nl/api/js/pdok-layers.js',
+    markersdef: 'https://kaart.pdok.nl/api/js/pdok-markers.js',
+    layersdef: 'https://kaart.pdok.nl/api/js/pdok-layers.js',
     features: `
       <?xml version="1.0" encoding="UTF-8"?>
-      <kml xmlns="http://earth.google.com/kml/2.2">
+      <kml xmlns="https://earth.google.com/kml/2.2">
         <Document>
           <name>null</name>
           <description>null</description>

@@ -29,8 +29,8 @@ class Login extends Component {
         this.props.onLogin(true);
       })
       .catch(error => {
-        this.props.onLogin(true);
         this.setState({ loading: false, error });
+        this.props.onLogin(true);
       });
   };
 
