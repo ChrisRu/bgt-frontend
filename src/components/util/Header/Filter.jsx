@@ -28,7 +28,7 @@ const transitionStyles = {
 const Filter = ({ onOpen, onChange, closed }) => (
   <div className="filter">
     <FilterIcon onClick={() => onOpen(!closed)} />
-    <Transition in={!closed} timeout={duration}>
+    <Transition in={!closed} timeout={0}>
       {state => (
         <div
           style={{

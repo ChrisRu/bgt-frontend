@@ -58,9 +58,23 @@ class App extends Component {
 
             <CreateButton onClick={() => this.setState({ create: true })} />
 
-            <Modal visible={create} onClose={this.closeModal}>
-              <div className="content">
-                <h2>Maak een nieuw project</h2>
+            <Modal
+              visible={create}
+              onClose={this.closeModal}
+              title="Maak een nieuw project"
+              actions={[
+                {
+                  type: 'cancel',
+                  name: 'Annuleer',
+                  onClick: this.closeModal
+                },
+                {
+                  type: 'confirm',
+                  name: 'Creeer',
+                  onClick: () => alert('create')
+                }
+              ]}>
+              <div className="modal--content">
                 <p>Vul hieronder de gegevens in van het nieuwe project</p>
               </div>
             </Modal>

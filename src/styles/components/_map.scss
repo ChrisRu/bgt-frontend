@@ -15,5 +15,26 @@
   display: none;
 }
 
-#map_1394 {
+#featurePopup {
+  background: $bg-white;
+  box-shadow: 0 3px 5px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+}
+
+#featurePopup_contentDiv {
+  font-size: 0.9rem !important;
+  font-family: $font-text !important;
+}
+
+#featurePopup_FrameDecorationDiv_0,
+#featurePopup_FrameDecorationDiv_1,
+#featurePopup_FrameDecorationDiv_2,
+#featurePopup_FrameDecorationDiv_3,
+#featurePopup_FrameDecorationDiv_4 {
+
+}
+
+#featurePopup_close {
+  top: 0.5em !important;
+  right: 0.5em !important;
 }
