@@ -8,6 +8,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-flow: row nowrap;
+  padding: 1rem;
 
   img {
     display: inline-block;
