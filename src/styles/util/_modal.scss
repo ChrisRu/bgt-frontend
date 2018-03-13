@@ -118,6 +118,11 @@ $sidebar-size: 4em;
     &:hover {
       background-color: lighten($bgt-text-color, 10%);
     }
+
+    &:focus,
+    &:active {
+      background-color: darken($bgt-text-color, 10%);
+    }
   }
 
   &--cancel {

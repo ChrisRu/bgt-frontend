@@ -11,13 +11,13 @@ import Sidebar from './util/Sidebar';
 import Modal from './util/Modal';
 import CreateButton from './util/CreateButton';
 
-import { isAuthenticated } from '../util/auth';
+import { isAuthenticated, getJWT } from '../util/auth';
 
 class App extends Component {
   state = {
     create: false,
     filter: null,
-    authenticated: false,
+    authenticated: getJWT(),
     searchValue: ''
   };
 

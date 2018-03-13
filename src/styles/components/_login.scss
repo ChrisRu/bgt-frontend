@@ -109,5 +109,10 @@
     &:hover {
       background-color: darken($bgt-highlight, 10%);
     }
+
+    &:active,
+    &:focus {
+      background-color: lighten($bgt-highlight, 10%);
+    }
   }
 }

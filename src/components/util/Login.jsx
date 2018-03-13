@@ -7,36 +7,28 @@ class Login extends Component {
   state = {
     username: '',
     password: '',
-    remember: true,
     loading: false,
     error: null
   };
 
-  submit = async event => {
+  submit = event => {
     event.preventDefault();
 
-    const { username, password, remember } = this.state;
+    const { username, password } = this.state;
 
     this.setState({ loading: true });
 
-    return authenticate(username, password, remember)
+    return authenticate(username, password)
       .then(({ token }) => {
-        if (remember) {
-          setJWT(token);
+        if (!token) {
+          throw new Error('No token');
         }
 
+        setJWT(token);
         this.props.onLogin(true);
       })
       .catch(error => {
         this.setState({ loading: false, error });
-
-        setTimeout(() => {
-          this.setState({ loading: true });
-
-          setTimeout(() => {
-            this.props.onLogin(true);
-          }, 3000);
-        }, 5000);
       });
   };
 
@@ -48,9 +40,9 @@ class Login extends Component {
   getErrorMessage = error => {
     switch (error.message) {
       case 'Failed to fetch':
-        return 'We kunnen momenteel helaas niet met de server verbinden';
+        return 'We kunnen helaas niet met de server verbinden';
       default:
-        return 'Gebruikersnaam of wachtwoord is incorrect ingevuld';
+        return 'Gebruikersnaam of wachtwoord is incorrect';
     }
   };
 
@@ -73,12 +65,14 @@ class Login extends Component {
               className="login--input"
               type="text"
               name="username"
+              onChange={this.onChange}
             />
             <input
               placeholder="Wachtwoord"
               className="login--input"
               type="password"
               name="password"
+              onChange={this.onChange}
             />
             {error ? (
               <div className="login--error">
