@@ -25,7 +25,6 @@
   }
 }
 
-
 .modal--login-wrapper {
   position: relative;
   overflow: hidden;
@@ -72,18 +71,9 @@
     }
   }
 
-  &--input {
-    background: rgba(0, 0, 0, 0);
-    outline: none;
-    border: 1px solid #ccc;
-    display: block;
-    font-family: $font-text;
-    font-size: 1em;
+  &--input.input {
+    margin: 1rem auto;
     padding: 0.4em 0.6em;
-    margin: 1em auto;
-    border-radius: 3px;
-    width: 15rem;
-    box-sizing: border-box;
 
     &:first-child {
       margin-top: 0;
@@ -110,9 +100,26 @@
       background-color: darken($bgt-highlight, 10%);
     }
 
-    &:active,
-    &:focus {
-      background-color: lighten($bgt-highlight, 10%);
+    &:active {
+      background-color: darken($bgt-highlight, 15%);
     }
+  }
+}
+
+.input {
+  background: rgba(0, 0, 0, 0);
+  outline: none;
+  border: 1px solid #ccc;
+  display: block;
+  font-family: $font-text;
+  font-size: 1em;
+  padding: 0.2em 0.3em;
+  margin: 0.4em 0;
+  border-radius: 3px;
+  width: 15rem;
+  box-sizing: border-box;
+
+  &:focus {
+    border-color: #888;
   }
 }

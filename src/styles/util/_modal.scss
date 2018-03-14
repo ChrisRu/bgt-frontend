@@ -3,10 +3,8 @@ $sidebar-size: 4em;
 
 .modal {
   position: fixed;
-  width: 80vw;
-  height: 60vh;
-  top: calc(20vh + #{$header-size / 2});
-  left: calc(10vw + #{$sidebar-size / 2});
+  top: calc(50% + #{$header-size / 2});
+  left: calc(50% + #{$sidebar-size / 2});
   background: #fff;
   z-index: 5;
   border-radius: 5px;
@@ -15,10 +13,11 @@ $sidebar-size: 4em;
   display: flex;
   flex-flow: column nowrap;
   overflow: hidden;
+  transform: translate(50%, 50%);
 
   &--title {
     font-size: 1.6em;
-    margin: 2rem 2rem 0;
+    margin: 2rem 2rem 1rem;
   }
 
   &--overlay {
@@ -60,6 +59,7 @@ $sidebar-size: 4em;
     justify-content: flex-end;
     padding: 1rem;
     background: #E2E2E2;
+    margin-top: 1rem;
 
     .button:first-child {
       margin-right: 1em;
@@ -114,22 +114,31 @@ $sidebar-size: 4em;
   &--confirm {
     background-color: $bgt-highlight;
     color: $bg-white;
+    outline: none;
 
     &:hover {
       background-color: lighten($bgt-text-color, 10%);
     }
 
-    &:focus,
     &:active {
-      background-color: darken($bgt-text-color, 10%);
+      background-color: lighten($bgt-text-color, 5%);
+    }
+
+    &:focus {
+      box-shadow: 0 3px 3px 1px rgba($bgt-highlight, 0.6);
     }
   }
 
   &--cancel {
+    color: #222222;
     background-color: transparent;
 
     &:hover {
       background-color: $bg-white;
+    }
+
+    &:focus {
+      background-color: darken($bg-white, 5%);
     }
   }
 }

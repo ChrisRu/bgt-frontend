@@ -9,20 +9,20 @@ const defaultStyle = {
   transition: `transform ${duration}ms ease`,
   opacity: 0,
   pointerEvents: 'none',
-  transformOrigin: '90% 90%',
-  transform: 'scale(0.01) translate(90%, 90%)'
+  transformOrigin: '100vw 100vh',
+  transform: 'scale(0.01) translate(0, 0)'
 };
 
 const transitionStyles = {
   entering: {
     opacity: 0,
     pointerEvents: 'all',
-    transform: 'scale(0.01) translate(90%, 90%)'
+    transform: 'scale(0.01) translate(0, 0)'
   },
   entered: {
     opacity: 1,
     pointerEvents: 'all',
-    transform: 'scale(1) translate(0, 0)'
+    transform: 'scale(1) translate(-50%, -50%)'
   }
 };
 
@@ -49,6 +49,7 @@ class Modal extends Component {
               <div className="modal--footer">
                 {actions.map(({ type, onClick, name }) => (
                   <button
+                    key={name}
                     className={`button button--${type} modal--button`}
                     onClick={onClick}>
                     {name}

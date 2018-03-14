@@ -62,14 +62,14 @@ class Login extends Component {
             onSubmit={this.submit}>
             <input
               placeholder="Gebruikersnaam"
-              className="login--input"
+              className="input login--input"
               type="text"
               name="username"
               onChange={this.onChange}
             />
             <input
               placeholder="Wachtwoord"
-              className="login--input"
+              className="input login--input"
               type="password"
               name="password"
               onChange={this.onChange}

@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+window.alert = function() {};
+
+let projects = [];
 const ready = () => {
   const { Pdok: { Api } } = window;
 
-  const convertPointToXML = ({ name, description, coordinates, color }) => {
+  const convertPointToXML = ({ bgTonNumber, description, latitude, longtitude, color }) => {
     const id = String(Date.now()) + String(Math.floor(Math.random() * 10));
 
     let colorCode;
@@ -25,11 +28,11 @@ const ready = () => {
 
     return `
       <Placemark>
-        <name>${name}</name>
+        <name>${bgTonNumber}</name>
         <description>${description}</description>
         <styleUrl>#style_${id}</styleUrl>
         <Point>
-          <coordinates>${coordinates}</coordinates>
+          <coordinates>${latitude}, ${longtitude}</coordinates>
         </Point>
         <ExtendedData>
           <Data name="styletype">
@@ -38,33 +41,6 @@ const ready = () => {
         </ExtendedData>
       </Placemark>`;
   };
-
-  const points = [
-    {
-      name: 'Zuiderpark',
-      description: 'Meting doen bij het zuiderpark',
-      coordinates: '4.291874, 52.057805',
-      color: 'red'
-    },
-    {
-      name: 'Koningsplein',
-      description: 'Meting doen bij het koningsplein',
-      coordinates: '4.282862, 52.075715',
-      color: 'yellow'
-    },
-    {
-      name: 'Archipelbuurt',
-      description: 'Meting doen bij de archipelbuurt',
-      coordinates: '4.303425, 52.090194',
-      color: 'green'
-    },
-    {
-      name: 'Schildersbuurt-West',
-      description: 'Test description',
-      coordinates: '4.295929, 52.069097',
-      color: 'green'
-    }
-  ].map(convertPointToXML);
 
   const config = {
     mapdiv: 'map_1394',
@@ -77,7 +53,7 @@ const ready = () => {
           <name>BGT</name>
           <description>Kaart van de BGT metingen</description>
           <Folder>
-            ${points}
+            ${(projects || []).map(convertPointToXML)}
           </Folder>
         </Document>
       </kml>`
@@ -95,11 +71,12 @@ const ready = () => {
   setImage(1, 'yellow');
   setImage(2, 'green');
 
-  const api = new Api(config);
+  /* const api = */ new Api(config);
 };
 
 class Map extends Component {
   componentDidMount() {
+    projects = this.props.projects;
     window.Pdok.ready(ready);
   }
 

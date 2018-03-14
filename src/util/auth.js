@@ -5,7 +5,7 @@ export const fetchAPI = (endpoint, method = 'GET', body = null) =>
       Authorization: 'Bearer ' + getJWT(),
       'Content-Type': 'application/json'
     },
-    body
+    body: JSON.stringify(body)
   }).then(res => res.json());
 
 export const setJWT = token => {
@@ -45,7 +45,6 @@ export const authenticate = (username, password, remember = true) => {
   })
     .then(res => res.json())
     .then(res => {
-      console.log(res);
       setJWT(res.token);
       return res;
     });

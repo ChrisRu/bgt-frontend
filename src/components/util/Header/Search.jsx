@@ -27,11 +27,9 @@ class Search extends Component {
   }
 
   focus = event => {
-    if (event && event.target.nodeName === 'input') {
-      return;
+    if (!event || event.target.nodeName !== 'input') {
+      this.input.focus();
     }
-
-    this.input.focus();
   }
 
   blur = () => {
@@ -42,13 +40,13 @@ class Search extends Component {
     }
   }
 
-  componentDidMount() {
-    window.addEventListener('keypress', this.focus);
-  }
+  // componentDidMount() {
+  //   window.addEventListener('keypress', this.focus);
+  // }
 
-  componentWillUnmount() {
-    window.removeEventListener('keypress', this.focus);
-  }
+  // componentWillUnmount() {
+  //   window.removeEventListener('keypress', this.focus);
+  // }
 
   render() {
     const { results, open } = this.state;
@@ -72,7 +70,7 @@ class Search extends Component {
           <div className="search--dropdown">
             {results.map(result => (
               <div
-                key={result.place_id}
+                key={result}
                 className="search--dropdown-item"
                 onClick={() => {
                   onDropdown(result);

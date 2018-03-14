@@ -1,0 +1,23 @@
+.form {
+  display: flex;
+  flex-flow: column nowrap;
+
+  &--item {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0.5em 0 0;
+
+    .input {
+      width: 25rem;
+    }
+
+    .label {
+      color: #444;
+      padding-right: 1em;
+      width: 7em;
+      text-align: right;
+    }
+  }
+}
