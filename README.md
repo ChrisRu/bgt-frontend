@@ -8,7 +8,9 @@ Show of tasks in the Hague
 
    `npm install`
 
-2. Done :)
+2. Copy the `.env.example` to just `.env`
+
+3. Edit the environment variables to your liking
 
 ## Running
 
