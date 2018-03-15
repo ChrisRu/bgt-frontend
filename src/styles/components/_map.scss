@@ -1,39 +1,13 @@
-.olControlLoadingPanel {
-  display: none !important;
+.leaflet-container {
+  flex: 1;
+  z-index: 0;
 }
 
-.olControlZoom {
-  bottom: 8px !important;
-  top: auto !important;
+.leaflet-touch .leaflet-control-layers, .leaflet-touch .leaflet-bar {
+  border: 0;
+  box-shadow: 0 3px 5px 3px rgba(0, 0, 0, 0.2);
 }
 
-.olControlAttribution.olControlNoSelect {
+.leaflet-bottom {
   display: none;
-}
-
-.maximizeDiv.olButton {
-  display: none;
-}
-
-#featurePopup {
-  overflow: hidden;
-  border-radius: 2px;
-}
-
-#featurePopup_contentDiv {
-  font-size: 0.9rem !important;
-  font-family: $font-text !important;
-}
-
-#featurePopup_FrameDecorationDiv_0,
-#featurePopup_FrameDecorationDiv_1,
-#featurePopup_FrameDecorationDiv_2,
-#featurePopup_FrameDecorationDiv_3,
-#featurePopup_FrameDecorationDiv_4 {
-
-}
-
-#featurePopup_close {
-  top: 2.5em !important;
-  right: 0.5em !important;
 }

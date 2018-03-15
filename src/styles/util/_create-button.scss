@@ -1,6 +1,7 @@
 .create-button {
   $size: 50px;
 
+  z-index: 500;
   width: $size;
   height: $size;
   position: absolute;

@@ -23,6 +23,16 @@ const transitionStyles = {
     opacity: 1,
     pointerEvents: 'all',
     transform: 'scale(1) translate(-50%, -50%)'
+  },
+  exiting: {
+    opacity: 1,
+    pointerEvents: 'all',
+    transform: 'scale(1) translate(-50%, -50%)'
+  },
+  exited: {
+    opacity: 0,
+    pointerEvents: 'all',
+    transform: 'scale(0.01) translate(0, 0)'
   }
 };
 
@@ -33,7 +43,7 @@ class Modal extends Component {
     return (
       <div className="modal--wrapper">
         <Transition in={visible} timeout={0}>
-          {state => (
+          {state => console.log(state) || (
             <div
               style={{
                 ...defaultStyle,

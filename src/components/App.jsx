@@ -85,7 +85,18 @@ class App extends Component {
 
           <Switch>
             <Route path="/dashboard" render={() => <Dashboard />} />
-            <Route path="/kaart" render={() => <ContentMap projects={projects} />} />
+            <Route
+              path="/kaart"
+              render={() => (
+                <ContentMap
+                  projects={projects}
+                  googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
+                  loadingElement={<div />}
+                  containerElement={<div />}
+                  mapElement={<div />}
+                />
+              )}
+            />
             <Route path="/lijst" render={() => <ContentList data={[]} />} />
             <Redirect exact from="/" to="/kaart" />
           </Switch>

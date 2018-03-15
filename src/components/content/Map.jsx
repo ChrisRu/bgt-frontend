@@ -1,97 +1,60 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import Map from 'react-leaflet/lib/Map';
+import TileLayer from 'react-leaflet/lib/TileLayer';
+import Marker from 'react-leaflet/lib/Marker';
+import Tooltip from 'react-leaflet/lib/Tooltip';
+import { icon } from 'leaflet/src/layer/marker/Icon';
+import 'leaflet/dist/leaflet.css';
 
-window.alert = function() {};
+const MarkerComponent = ({
+  bgtOnNumber,
+  status,
+  description,
+  latitude,
+  longtitude
+}) => (
+  <Marker
+    position={[Number(latitude), Number(longtitude)]}
+    icon={icon({
+      iconUrl: process.env.PUBLIC_URL + '/marker-red.png',
+      iconSize: [32, 32],
+      iconAnchor: [14, 11],
+      popupAnchor: [48, 48]
+    })}
+    onClick={() => alert('test')}>
+    <Tooltip>
+      <React.Fragment>
+        <h3>{bgtOnNumber}</h3>
+        <span>{status}</span>
+        <p>{description}</p>
+      </React.Fragment>
+    </Tooltip>
+  </Marker>
+);
 
-window.projects = [];
-const ready = () => {
-  const { Pdok: { Api } } = window;
-
-  const convertPointToXML = ({ bgtOnNumber, description, latitude, longtitude, color }) => {
-    const id = String(Date.now()) + String(Math.floor(Math.random() * 10));
-
-    let colorCode;
-    switch (Math.floor(Math.random() * 3)) {
-      case 1:
-        colorCode = 'mt1';
-        break;
-      case 2:
-        colorCode = 'mt2';
-        break;
-      case 3:
-        colorCode = 'mt3';
-        break;
-      default:
-        colorCode = 'mt3';
-        break;
-    }
-
-    return `
-      <Placemark>
-        <name>${bgtOnNumber}</name>
-        <description>${description}</description>
-        <styleUrl>#style_${id}</styleUrl>
-        <Point>
-          <coordinates>${longtitude}, ${latitude}</coordinates>
-        </Point>
-        <ExtendedData>
-          <Data name="styletype">
-            <value>${colorCode}</value>
-          </Data>
-        </ExtendedData>
-      </Placemark>`;
+class MapComponent extends Component {
+  state = {
+    lat: 52.0704978,
+    lng: 4.3006999,
+    zoom: 12,
+    minZoom: 8,
+    tileLayer:
+      'https://geodata.nationaalgeoregister.nl/tiles/service/wmts/brtachtergrondkaart/EPSG:3857/{z}/{x}/{y}.png'
   };
-
-  const config = {
-    mapdiv: 'map_1394',
-    zoom: 7,
-    loc: '82007.84, 453172.4',
-    features: `
-      <?xml version="1.0" encoding="UTF-8"?>
-      <kml xmlns="https://earth.google.com/kml/2.2">
-        <Document>
-          <name>BGT</name>
-          <description>Kaart van de BGT metingen</description>
-          <Folder>
-            ${window.projects.map(convertPointToXML)}
-          </Folder>
-        </Document>
-      </kml>`
-  };
-
-  const setImage = (index, color) => {
-    const { PUBLIC_URL } = process.env;
-    const { defaultStyles } = window.Pdok.Api.prototype;
-
-    defaultStyles[index].externalGraphic = `${PUBLIC_URL}/marker-${color}.png`;
-    defaultStyles[index].graphicYOffset = -32;
-  };
-
-  setImage(0, 'red');
-  setImage(1, 'yellow');
-  setImage(2, 'green');
-
-  /* const api = */ new Api(config);
-};
-
-class Map extends Component {
-  componentDidMount() {
-    this.componentDidUpdate();
-  }
-
-  componentDidUpdate() {
-    window.projects = this.props.projects;
-    document.getElementById('map_1394').innerHTML = '';
-    window.Pdok.ready(ready);
-  }
 
   render() {
-    return <div id="map_1394" className="olMap fullscreen" />;
+    const { projects } = this.props;
+    const { lat, lng, zoom, minZoom, tileLayer } = this.state;
+    const position = [lat, lng];
+
+    return (
+      <Map center={position} zoom={zoom} minZoom={minZoom}>
+        <TileLayer url={tileLayer} />
+        {projects.map(project => (
+          <MarkerComponent key={project.bgtOnNumber} {...project} />
+        ))}
+      </Map>
+    );
   }
 }
-
-Map.propTypes = {
-  markers: PropTypes.array
-};
-
-export default Map;
+export default MapComponent;
