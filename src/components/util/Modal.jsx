@@ -37,13 +37,19 @@ const transitionStyles = {
 };
 
 class Modal extends Component {
+  callChild = methodName => {
+    if (this.child) {
+      return this.child[methodName];
+    }
+  };
+
   render() {
     const { children, title, onClose, visible, actions } = this.props;
 
     return (
       <div className="modal--wrapper">
         <Transition in={visible} timeout={0}>
-          {state => console.log(state) || (
+          {state => (
             <div
               style={{
                 ...defaultStyle,
@@ -54,14 +60,22 @@ class Modal extends Component {
               <div className="modal--close">
                 <CrossIcon onClick={onClose} />
               </div>
-              <div className="modal--body">{children}</div>
+              <div className="modal--body">
+                {children(child => {
+                  this.child = child;
+                })}
+              </div>
 
               <div className="modal--footer">
                 {actions.map(({ type, onClick, name }) => (
                   <button
                     key={name}
                     className={`button button--${type} modal--button`}
-                    onClick={onClick}>
+                    onClick={
+                      typeof onClick === 'string'
+                        ? this.callChild(onClick)
+                        : onClick
+                    }>
                     {name}
                   </button>
                 ))}
@@ -80,7 +94,7 @@ class Modal extends Component {
 
 Modal.propTypes = {
   onClose: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired
+  children: PropTypes.func.isRequired
 };
 
 export default Modal;

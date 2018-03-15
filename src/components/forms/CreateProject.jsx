@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
 import { WarningIcon } from '../../util/icons';
+import { fetchAPI } from '../../util/auth';
 
-const FormItem = ({ name, input, placeholder, apiName, type, onChange }) => (
+export const FormItem = ({
+  name,
+  input,
+  placeholder,
+  apiName,
+  type,
+  onChange
+}) => (
   <div className="form--item">
     <label className="label" htmlFor={apiName}>
       {name}
@@ -30,6 +38,9 @@ const FormItem = ({ name, input, placeholder, apiName, type, onChange }) => (
 
 class CreateProject extends Component {
   state = {
+    loading: false,
+    error: null,
+    data: {},
     formInfo: [
       {
         name: 'BGT Nummer',
@@ -69,6 +80,24 @@ class CreateProject extends Component {
     ]
   };
 
+  submit = () => {
+    this.setState({ loading: true });
+    return fetchAPI('/projects', 'POST', this.state.data)
+      .then(() => {
+        this.setState({
+          data: {},
+          loading: false
+        });
+        this.props.onClose(true);
+      })
+      .catch(error => {
+        this.setState({
+          error: error,
+          loading: false
+        });
+      });
+  };
+
   onInputChange = event => {
     event.persist();
 
@@ -79,13 +108,19 @@ class CreateProject extends Component {
         [event.target.name]: event.target.value
       }
     }));
-
-    this.props.onChange(this.state.data);
   };
 
+  getErrorMessage(error) {
+    switch (error.message) {
+      case 'Failed to fetch':
+        return 'Kan niet met de server verbinden';
+      default:
+        return error.userMessage || error.message;
+    }
+  }
+
   render() {
-    const { formInfo } = this.state;
-    const { error, loading } = this.props;
+    const { formInfo, error, loading } = this.state;
 
     return (
       <div className="modal--content form">
@@ -104,7 +139,7 @@ class CreateProject extends Component {
           ))
         )}
         {error ? (
-          <div className="login--error">
+          <div className="login--error form--error">
             <WarningIcon />
             <span>{this.getErrorMessage(error)}</span>
           </div>

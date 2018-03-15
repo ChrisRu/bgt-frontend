@@ -1,54 +1,55 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import ReactTable from 'react-table';
-
-const tableSettings = {
-  previousText: 'Vorige',
-  nextText: 'Volgende',
-  loadingText: 'Laden...',
-  noDataText: 'Geen data gevonden',
-  pageText: 'Pagina',
-  ofText: 'van',
-  rowsText: 'rijen',
-};
 
 class Table extends Component {
   state = {
+    tableSettings: {
+      previousText: 'Vorige',
+      nextText: 'Volgende',
+      loadingText: 'Laden...',
+      noDataText: 'Geen data gevonden',
+      pageText: 'Pagina',
+      ofText: 'van',
+      rowsText: 'rijen',
+    },
     columns: [
       {
         Header: 'BGT Nummer',
-        accessor: 'place_id',
+        accessor: 'bgtOnNumber',
         minWidth: 80
       },
       {
-        Header: 'Adres',
-        accessor: 'display_name',
+        Header: 'Categorie',
+        accessor: 'category',
         minWidth: 80
       },
       {
-        Header: 'Onderweg',
-        key: 'onderweg',
-        minWidth: 80
+        Header: 'Omschrijving',
+        accessor: 'description',
+        minWidth: 120
+      },
+      {
+        Header: 'Status',
+        accessor: 'status',
+        minWidth: 120
       }
     ]
   };
 
   render() {
-    const { columns } = this.state;
-    const { data } = this.props;
+    const { columns, tableSettings } = this.state;
+    const { projects } = this.props;
+
+    console.log(projects);
 
     return (
       <ReactTable
         columns={columns}
-        data={data}
+        data={projects}
         {...tableSettings}
       />
     );
   }
 }
-
-Table.propTypes = {
-  data: PropTypes.array.isRequired
-};
 
 export default Table;

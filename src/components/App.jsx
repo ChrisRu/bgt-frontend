@@ -23,10 +23,7 @@ class App extends Component {
     filter: null,
     authenticated: getJWT(),
     searchValue: '',
-    projects: [],
-    createProject: {},
-    createProjectError: null,
-    createProjectLoading: false
+    projects: []
   };
 
   async componentDidMount() {
@@ -37,39 +34,29 @@ class App extends Component {
     });
 
     if (authenticated) {
-      this.setState({
-        projects: await this.getProjects()
-      });
+      return this.getProjects();
     }
   }
 
   getProjects() {
-    return fetchAPI('/projects');
+    return fetchAPI('/projects').then(projects => this.setState({ projects }));
   }
 
-  closeModal = () => {
+  closeModal = createdNew => {
     this.setState({ create: false });
+
+    if (createdNew) {
+      this.getProjects();
+    }
   };
 
   login = async authenticated => {
     this.setState({ authenticated });
-    this.setState({
-      projects: await this.getProjects()
-    });
-  };
-
-  onCreateProjectChange = data => {
-    this.setState({ createProject: data });
+    return this.getProjects();
   };
 
   getApp() {
-    const {
-      projects,
-      create,
-      createProject,
-      createProjectLoading,
-      createProjectError
-    } = this.state;
+    const { projects, create } = this.state;
     const { location: { pathname } } = this.props;
 
     return (
@@ -97,7 +84,10 @@ class App extends Component {
                 />
               )}
             />
-            <Route path="/lijst" render={() => <ContentList data={[]} />} />
+            <Route
+              path="/lijst"
+              render={() => <ContentList projects={projects} />}
+            />
             <Redirect exact from="/" to="/kaart" />
           </Switch>
 
@@ -116,29 +106,10 @@ class App extends Component {
               {
                 type: 'confirm',
                 name: 'Creeer',
-                onClick: async () => {
-                  this.setState({ createProjectLoading: true });
-                  await fetchAPI('/projects', 'POST', createProject).catch(
-                    error => {
-                      this.setState({
-                        createProjectLoading: false,
-                        createProjectError: error
-                      });
-                    }
-                  );
-                  this.setState({
-                    create: false,
-                    createProject: {},
-                    createProjectLoading: false
-                  });
-                }
+                onClick: 'submit'
               }
             ]}>
-            <CreateProject
-              onChange={this.onCreateProjectChange}
-              error={createProjectError}
-              loading={createProjectLoading}
-            />
+            {setRef => <CreateProject ref={setRef} onClose={this.closeModal} />}
           </Modal>
         </div>
       </div>
