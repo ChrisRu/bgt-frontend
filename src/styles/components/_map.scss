@@ -11,3 +11,7 @@
 .leaflet-bottom {
   display: none;
 }
+
+.leaflet-touch .leaflet-bar a {
+  user-select: none;
+}

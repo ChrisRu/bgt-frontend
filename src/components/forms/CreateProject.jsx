@@ -8,31 +8,52 @@ export const FormItem = ({
   placeholder,
   apiName,
   type,
+  options,
   onChange
 }) => (
   <div className="form--item">
     <label className="label" htmlFor={apiName}>
       {name}
     </label>
-    {input === 'input' ? (
-      <input
-        onChange={onChange}
-        id={apiName}
-        name={apiName}
-        placeholder={placeholder}
-        type={type}
-        className="input"
-      />
-    ) : (
-      <textarea
-        onChange={onChange}
-        id={apiName}
-        name={apiName}
-        placeholder={placeholder}
-        type={type}
-        className="input"
-      />
-    )}
+    {
+      {
+        input: (
+          <input
+            onChange={onChange}
+            id={apiName}
+            name={apiName}
+            placeholder={placeholder}
+            type={type}
+            className="input"
+          />
+        ),
+        textarea: (
+          <textarea
+            onChange={onChange}
+            id={apiName}
+            rows={5}
+            name={apiName}
+            placeholder={placeholder}
+            type={type}
+            className="input"
+          />
+        ),
+        select: (
+          <select
+            onChange={onChange}
+            id={apiName}
+            rows={5}
+            name={apiName}
+            placeholder={placeholder}
+            type={type}
+            className="input">
+            {(options || []).map(option => (
+              <option value={option.apiName}>{option.name}</option>
+            ))}
+          </select>
+        )
+      }[input]
+    }
   </div>
 );
 

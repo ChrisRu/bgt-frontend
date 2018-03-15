@@ -52,7 +52,9 @@ class Login extends Component {
     return (
       <div className="modal--login-wrapper">
         <div className="modal modal--login">
-          <img src={Logo} alt="BGT Logo" />
+          <div className="modal--logo">
+            <img src={Logo} alt="BGT Logo" />
+          </div>
           <div className={`spinner ${!loading ? 'hidden' : ''}`}>
             <div className="dot1" />
             <div className="dot2" />

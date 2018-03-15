@@ -16,7 +16,8 @@ $sidebar-size: 4em;
   transform: translate(50%, 50%);
 
   &--title {
-    font-size: 1.6em;
+    font-size: 1.4em;
+    letter-spacing: 0.5px;
     margin: 2rem 2rem 1rem;
   }
 
@@ -39,8 +40,8 @@ $sidebar-size: 4em;
 
   &--close {
     position: absolute;
-    top: 0.5em;
-    right: 0.5em;
+    top: 1em;
+    right: 1em;
 
     button {
       background: none;
@@ -50,7 +51,7 @@ $sidebar-size: 4em;
   }
 
   &--body {
-    padding: 0 2rem;
+    padding: 0 1rem;
     flex: 1;
   }
 
@@ -58,7 +59,7 @@ $sidebar-size: 4em;
     display: flex;
     justify-content: flex-end;
     padding: 1rem;
-    background: #E2E2E2;
+    background: #E9E9E9;
     margin-top: 1rem;
 
     .button:first-child {
@@ -117,11 +118,11 @@ $sidebar-size: 4em;
     outline: none;
 
     &:hover {
-      background-color: lighten($bgt-text-color, 10%);
+      background-color: darken($bgt-highlight, 10%);
     }
 
     &:active {
-      background-color: lighten($bgt-text-color, 5%);
+      background-color: darken($bgt-highlight, 15%);
     }
 
     &:focus {

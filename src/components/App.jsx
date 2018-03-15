@@ -105,7 +105,7 @@ class App extends Component {
               },
               {
                 type: 'confirm',
-                name: 'Creeer',
+                name: 'Creëer',
                 onClick: 'submit'
               }
             ]}>

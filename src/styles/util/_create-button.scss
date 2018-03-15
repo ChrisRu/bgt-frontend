@@ -1,13 +1,12 @@
 .create-button {
-  $size: 50px;
+  $size: 45px;
 
-  z-index: 500;
   width: $size;
   height: $size;
   position: absolute;
   bottom: 1em;
   right: 1em;
-  background-color: $bgt-text-color;
+  background-color: $bgt-highlight;
   border-radius: 50%;
   display: block;
   box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.1);
@@ -42,6 +41,10 @@
   }
 
   &:hover {
-    background-color: lighten($bgt-text-color, 10%);
+    background-color: darken($bgt-highlight, 10%);
+  }
+
+  &:active {
+    background-color: darken($bgt-highlight, 15%);
   }
 }

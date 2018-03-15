@@ -4,7 +4,7 @@ $font-header: 'Montserrat', sans-serif;
 $bg: #f4f8f9;
 $bg-white: #fff;
 $bgt-text-color: #00295d;
-$bgt-highlight: lighten($bgt-text-color, 20%);
+$bgt-highlight: #106bf7;
 
 @import 'components/header';
 @import 'components/map';
