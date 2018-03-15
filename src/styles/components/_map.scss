@@ -16,8 +16,7 @@
 }
 
 #featurePopup {
-  background: $bg-white;
-  box-shadow: 0 3px 5px 3px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
   border-radius: 2px;
 }
 
@@ -35,6 +34,6 @@
 }
 
 #featurePopup_close {
-  top: 0.5em !important;
+  top: 2.5em !important;
   right: 0.5em !important;
 }

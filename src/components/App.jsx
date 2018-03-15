@@ -24,7 +24,9 @@ class App extends Component {
     authenticated: getJWT(),
     searchValue: '',
     projects: [],
-    createProject: {}
+    createProject: {},
+    createProjectError: null,
+    createProjectLoading: false
   };
 
   async componentDidMount() {
@@ -49,8 +51,11 @@ class App extends Component {
     this.setState({ create: false });
   };
 
-  login = authenticated => {
+  login = async authenticated => {
     this.setState({ authenticated });
+    this.setState({
+      projects: await this.getProjects()
+    });
   };
 
   onCreateProjectChange = data => {
@@ -58,7 +63,13 @@ class App extends Component {
   };
 
   getApp() {
-    const { create, createProject } = this.state;
+    const {
+      projects,
+      create,
+      createProject,
+      createProjectLoading,
+      createProjectError
+    } = this.state;
     const { location: { pathname } } = this.props;
 
     return (
@@ -74,7 +85,7 @@ class App extends Component {
 
           <Switch>
             <Route path="/dashboard" render={() => <Dashboard />} />
-            <Route path="/kaart" render={() => <ContentMap />} />
+            <Route path="/kaart" render={() => <ContentMap projects={projects} />} />
             <Route path="/lijst" render={() => <ContentList data={[]} />} />
             <Redirect exact from="/" to="/kaart" />
           </Switch>
@@ -95,12 +106,28 @@ class App extends Component {
                 type: 'confirm',
                 name: 'Creeer',
                 onClick: async () => {
-                  await fetchAPI('/projects', 'POST', createProject);
-                  this.setState({ create: false });
+                  this.setState({ createProjectLoading: true });
+                  await fetchAPI('/projects', 'POST', createProject).catch(
+                    error => {
+                      this.setState({
+                        createProjectLoading: false,
+                        createProjectError: error
+                      });
+                    }
+                  );
+                  this.setState({
+                    create: false,
+                    createProject: {},
+                    createProjectLoading: false
+                  });
                 }
               }
             ]}>
-            <CreateProject onChange={this.onCreateProjectChange} />
+            <CreateProject
+              onChange={this.onCreateProjectChange}
+              error={createProjectError}
+              loading={createProjectLoading}
+            />
           </Modal>
         </div>
       </div>

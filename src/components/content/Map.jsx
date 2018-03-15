@@ -3,36 +3,36 @@ import PropTypes from 'prop-types';
 
 window.alert = function() {};
 
-let projects = [];
+window.projects = [];
 const ready = () => {
   const { Pdok: { Api } } = window;
 
-  const convertPointToXML = ({ bgTonNumber, description, latitude, longtitude, color }) => {
+  const convertPointToXML = ({ bgtOnNumber, description, latitude, longtitude, color }) => {
     const id = String(Date.now()) + String(Math.floor(Math.random() * 10));
 
     let colorCode;
-    switch (color) {
-      case 'red':
+    switch (Math.floor(Math.random() * 3)) {
+      case 1:
         colorCode = 'mt1';
         break;
-      case 'yellow':
+      case 2:
         colorCode = 'mt2';
         break;
-      case 'green':
+      case 3:
         colorCode = 'mt3';
         break;
       default:
-        colorCode = 'mt4';
+        colorCode = 'mt3';
         break;
     }
 
     return `
       <Placemark>
-        <name>${bgTonNumber}</name>
+        <name>${bgtOnNumber}</name>
         <description>${description}</description>
         <styleUrl>#style_${id}</styleUrl>
         <Point>
-          <coordinates>${latitude}, ${longtitude}</coordinates>
+          <coordinates>${longtitude}, ${latitude}</coordinates>
         </Point>
         <ExtendedData>
           <Data name="styletype">
@@ -53,7 +53,7 @@ const ready = () => {
           <name>BGT</name>
           <description>Kaart van de BGT metingen</description>
           <Folder>
-            ${(projects || []).map(convertPointToXML)}
+            ${window.projects.map(convertPointToXML)}
           </Folder>
         </Document>
       </kml>`
@@ -76,7 +76,12 @@ const ready = () => {
 
 class Map extends Component {
   componentDidMount() {
-    projects = this.props.projects;
+    this.componentDidUpdate();
+  }
+
+  componentDidUpdate() {
+    window.projects = this.props.projects;
+    document.getElementById('map_1394').innerHTML = '';
     window.Pdok.ready(ready);
   }
 

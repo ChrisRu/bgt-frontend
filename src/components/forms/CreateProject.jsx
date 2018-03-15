@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { WarningIcon } from '../../util/icons';
 
 const FormItem = ({ name, input, placeholder, apiName, type, onChange }) => (
   <div className="form--item">
@@ -84,16 +85,30 @@ class CreateProject extends Component {
 
   render() {
     const { formInfo } = this.state;
+    const { error, loading } = this.props;
 
     return (
       <div className="modal--content form">
-        {formInfo.map(item => (
-          <FormItem
-            key={item.apiName}
-            {...item}
-            onChange={this.onInputChange}
-          />
-        ))}
+        {loading ? (
+          <div className="spinner">
+            <div className="dot1" />
+            <div className="dot2" />
+          </div>
+        ) : (
+          formInfo.map(item => (
+            <FormItem
+              key={item.apiName}
+              {...item}
+              onChange={this.onInputChange}
+            />
+          ))
+        )}
+        {error ? (
+          <div className="login--error">
+            <WarningIcon />
+            <span>{this.getErrorMessage(error)}</span>
+          </div>
+        ) : null}
       </div>
     );
   }

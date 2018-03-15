@@ -5,7 +5,7 @@ export const fetchAPI = (endpoint, method = 'GET', body = null) =>
       Authorization: 'Bearer ' + getJWT(),
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(body)
+    body: body ? JSON.stringify(body) : undefined
   }).then(res => res.json());
 
 export const setJWT = token => {
