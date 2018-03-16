@@ -61,7 +61,8 @@ class Login extends Component {
           </div>
           <form
             className={`login ${loading ? 'hidden' : ''}`}
-            onSubmit={this.submit}>
+            onSubmit={this.submit}
+          >
             <input
               placeholder="Gebruikersnaam"
               className="input login--input"

@@ -108,7 +108,8 @@ class App extends Component {
                 name: 'Creëer',
                 onClick: 'submit'
               }
-            ]}>
+            ]}
+          >
             {setRef => <CreateProject ref={setRef} onClose={this.closeModal} />}
           </Modal>
         </div>
@@ -127,7 +128,8 @@ class App extends Component {
       <RootContext.Provider
         value={{
           authenticated
-        }}>
+        }}
+      >
         {authenticated ? this.getApp() : this.getLogin()}
       </RootContext.Provider>
     );

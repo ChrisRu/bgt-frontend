@@ -17,20 +17,20 @@ class Search extends Component {
     }
   };
 
-  open = (force) => {
+  open = force => {
     this.props.onOpen(!this.input.value);
 
     if (force) {
       this.props.onOpen(false);
       this.focus();
     }
-  }
+  };
 
   focus = event => {
     if (!event || event.target.nodeName !== 'input') {
       this.input.focus();
     }
-  }
+  };
 
   blur = () => {
     this.setState({ open: false, focus: false });
@@ -38,7 +38,7 @@ class Search extends Component {
     if (this.input.value === '') {
       this.props.onOpen(true);
     }
-  }
+  };
 
   // componentDidMount() {
   //   window.addEventListener('keypress', this.focus);
@@ -66,21 +66,23 @@ class Search extends Component {
           onBlur={this.blur}
         />
         <SearchIcon onClick={() => this.open(true)} />
-        {onDropdown && open && (
-          <div className="search--dropdown">
-            {results.map(result => (
-              <div
-                key={result}
-                className="search--dropdown-item"
-                onClick={() => {
-                  onDropdown(result);
-                  this.setState({ open: false });
-                }}>
-                {result.display_name}
-              </div>
-            ))}
-          </div>
-        )}
+        {onDropdown &&
+          open && (
+            <div className="search--dropdown">
+              {results.map(result => (
+                <div
+                  key={result}
+                  className="search--dropdown-item"
+                  onClick={() => {
+                    onDropdown(result);
+                    this.setState({ open: false });
+                  }}
+                >
+                  {result.display_name}
+                </div>
+              ))}
+            </div>
+          )}
       </div>
     );
   }

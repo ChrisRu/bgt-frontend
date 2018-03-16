@@ -36,7 +36,8 @@ class Dashboard extends Component {
               { x: 621, name: 'Februari' },
               { x: 340, name: 'Maart' }
             ]}
-            margin={{ top: 20, right: 20 }}>
+            margin={{ top: 20, right: 20 }}
+          >
             <XAxis dataKey="name" />
             <YAxis />
             <Tooltip />
@@ -54,13 +55,15 @@ class Dashboard extends Component {
             <div className="dashboard--numbers">
               <div
                 className="dashboard--number"
-                style={{ borderColor: COLORS[0] }}>
+                style={{ borderColor: COLORS[0] }}
+              >
                 <span className="dashboard--number-value">34</span>
                 <span className="dashboard--number-title">Open taken</span>
               </div>
               <div
                 className="dashboard--number"
-                style={{ borderColor: COLORS[3] }}>
+                style={{ borderColor: COLORS[3] }}
+              >
                 <span className="dashboard--number-value">7</span>
                 <span className="dashboard--number-title">
                   Hoge prioriteit taken
@@ -77,7 +80,8 @@ class Dashboard extends Component {
                 nameKey="type"
                 cx={80}
                 cy="50%"
-                outerRadius={80}>
+                outerRadius={80}
+              >
                 {pieData.map((entry, index) => (
                   <Cell key={entry} fill={COLORS[index % COLORS.length]} />
                 ))}

@@ -21,7 +21,8 @@ const MarkerComponent = ({
       iconAnchor: [14, 11],
       popupAnchor: [48, 48]
     })}
-    onClick={() => alert('test')}>
+    onClick={() => alert('test')}
+  >
     <Tooltip>
       <React.Fragment>
         <h3>{bgtOnNumber}</h3>

@@ -46,7 +46,8 @@ export const FormItem = ({
             name={apiName}
             placeholder={placeholder}
             type={type}
-            className="input">
+            className="input"
+          >
             {(options || []).map(option => (
               <option value={option.apiName}>{option.name}</option>
             ))}

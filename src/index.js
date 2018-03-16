@@ -5,7 +5,7 @@ import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
 
 import 'normalize.css';
-import 'react-table/react-table.css'
+import 'react-table/react-table.css';
 import './styles/master.css';
 
 ReactDOM.render(

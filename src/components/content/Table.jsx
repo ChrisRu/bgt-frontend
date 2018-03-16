@@ -10,7 +10,7 @@ class Table extends Component {
       noDataText: 'Geen data gevonden',
       pageText: 'Pagina',
       ofText: 'van',
-      rowsText: 'rijen',
+      rowsText: 'rijen'
     },
     columns: [
       {
@@ -42,13 +42,7 @@ class Table extends Component {
 
     console.log(projects);
 
-    return (
-      <ReactTable
-        columns={columns}
-        data={projects}
-        {...tableSettings}
-      />
-    );
+    return <ReactTable columns={columns} data={projects} {...tableSettings} />;
   }
 }
 

@@ -55,7 +55,8 @@ class Modal extends Component {
                 ...defaultStyle,
                 ...transitionStyles[state]
               }}
-              className="modal">
+              className="modal"
+            >
               <h2 className="modal--title">{title}</h2>
               <div className="modal--close">
                 <CrossIcon onClick={onClose} />
@@ -75,7 +76,8 @@ class Modal extends Component {
                       typeof onClick === 'string'
                         ? this.callChild(onClick)
                         : onClick
-                    }>
+                    }
+                  >
                     {name}
                   </button>
                 ))}
