@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import logo from '../../../assets/logos/bgt.png';
 import Search from './Search';
 import Filter from './Filter';
+import Show from '../Show';
 
 class Header extends Component {
   state = {
@@ -21,13 +22,16 @@ class Header extends Component {
           <span>BGT</span>
         </div>
         <div className="header--icons">
-          {showSearch ? (
-            <Search
-              closed={searchClosed}
-              onOpen={state => this.setState({ searchClosed: state })}
-              onChange={onSearch}
-            />
-          ) : null}
+          <Show
+            visible={showSearch}
+            render={() => (
+              <Search
+                closed={searchClosed}
+                onOpen={state => this.setState({ searchClosed: state })}
+                onChange={onSearch}
+              />
+            )}
+          />
           <Filter
             closed={filterClosed}
             onOpen={state => this.setState({ filterClosed: state })}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { WarningIcon } from '../../util/icons';
 import { fetchAPI } from '../../util/auth';
+import Show from '../util/Show';
 
 export const FormItem = ({
   name,
@@ -160,12 +161,15 @@ class CreateProject extends Component {
             />
           ))
         )}
-        {error ? (
-          <div className="login--error form--error">
-            <WarningIcon />
-            <span>{this.getErrorMessage(error)}</span>
-          </div>
-        ) : null}
+        <Show
+          visible={error}
+          render={() => (
+            <div className="login--error form--error">
+              <WarningIcon />
+              <span>{this.getErrorMessage(error)}</span>
+            </div>
+          )}
+        />
       </div>
     );
   }

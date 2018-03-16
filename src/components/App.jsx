@@ -30,7 +30,7 @@ class App extends Component {
     const authenticated = await isAuthenticated();
 
     this.setState({
-      authenticated
+      authenticated: true
     });
 
     if (authenticated) {
@@ -40,6 +40,16 @@ class App extends Component {
 
   getProjects() {
     return fetchAPI('/projects').then(projects => this.setState({ projects }));
+  }
+
+  filterProjects(projects) {
+    const { filter } = this.state;
+
+    if (typeof filter === 'function') {
+      return projects.filter(filter);
+    }
+
+    return projects;
   }
 
   closeModal = createdNew => {
@@ -56,8 +66,10 @@ class App extends Component {
   };
 
   getApp() {
-    const { projects, create } = this.state;
+    const { create } = this.state;
     const { location: { pathname } } = this.props;
+
+    const projects = this.filterProjects(this.state.projects);
 
     return (
       <div className="App">
