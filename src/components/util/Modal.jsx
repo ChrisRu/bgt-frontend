@@ -72,9 +72,11 @@ class Modal extends Component {
                 <CrossIcon onClick={onClose} />
               </div>
               <div className="modal--body">
-                {children(child => {
-                  this.child = child;
-                })}
+                {typeof children === 'function'
+                  ? children(child => {
+                      this.child = child;
+                    })
+                  : children}
               </div>
 
               <Show

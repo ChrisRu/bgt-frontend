@@ -5,13 +5,17 @@ import Marker from 'react-leaflet/lib/Marker';
 import Tooltip from 'react-leaflet/lib/Tooltip';
 import { icon } from 'leaflet/src/layer/marker/Icon';
 import 'leaflet/dist/leaflet.css';
+import MapPopup from './MapPopup';
+import Show from '../util/Show';
 
 const MarkerComponent = ({
+  id,
   bgtOnNumber,
   status,
   description,
   latitude,
-  longtitude
+  longtitude,
+  onClick
 }) => (
   <Marker
     position={[Number(latitude), Number(longtitude)]}
@@ -21,7 +25,7 @@ const MarkerComponent = ({
       iconAnchor: [14, 11],
       popupAnchor: [48, 48]
     })}
-    onClick={() => alert('test')}
+    onClick={() => onClick(id)}
   >
     <Tooltip>
       <React.Fragment>
@@ -40,21 +44,46 @@ class MapComponent extends Component {
     zoom: 12,
     minZoom: 8,
     tileLayer:
-      'https://geodata.nationaalgeoregister.nl/tiles/service/wmts/brtachtergrondkaart/EPSG:3857/{z}/{x}/{y}.png'
+      'https://geodata.nationaalgeoregister.nl/tiles/service/wmts/brtachtergrondkaart/EPSG:3857/{z}/{x}/{y}.png',
+    openId: null
+  };
+
+  onMarkerClick = id => this.setState({ openId: id });
+
+  getOpen = () => {
+    const { openId } = this.state;
+    const { projects } = this.props;
+
+    return projects.find(project => project.id === openId);
   };
 
   render() {
     const { projects } = this.props;
-    const { lat, lng, zoom, minZoom, tileLayer } = this.state;
+    const { lat, lng, zoom, minZoom, tileLayer, openId } = this.state;
     const position = [lat, lng];
 
     return (
-      <Map center={position} zoom={zoom} minZoom={minZoom}>
-        <TileLayer url={tileLayer} />
-        {projects.map(project => (
-          <MarkerComponent key={project.bgtOnNumber} {...project} />
-        ))}
-      </Map>
+      <React.Fragment>
+        <Map center={position} zoom={zoom} minZoom={minZoom}>
+          <TileLayer url={tileLayer} />
+          {projects.map(project => (
+            <MarkerComponent
+              onClick={this.onMarkerClick}
+              key={project.bgtOnNumber}
+              {...project}
+            />
+          ))}
+        </Map>
+        <Show
+          visible={openId}
+          render={() => (
+            <MapPopup
+              onClose={() => this.setState({ openId: null })}
+              {...this.getOpen()}
+            />
+          )}
+        />
+      </React.Fragment>
     );
   }
 }
