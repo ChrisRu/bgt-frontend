@@ -12,6 +12,7 @@ import Header from './util/Header';
 import Sidebar from './util/Sidebar';
 import Modal from './util/Modal';
 import CreateButton from './util/CreateButton';
+import { PlusIcon } from '../util/icons';
 
 import { isAuthenticated, getJWT, fetchAPI } from '../util/auth';
 
@@ -108,7 +109,12 @@ class App extends Component {
           <Modal
             visible={create}
             onClose={this.closeModal}
-            title="Maak een nieuw project"
+            title={
+              <React.Fragment>
+                <PlusIcon />
+                <span>Maak een nieuw project</span>
+              </React.Fragment>
+            }
             actions={[
               {
                 type: 'cancel',

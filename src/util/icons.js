@@ -57,7 +57,7 @@ export const FilterIcon = ({ onClick }) => (
     xmlns="http://www.w3.org/2000/svg"
     width="66"
     height="67"
-    className="filter--icon"
+    className="icon filter--icon"
     viewBox="0 0 485.008 485.008"
     onClick={onClick}
   >
@@ -67,7 +67,14 @@ export const FilterIcon = ({ onClick }) => (
 );
 
 export const CrossIcon = ({ onClick }) => (
-  <div className="cross--icon" onClick={onClick}>
+  <div className="icon cross--icon" onClick={onClick}>
+    <span />
+    <span />
+  </div>
+);
+
+export const PlusIcon = ({ onClick }) => (
+  <div className="icon plus--icon" onClick={onClick}>
     <span />
     <span />
   </div>
@@ -79,7 +86,7 @@ export const DashboardIcon = ({ onClick }) => (
     height="110"
     viewBox="0 0 138 110"
     xmlns="http://www.w3.org/2000/svg"
-    className="dashboard--icon"
+    className="icon dashboard--icon"
     onClick={onClick}
   >
     <title>Dashboard</title>
@@ -94,7 +101,7 @@ export const MapsIcon = ({ onClick }) => (
     height="157"
     viewBox="0 0 132 157"
     xmlns="http://www.w3.org/2000/svg"
-    className="maps--icon"
+    className="icon maps--icon"
     onClick={onClick}
   >
     <title>Kaart</title>
@@ -111,7 +118,7 @@ export const ListIcon = ({ onClick }) => (
     height="157"
     viewBox="0 0 130 157"
     xmlns="http://www.w3.org/2000/svg"
-    className="list--icon"
+    className="icon list--icon"
     onClick={onClick}
   >
     <title>Lijst</title>
@@ -127,6 +134,7 @@ export const WarningIcon = ({ onClick }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 486.463 486.463"
+    className="icon warning--icon"
     onClick={onClick}
   >
     <path d="M243.225 333.382c-13.6 0-25 11.4-25 25s11.4 25 25 25c13.1 0 25-11.4 24.4-24.4.6-14.3-10.7-25.6-24.4-25.6z" />

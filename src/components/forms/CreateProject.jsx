@@ -3,60 +3,87 @@ import { WarningIcon } from '../../util/icons';
 import { fetchAPI } from '../../util/auth';
 import geocode from '../../util/geocode';
 import Show from '../util/Show';
+import Select from 'react-select/lib/Async';
+import 'react-select/dist/react-select.css';
 
-export const FormItem = ({
-  name,
+export const FormInput = ({
   input,
-  placeholder,
-  apiName,
+  value,
   type,
-  options,
-  onChange
-}) => (
+  apiName,
+  onChange,
+  placeholder
+}) => {
+  switch (input) {
+    case 'input':
+      return (
+        <input
+          onChange={onChange}
+          id={apiName}
+          name={apiName}
+          placeholder={placeholder}
+          type={type}
+          className="input"
+        />
+      );
+    case 'textarea':
+      return (
+        <textarea
+          onChange={onChange}
+          id={apiName}
+          rows={5}
+          name={apiName}
+          placeholder={placeholder}
+          type={type}
+          className="input"
+        />
+      );
+
+    case 'select':
+      return (
+        <Select
+          multi={false}
+          value={{ display_name: value }}
+          onChange={e => {
+            onChange({
+              target: {
+                name: apiName,
+                value: e ? e.display_name : ''
+              }
+            });
+          }}
+          onValueClick={e => {
+            onChange({
+              target: {
+                name: apiName,
+                value: e ? e.display_name : ''
+              }
+            });
+          }}
+          valueKey="display_name"
+          labelKey="display_name"
+          loadOptions={input => geocode(input).then(options => ({ options }))}
+          backspaceRemoves={false}
+          placeholder="Zoek..."
+          searchPromptText="Typ om te zoeken"
+          backspaceToRemoveMessage="Druk op backspace om {last label} te verwijderen"
+          clearAllText="Verwijder alle inhoud"
+          clearValueText="Verwijder inhoud"
+          noResultsText="Geen resultaten"
+          loadingPlaceholder="Locaties ophalen..."
+        />
+      );
+    default:
+      return null;
+  }
+};
+
+export const FormControl = props => (
   <div className="form--item">
-    <label className="label" htmlFor={apiName}>
-      {name}
+    <label className="label" htmlFor={props.apiName}>
+      {props.name}
     </label>
-    {
-      {
-        input: (
-          <input
-            onChange={onChange}
-            id={apiName}
-            name={apiName}
-            placeholder={placeholder}
-            type={type}
-            className="input"
-          />
-        ),
-        textarea: (
-          <textarea
-            onChange={onChange}
-            id={apiName}
-            rows={5}
-            name={apiName}
-            placeholder={placeholder}
-            type={type}
-            className="input"
-          />
-        ),
-        select: (
-          <select
-            onChange={onChange}
-            id={apiName}
-            rows={5}
-            name={apiName}
-            placeholder={placeholder}
-            type={type}
-            className="input"
-          >
-            {(options || []).map(option => (
-              <option value={option.apiName}>{option.name}</option>
-            ))}
-          </select>
-        )
-      }[input]
-    }
+    <FormInput {...props} />
   </div>
 );
 
@@ -77,7 +104,7 @@ class CreateProject extends Component {
         name: 'Locatie',
         apiName: 'location',
         placeholder: 'Duindorp, Den Haag',
-        input: 'input',
+        input: 'select',
         type: 'text'
       },
       {
@@ -104,13 +131,6 @@ class CreateProject extends Component {
     ]
   };
 
-  async componentWillUpdate(nextProps, nextState) {
-    const { location } = nextState.data;
-    if (location !== this.state.data.location) {
-      console.log(await geocode(location));
-    }
-  }
-
   submit = () => {
     this.setState({ loading: true });
     return fetchAPI('/projects', 'POST', this.state.data)
@@ -130,7 +150,9 @@ class CreateProject extends Component {
   };
 
   onInputChange = event => {
-    event.persist();
+    if (event.persist) {
+      event.persist();
+    }
 
     this.setState(prevState => ({
       ...prevState,
@@ -151,7 +173,7 @@ class CreateProject extends Component {
   }
 
   render() {
-    const { formInfo, error, loading } = this.state;
+    const { formInfo, error, loading, data } = this.state;
 
     return (
       <div className="modal--content form">
@@ -162,10 +184,11 @@ class CreateProject extends Component {
           </div>
         ) : (
           formInfo.map(item => (
-            <FormItem
+            <FormControl
               key={item.apiName}
               {...item}
               onChange={this.onInputChange}
+              value={data[item.apiName] || ''}
             />
           ))
         )}

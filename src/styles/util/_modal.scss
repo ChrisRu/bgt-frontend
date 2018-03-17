@@ -23,6 +23,39 @@ $sidebar-size: 4em;
     font-size: 1.4em;
     letter-spacing: 0.5px;
     margin: 2rem 2rem 1rem;
+
+    .icon {
+      display: inline-block;
+      vertical-align: middle;
+      position: relative;
+      margin-right: 1.8rem;
+
+      span {
+        background-color: $bgt-highlight;
+      }
+
+      &::after {
+        $size: 0.4em;
+
+        content: '';
+        left: -$size;
+        top: -$size;
+        bottom: -$size;
+        right: -$size;
+        position: absolute;
+        text-align: center;
+        border-radius: 50%;
+        background-color: lighten($bgt-highlight, 37.5%);
+        fill: white;
+        z-index: -1;
+        box-shadow: 0 3px 8px 3px rgba(0, 0, 0, 0.05);
+      }
+    }
+
+    span {
+      display: inline-block;
+      vertical-align: middle;
+    }
   }
 
   &--overlay {
@@ -115,17 +148,19 @@ $sidebar-size: 4em;
   outline: none;
   border: 0;
   font-family: $font-text;
+  letter-spacing: 0.5px;
   padding: 0.8em 1em;
   border-radius: 5px;
   display: block;
-  transition: background-color 0.2s ease;
-  will-change: background-color;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  will-change: background-color, box-shadow;
   cursor: pointer;
 
   &--confirm {
     background-color: $bgt-highlight;
     color: $bg-white;
     outline: none;
+    box-shadow: 0 3px 6px 3px rgba($bgt-highlight, 0.1);
 
     &:hover {
       background-color: darken($bgt-highlight, 10%);
@@ -136,7 +171,7 @@ $sidebar-size: 4em;
     }
 
     &:focus {
-      box-shadow: 0 3px 3px 1px rgba($bgt-highlight, 0.6);
+      box-shadow: 0 3px 6px 3px rgba($bgt-highlight, 0.2);
     }
   }
 

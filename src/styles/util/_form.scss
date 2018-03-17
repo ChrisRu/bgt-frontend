@@ -33,3 +33,15 @@
     }
   }
 }
+
+.Select {
+  flex: 1;
+}
+
+.Select-control {
+  box-shadow: none;
+
+  .Select-value {
+    outline: 1px solid $bgt-highlight;
+  }
+}
