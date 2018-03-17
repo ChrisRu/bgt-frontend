@@ -13,7 +13,11 @@ $sidebar-size: 4em;
   display: flex;
   flex-flow: column nowrap;
   overflow: hidden;
-  transform: translate(50%, 50%);
+  opacity: 0;
+  transform-origin: 100vw 100vh;
+  transform: scale(0) translate(0, 0);
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 
   &--title {
     font-size: 1.4em;
@@ -28,9 +32,10 @@ $sidebar-size: 4em;
     bottom: 0;
     right: 0;
     background: #000;
-    opacity: 0.3;
+    opacity: 0.6;
     z-index: 0;
     transition: opacity 0.3s ease;
+    will-change: opacity;
 
     &:not(.visible) {
       pointer-events: none;
@@ -66,6 +71,10 @@ $sidebar-size: 4em;
       margin-right: 1em;
     }
   }
+}
+
+.modal-animation {
+  will-change: transform, opacity;
 }
 
 .modal-animation-appear {
@@ -110,6 +119,7 @@ $sidebar-size: 4em;
   border-radius: 5px;
   display: block;
   transition: background-color 0.2s ease;
+  will-change: background-color;
   cursor: pointer;
 
   &--confirm {

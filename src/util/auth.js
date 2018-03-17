@@ -8,12 +8,9 @@ export const fetchAPI = (endpoint, method = 'GET', body = null) =>
     body: body ? JSON.stringify(body) : undefined
   }).then(res => res.json());
 
-export const setJWT = token => {
-  const jwt = JSON.stringify({
-    token
-  });
-
-  window.localStorage.setItem('jwt', jwt);
+export const setJWT = res => {
+  window.localStorage.setItem('jwt', JSON.stringify(res));
+  return res;
 };
 
 export const getJWT = () => {
@@ -44,8 +41,5 @@ export const authenticate = (username, password, remember = true) => {
     body: formData
   })
     .then(res => res.json())
-    .then(res => {
-      setJWT(res.token);
-      return res;
-    });
+    .then(setJWT);
 };

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { WarningIcon } from '../../util/icons';
 import { fetchAPI } from '../../util/auth';
+import geocode from '../../util/geocode';
 import Show from '../util/Show';
 
 export const FormItem = ({
@@ -102,6 +103,13 @@ class CreateProject extends Component {
       }
     ]
   };
+
+  async componentWillUpdate(nextProps, nextState) {
+    const { location } = nextState.data;
+    if (location !== this.state.data.location) {
+      console.log(await geocode(location));
+    }
+  }
 
   submit = () => {
     this.setState({ loading: true });

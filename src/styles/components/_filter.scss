@@ -18,6 +18,7 @@
     fill: #888;
     cursor: pointer;
     transition: fill 0.2s ease;
+    will-change: fill;
 
     &:hover {
       fill: #444;

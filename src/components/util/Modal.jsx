@@ -7,17 +7,12 @@ import Show from '../util/Show';
 const duration = 400;
 
 const defaultStyle = {
-  transition: `transform ${duration}ms ease, opacity ${duration}ms ease`,
-  opacity: 0,
-  pointerEvents: 'none',
-  transformOrigin: '100vw 100vh',
-  transform: 'scale(0) translate(0, 0)'
+  transition: `transform ${duration}ms ease, opacity ${duration}ms ease`
 };
 
 const transitionStyles = {
   entered: {
     opacity: 1,
-    pointerEvents: 'all',
     transform: 'scale(1) translate(-50%, -50%)'
   },
   exiting: {
@@ -32,7 +27,6 @@ const transitionStyles = {
       opacity   ${duration}ms cubic-bezier(0.750, 0.000, 0.755, 0.900)
     `,
     opacity: 0,
-    pointerEvents: 'none',
     transform: 'scale(0) translate(0, 0)'
   }
 };

@@ -17,6 +17,7 @@
     left: 0;
     border-radius: 1px;
     transition: background-color 0.2s ease;
+    will-change: background-color;
 
     &:first-child {
       width: $size;

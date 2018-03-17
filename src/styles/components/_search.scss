@@ -16,6 +16,7 @@
       fill: #888;
       pointer-events: all;
       transition: fill 0.2s ease;
+      will-change: fill;
 
       &:hover {
         fill: #444;
@@ -35,6 +36,7 @@
     border-radius: 5px;
     color: #222;
     transition: transform 0.2s ease, border-color 0.2s ease;
+    will-change: transform, border-color;
     transform-origin: center right;
 
     &:focus {
@@ -57,6 +59,7 @@
     fill: #ccc;
     cursor: pointer;
     transition: transform 0.2s ease, fill 0.2s ease;
+    will-change: transform, fill;
     pointer-events: none;
   }
 
@@ -75,6 +78,7 @@
       padding: 0.25em 0.5em;
       cursor: pointer;
       transition: background-color 0.2s ease, color 0.2s ease;
+      will-change: background-color, color;
 
       &:hover {
         background-color: darken(#fff, 10%);
