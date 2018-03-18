@@ -20,7 +20,7 @@ export const getJWT = () => {
     return false;
   }
 
-  return jwt.token;
+  return jwt;
 };
 
 export const isAuthenticated = () =>
