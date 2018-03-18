@@ -31,7 +31,6 @@
       fill: #ccc;
       transform: scale(1);
       transition: fill 0.2s ease, transform 0.1s ease;
-      will-change: fill, transform;
     }
   }
 }

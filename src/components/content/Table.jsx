@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactTable from 'react-table';
+import MapPopup from './MapPopup';
 
 class Table extends Component {
   state = {
@@ -33,16 +34,31 @@ class Table extends Component {
         accessor: 'status',
         minWidth: 120
       }
-    ]
+    ],
+    open: null
   };
 
   render() {
-    const { columns, tableSettings } = this.state;
+    const { columns, tableSettings, open } = this.state;
     const { projects } = this.props;
 
-    console.log(projects);
-
-    return <ReactTable columns={columns} data={projects} {...tableSettings} />;
+    return (
+      <React.Fragment>
+        <ReactTable
+          getTdProps={(state, rowInfo, column, instance) => ({
+            onClick: () => this.setState({ open: rowInfo.original })
+          })}
+          columns={columns}
+          data={projects}
+          {...tableSettings}
+        />
+        <MapPopup
+          visible={open}
+          onClose={() => this.setState({ open: null })}
+          {...open}
+        />
+      </React.Fragment>
+    );
   }
 }
 

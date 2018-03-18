@@ -69,7 +69,6 @@ $sidebar-size: 4em;
     opacity: 0.6;
     z-index: 0;
     transition: opacity 0.3s ease;
-    will-change: opacity;
 
     &:not(.visible) {
       pointer-events: none;
@@ -105,10 +104,10 @@ $sidebar-size: 4em;
       margin-right: 1em;
     }
   }
-}
 
-.modal-animation {
-  will-change: transform, opacity;
+  &--popup {
+    min-width: 20rem;
+  }
 }
 
 .modal-animation-appear {
@@ -154,7 +153,6 @@ $sidebar-size: 4em;
   border-radius: 5px;
   display: block;
   transition: background-color 0.2s ease, box-shadow 0.2s ease;
-  will-change: background-color, box-shadow;
   cursor: pointer;
 
   &--confirm {

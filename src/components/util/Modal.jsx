@@ -57,7 +57,10 @@ class Modal extends Component {
             <div
               style={{
                 ...defaultStyle,
-                ...transitionStyles[state]
+                ...this.props.defaultStyle,
+                ...(this.props.transitionStyles
+                  ? this.props.transitionStyles[state]
+                  : transitionStyles[state])
               }}
               className="modal"
             >

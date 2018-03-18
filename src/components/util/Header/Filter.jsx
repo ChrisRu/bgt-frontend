@@ -6,7 +6,6 @@ import { FilterIcon } from '../../../util/icons';
 const duration = 300;
 
 const defaultStyle = {
-  willChange: 'opacity, transform',
   transition: `opacity ${duration}ms ease, transform ${duration}ms ease`,
   opacity: 0,
   pointerEvents: 'none',

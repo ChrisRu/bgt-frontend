@@ -6,7 +6,6 @@ import Tooltip from 'react-leaflet/lib/Tooltip';
 import { icon } from 'leaflet/src/layer/marker/Icon';
 import 'leaflet/dist/leaflet.css';
 import MapPopup from './MapPopup';
-import Show from '../util/Show';
 
 const MarkerComponent = ({
   id,
@@ -20,7 +19,9 @@ const MarkerComponent = ({
   <Marker
     position={[Number(latitude), Number(longtitude)]}
     icon={icon({
-      iconUrl: process.env.PUBLIC_URL + '/marker-red.png',
+      iconUrl: `${process.env.PUBLIC_URL}/marker-${
+        ['red', 'yellow', 'green'][Math.floor(Math.random() * 3)]
+      }.png`,
       iconSize: [32, 32],
       iconAnchor: [14, 11],
       popupAnchor: [48, 48]
@@ -54,6 +55,10 @@ class MapComponent extends Component {
     const { openId } = this.state;
     const { projects } = this.props;
 
+    if (!openId || !projects) {
+      return [];
+    }
+
     return projects.find(project => project.id === openId);
   };
 
@@ -74,14 +79,10 @@ class MapComponent extends Component {
             />
           ))}
         </Map>
-        <Show
+        <MapPopup
           visible={openId}
-          render={() => (
-            <MapPopup
-              onClose={() => this.setState({ openId: null })}
-              {...this.getOpen()}
-            />
-          )}
+          onClose={() => this.setState({ openId: null })}
+          {...this.getOpen()}
         />
       </React.Fragment>
     );
