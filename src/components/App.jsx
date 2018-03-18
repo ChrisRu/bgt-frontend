@@ -30,7 +30,7 @@ class App extends Component {
     const authenticated = await isAuthenticated();
 
     this.setState({
-      authenticated: true
+      authenticated
     });
 
     if (authenticated) {
