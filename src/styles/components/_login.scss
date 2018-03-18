@@ -29,6 +29,11 @@
       display: none;
     }
   }
+
+  .loading {
+    flex: 1;
+    min-width: 15rem;
+  }
 }
 
 .modal--login-wrapper {

@@ -55,9 +55,11 @@ class Login extends Component {
           <div className="modal--logo">
             <img src={Logo} alt="BGT Logo" />
           </div>
-          <div className={`spinner ${!loading ? 'hidden' : ''}`}>
-            <div className="dot1" />
-            <div className="dot2" />
+          <div className={`loading ${!loading ? 'hidden' : ''}`}>
+            <div className="spinner">
+              <div className="dot1" />
+              <div className="dot2" />
+            </div>
           </div>
           <form
             className={`login ${loading ? 'hidden' : ''}`}
