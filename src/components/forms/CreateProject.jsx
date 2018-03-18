@@ -3,17 +3,13 @@ import { WarningIcon } from '../../util/icons';
 import { fetchAPI } from '../../util/auth';
 import geocode from '../../util/geocode';
 import Show from '../util/Show';
-import Select from 'react-select/lib/Async';
+import SelectAsync from 'react-select/lib/Async';
+import Select from 'react-select/lib/Select';
 import 'react-select/dist/react-select.css';
 
-export const FormInput = ({
-  input,
-  value,
-  type,
-  apiName,
-  onChange,
-  placeholder
-}) => {
+export const FormInput = props => {
+  const { input, type, apiName, onChange, placeholder } = props;
+
   switch (input) {
     case 'input':
       return (
@@ -39,40 +35,63 @@ export const FormInput = ({
         />
       );
 
-    case 'select':
-      return (
-        <Select
-          multi={false}
-          value={{ display_name: value }}
-          onChange={e => {
-            onChange({
-              target: {
-                name: apiName,
-                value: e ? e.display_name : ''
-              }
-            });
-          }}
-          onValueClick={e => {
-            onChange({
-              target: {
-                name: apiName,
-                value: e ? e.display_name : ''
-              }
-            });
-          }}
-          valueKey="display_name"
-          labelKey="display_name"
-          loadOptions={input => geocode(input).then(options => ({ options }))}
-          backspaceRemoves={false}
-          placeholder="Zoek..."
-          searchPromptText="Typ om te zoeken"
-          backspaceToRemoveMessage="Druk op backspace om {last label} te verwijderen"
-          clearAllText="Verwijder alle inhoud"
-          clearValueText="Verwijder inhoud"
-          noResultsText="Geen resultaten"
-          loadingPlaceholder="Locaties ophalen..."
-        />
-      );
+    case 'select': {
+      if (props.switch.loadOptions) {
+        const {
+          loadOptions,
+          labelKey,
+          valueKey,
+          value,
+          onValueClick
+        } = props.switch;
+
+        return (
+          <SelectAsync
+            multi={false}
+            backspaceRemoves={false}
+            placeholder="Zoek..."
+            searchPromptText="Typ om te zoeken"
+            backspaceToRemoveMessage="Druk op backspace om {last label} te verwijderen"
+            clearAllText="Verwijder alle inhoud"
+            clearValueText="Verwijder inhoud"
+            noResultsText="Geen resultaten"
+            loadingPlaceholder="Locaties ophalen..."
+            loadOptions={loadOptions}
+            labelKey={labelKey}
+            valueKey={valueKey}
+            value={value(props)}
+            onChange={props.switch.onChange(props)}
+            onValueClick={onValueClick(props)}
+          />
+        );
+      } else {
+        const {
+          options,
+          value,
+          valueKey,
+          labelKey,
+          onValueClick
+        } = props.switch;
+
+        return (
+          <Select
+            multi={false}
+            backspaceRemoves={false}
+            placeholder="Zoek..."
+            backspaceToRemoveMessage="Druk op backspace om {last label} te verwijderen"
+            clearAllText="Verwijder alle inhoud"
+            clearValueText="Verwijder inhoud"
+            noResultsText="Geen resultaten"
+            value={value(props)}
+            valueKey={valueKey}
+            labelKey={labelKey}
+            options={options.map(option => ({ value: option, label: option }))}
+            onChange={props.switch.onChange(props)}
+            onValueClick={onValueClick(props)}
+          />
+        );
+      }
+    }
     default:
       return null;
   }
@@ -105,14 +124,65 @@ class CreateProject extends Component {
         apiName: 'location',
         placeholder: 'Duindorp, Den Haag',
         input: 'select',
-        type: 'text'
+        type: 'text',
+        switch: {
+          value: ({ value }) => ({ display_name: value }),
+          onChange: ({ onChange, apiName }) => e => {
+            onChange({
+              target: {
+                name: apiName,
+                value: e ? e.display_name : ''
+              }
+            });
+          },
+          onValueClick: ({ onChange, apiName }) => e => {
+            onChange({
+              target: {
+                name: apiName,
+                value: e ? e.display_name : ''
+              }
+            });
+          },
+          valueKey: 'display_name',
+          labelKey: 'display_name',
+          loadOptions: input => geocode(input).then(options => ({ options }))
+        }
       },
       {
         name: 'Status',
         apiName: 'status',
-        placeholder: 'Actief',
-        input: 'input',
-        type: 'text'
+        placeholder: 'BAG',
+        input: 'select',
+        type: 'text',
+        switch: {
+          value: ({ value }) => ({ value }),
+          valueKey: 'value',
+          labelKey: 'value',
+          options: [
+            'Te Archiveren',
+            'Te Verwerken',
+            'Verwerkt',
+            'Gestart',
+            'Bij Meetburo',
+            'Meetmap ok'
+          ],
+          onChange: ({ onChange, apiName }) => e => {
+            onChange({
+              target: {
+                name: apiName,
+                value: e ? e.value : ''
+              }
+            });
+          },
+          onValueClick: ({ onChange, apiName }) => e => {
+            onChange({
+              target: {
+                name: apiName,
+                value: e ? e.value : ''
+              }
+            });
+          }
+        }
       },
       {
         name: 'Beschrijving',
@@ -125,8 +195,37 @@ class CreateProject extends Component {
         name: 'Categorie',
         apiName: 'category',
         placeholder: 'nieuwbouw',
-        input: 'input',
-        type: 'text'
+        input: 'select',
+        type: 'text',
+        switch: {
+          value: ({ value }) => ({ value }),
+          valueKey: 'value',
+          labelKey: 'value',
+          options: [
+            'BAG',
+            'Nieuwbouw',
+            'Aanbouw',
+            'Wijkmap',
+            'Profiel',
+            'Openbare ruimte'
+          ],
+          onChange: ({ onChange, apiName }) => e => {
+            onChange({
+              target: {
+                name: apiName,
+                value: e ? e.value : ''
+              }
+            });
+          },
+          onValueClick: ({ onChange, apiName }) => e => {
+            onChange({
+              target: {
+                name: apiName,
+                value: e ? e.value : ''
+              }
+            });
+          }
+        }
       }
     ]
   };
