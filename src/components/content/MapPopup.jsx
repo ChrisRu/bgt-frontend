@@ -29,6 +29,18 @@ const MapPopup = ({ bgtOnNumber, visible, status, description, onClose }) => (
     visible={visible}
     onClose={onClose}
     title={`Project ${bgtOnNumber}`}
+    actions={[
+      {
+        type: 'cancel',
+        name: 'Sluit',
+        onClick: onClose
+      },
+      {
+        type: 'confirm',
+        name: 'Aanpassen',
+        onClick: 'submit'
+      }
+    ]}
     defaultStyle={{ transformOrigin: '0 0' }}
     transitionStyles={transitionStyles}
   >

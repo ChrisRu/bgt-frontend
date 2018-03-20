@@ -48,7 +48,7 @@ class Modal extends Component {
   };
 
   render() {
-    const { children, title, onClose, visible, actions } = this.props;
+    const { children, render, title, onClose, visible, actions } = this.props;
 
     return (
       <div className="modal--wrapper">
@@ -69,8 +69,8 @@ class Modal extends Component {
                 <CrossIcon onClick={onClose} />
               </div>
               <div className="modal--body">
-                {typeof children === 'function'
-                  ? children(child => {
+                {!children
+                  ? render(child => {
                       this.child = child;
                     })
                   : children}
@@ -104,7 +104,8 @@ class Modal extends Component {
 
 Modal.propTypes = {
   onClose: PropTypes.func.isRequired,
-  children: PropTypes.func.isRequired
+  children: PropTypes.node,
+  render: PropTypes.func
 };
 
 export default Modal;

@@ -28,7 +28,10 @@ class App extends Component {
   };
 
   async componentDidMount() {
-    const authenticated = await isAuthenticated();
+    const authEnv = process.env.REACT_APP_AUTHENTICATE;
+    const ignoreAuthentication = !authEnv || authEnv.ToLowerCase() === 'false';
+
+    const authenticated = ignoreAuthentication || (await isAuthenticated());
 
     this.setState({
       authenticated
@@ -127,9 +130,10 @@ class App extends Component {
                 onClick: 'submit'
               }
             ]}
-          >
-            {setRef => <CreateProject ref={setRef} onClose={this.closeModal} />}
-          </Modal>
+            render={setRef => (
+              <CreateProject ref={setRef} onClose={this.closeModal} />
+            )}
+          />
         </div>
       </div>
     );
