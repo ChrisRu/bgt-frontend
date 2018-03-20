@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { WarningIcon } from '../../util/icons';
-import { fetchAPI } from '../../util/auth';
+import HTTP from '../../util/http';
 import geocode from '../../util/geocode';
 import Show from '../util/Show';
 import SelectAsync from 'react-select/lib/Async';
@@ -232,7 +232,8 @@ class CreateProject extends Component {
 
   submit = () => {
     this.setState({ loading: true });
-    return fetchAPI('/projects', 'POST', this.state.data)
+    return HTTP.projects
+      .post('/projects', this.state.data)
       .then(() => {
         this.setState({
           data: {},

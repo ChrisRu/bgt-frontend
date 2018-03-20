@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Logo from '../../assets/logos/bgt.png';
-import { authenticate, setJWT } from '../../util/auth';
+import { setJWT } from '../../util/auth';
+import HTTP from '../../util/http';
 import { WarningIcon } from '../../util/icons';
 
 class Login extends Component {
@@ -18,7 +19,8 @@ class Login extends Component {
 
     this.setState({ loading: true });
 
-    return authenticate(username, password)
+    return HTTP.user
+      .authenticate(username, password)
       .then(({ token }) => {
         if (!token) {
           throw new Error('No token');

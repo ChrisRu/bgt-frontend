@@ -14,7 +14,8 @@ import Modal from './util/Modal';
 import CreateButton from './util/CreateButton';
 import { PlusIcon } from '../util/icons';
 
-import { isAuthenticated, getJWT, fetchAPI } from '../util/auth';
+import { getJWT } from '../util/auth';
+import HTTP from '../util/http';
 
 export const RootContext = React.createContext();
 
@@ -31,7 +32,8 @@ class App extends Component {
     const authEnv = process.env.REACT_APP_AUTHENTICATE;
     const ignoreAuthentication = !authEnv || authEnv.ToLowerCase() === 'false';
 
-    const authenticated = ignoreAuthentication || (await isAuthenticated());
+    const authenticated =
+      ignoreAuthentication || (await HTTP.user.isAuthenticated());
 
     this.setState({
       authenticated
@@ -43,7 +45,8 @@ class App extends Component {
   }
 
   getProjects() {
-    return fetchAPI('/projects').then(projects => this.setState({ projects }));
+    console.log(HTTP.projects.getAll());
+    return HTTP.projects.getAll().then(projects => this.setState({ projects }));
   }
 
   filterProjects(projects) {
