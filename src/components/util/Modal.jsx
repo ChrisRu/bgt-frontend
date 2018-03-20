@@ -52,7 +52,19 @@ class Modal extends Component {
 
     return (
       <div className="modal--wrapper">
-        <Transition in={visible} timeout={0}>
+        <Transition
+          in={visible}
+          timeout={0}
+          onEntered={() => {
+            if (this.modal.offsetHeight % 2 !== 0) {
+              this.modal.style.height = this.modal.offsetHeight + 1 + 'px';
+            }
+
+            if (this.modal.offsetWidth % 2 !== 0) {
+              this.modal.style.width = this.modal.offsetWidth + 1 + 'px';
+            }
+          }}
+        >
           {state => (
             <div
               style={{
@@ -63,6 +75,9 @@ class Modal extends Component {
                   : transitionStyles[state])
               }}
               className="modal"
+              ref={modal => {
+                this.modal = modal;
+              }}
             >
               <h2 className="modal--title">{title}</h2>
               <div className="modal--close">

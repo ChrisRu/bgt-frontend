@@ -21,12 +21,12 @@ class Login extends Component {
 
     return HTTP.user
       .authenticate(username, password)
-      .then(({ token }) => {
-        if (!token) {
+      .then(({ access_token }) => {
+        if (!access_token) {
           throw new Error('No token');
         }
 
-        setJWT(token);
+        setJWT(access_token);
         this.props.onLogin(true);
       })
       .catch(error => {

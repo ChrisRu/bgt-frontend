@@ -56,9 +56,7 @@ const HTTP = {
 
   user: {
     authenticate(username, password, remember = true) {
-      return post('/authenticate', { username, password })
-        .then(res => res.json())
-        .then(setJWT);
+      return post('/authenticate', { username, password }).then(setJWT);
     },
 
     authenticated() {

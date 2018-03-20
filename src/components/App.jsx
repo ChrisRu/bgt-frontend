@@ -30,10 +30,10 @@ class App extends Component {
 
   async componentDidMount() {
     const authEnv = process.env.REACT_APP_AUTHENTICATE;
-    const ignoreAuthentication = !authEnv || authEnv.ToLowerCase() === 'false';
+    const ignoreAuthentication = !authEnv || authEnv.toLowerCase() === 'false';
 
     const authenticated =
-      ignoreAuthentication || (await HTTP.user.isAuthenticated());
+      ignoreAuthentication || (await HTTP.user.authenticated());
 
     this.setState({
       authenticated
@@ -45,7 +45,6 @@ class App extends Component {
   }
 
   getProjects() {
-    console.log(HTTP.projects.getAll());
     return HTTP.projects.getAll().then(projects => this.setState({ projects }));
   }
 
