@@ -80,7 +80,7 @@ class MapComponent extends Component {
           ))}
         </Map>
         <MapPopup
-          visible={openId}
+          visible={!!openId}
           onClose={() => this.setState({ openId: null })}
           {...this.getOpen()}
         />

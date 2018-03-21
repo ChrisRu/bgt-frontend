@@ -18,6 +18,12 @@ $sidebar-size: 4em;
   will-change: transform, opacity;
   backface-visibility: hidden;
 
+  &--button {
+    &-left + .button {
+      margin-left: auto;
+    }
+  }
+
   &--title {
     font-size: 1.4em;
     letter-spacing: 0.5px;
@@ -98,6 +104,8 @@ $sidebar-size: 4em;
     padding: 1rem;
     background: #e9e9e9;
     margin-top: 1rem;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
 
     .button:first-child {
       margin-right: 1em;
@@ -154,7 +162,8 @@ $sidebar-size: 4em;
   transition: background-color 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
 
-  &--confirm {
+  &--confirm,
+  &--edit {
     background-color: $bgt-highlight;
     color: $bg-white;
     outline: none;

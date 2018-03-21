@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { WarningIcon } from '../../util/icons';
 import HTTP from '../../util/http';
-import geocode from '../../util/geocode';
 import Show from '../util/Show';
+import throttle from 'lodash/throttle';
 import SelectAsync from 'react-select/lib/Async';
 import Select from 'react-select/lib/Select';
 import 'react-select/dist/react-select.css';
@@ -56,7 +56,7 @@ export const FormInput = props => {
             clearValueText="Verwijder inhoud"
             noResultsText="Geen resultaten"
             loadingPlaceholder="Locaties ophalen..."
-            loadOptions={loadOptions}
+            loadOptions={throttle(loadOptions, 1000)}
             labelKey={labelKey}
             valueKey={valueKey}
             value={value(props)}
@@ -145,7 +145,8 @@ class CreateProject extends Component {
           },
           valueKey: 'display_name',
           labelKey: 'display_name',
-          loadOptions: input => geocode(input).then(options => ({ options }))
+          loadOptions: input =>
+            HTTP.geo.code(input).then(options => ({ options }))
         }
       },
       {

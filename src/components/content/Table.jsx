@@ -25,7 +25,7 @@ class Table extends Component {
         minWidth: 80
       },
       {
-        Header: 'Omschrijving',
+        Header: 'Beschrijving',
         accessor: 'description',
         minWidth: 120
       },
@@ -46,7 +46,8 @@ class Table extends Component {
       <React.Fragment>
         <ReactTable
           getTdProps={(state, rowInfo, column, instance) => ({
-            onClick: () => this.setState({ open: rowInfo.original })
+            onClick: () =>
+              this.setState({ open: rowInfo ? rowInfo.original : null })
           })}
           columns={columns}
           data={projects}

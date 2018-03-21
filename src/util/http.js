@@ -1,4 +1,5 @@
 import { getJWT, setJWT } from './auth';
+import queryString from 'query-string';
 
 const createURL = partial => {
   let url = process.env.REACT_APP_API_URL;
@@ -51,6 +52,21 @@ const HTTP = {
 
     delete(id) {
       return remove(`/projects/${id}`);
+    }
+  },
+
+  geo: {
+    code(location) {
+      location = location.split(' ').join('+');
+      return get('/geocoding/search?' + queryString.stringify({ location }));
+    },
+
+    search(location) {
+      return this.code(location);
+    },
+
+    reverse(lat, lon) {
+      return get('/geocoding/reverse?' + queryString.stringify({ lat, lon }));
     }
   },
 

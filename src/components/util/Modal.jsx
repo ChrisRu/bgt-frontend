@@ -31,9 +31,14 @@ const transitionStyles = {
   }
 };
 
-const ActionButton = ({ type, onClick, name, callChild }) => (
+const ActionButton = ({ type, onClick, name, callChild, align }) => (
   <button
-    className={`button button--${type} modal--button`}
+    className={`
+      button
+      button--${type}
+      modal--button
+      ${align === 'left' ? 'modal--button-left' : ''}
+    `}
     onClick={typeof onClick === 'string' ? callChild(onClick) : onClick}
   >
     {name}

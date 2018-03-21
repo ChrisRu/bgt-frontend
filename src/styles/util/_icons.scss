@@ -1,6 +1,7 @@
 .cross--icon {
   $size: 1.5em;
   $height: $size * 0.1;
+
   width: $size;
   height: $size;
   position: relative;
@@ -13,11 +14,8 @@
   span {
     position: absolute;
     background-color: #888;
-    top: 0;
-    left: 0;
-    border-radius: 1px;
+    border-radius: $height / 2;
     transition: background-color 0.2s ease;
-    will-change: background-color;
 
     &:first-child {
       width: $size;
@@ -36,6 +34,7 @@
 .plus--icon {
   $size: 0.8em;
   $height: $size * 0.2;
+
   width: $size;
   height: $size;
   position: relative;
@@ -45,9 +44,7 @@
   span {
     position: absolute;
     background-color: #888;
-    top: 0;
-    left: 0;
-    border-radius: 2px;
+    border-radius: $height / 2;
 
     &:first-child {
       width: $size;
