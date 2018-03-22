@@ -48,7 +48,7 @@ const ActionButton = ({ type, onClick, name, callChild, align }) => (
 class Modal extends Component {
   callChild = methodName => {
     if (this.child) {
-      return this.child[methodName];
+      return this.child[methodName].bind(this.child);
     }
   };
 

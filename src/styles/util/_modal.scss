@@ -19,8 +19,20 @@ $sidebar-size: 4em;
   backface-visibility: hidden;
 
   &--button {
-    &-left + .button {
-      margin-left: auto;
+    .icon {
+      fill: $bg-white;
+      height: 1.2rem;
+      width: 1.2rem;
+      margin-right: 1rem;
+      vertical-align: middle;
+    }
+
+    span {
+      vertical-align: middle;
+    }
+
+    &-left:last-child {
+      margin-right: auto !important;
     }
   }
 

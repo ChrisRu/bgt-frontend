@@ -1,5 +1,8 @@
 export const setJWT = res => {
-  window.localStorage.setItem('jwt', JSON.stringify(res));
+  if (res) {
+    window.localStorage.setItem('jwt', JSON.stringify(res));
+  }
+
   return res;
 };
 

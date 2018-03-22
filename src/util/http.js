@@ -11,7 +11,7 @@ const createURL = partial => {
     partial = partial.substr(1);
   }
 
-  return `${url}/api/${partial}`;
+  return `${url}/${partial}`;
 };
 
 const fetchAPI = (endpoint, method = 'GET', body = null) =>
@@ -22,7 +22,23 @@ const fetchAPI = (endpoint, method = 'GET', body = null) =>
       'Content-Type': 'application/json'
     },
     body: body ? JSON.stringify(body) : undefined
-  }).then(res => (res ? res.json() : res.text()));
+  })
+    .then(res => {
+      if (res.status !== 200) {
+        throw new Error(res.statusText);
+      }
+
+      if (res.error) {
+        throw new Error(res.error.message);
+      }
+
+      return res;
+    })
+    .then(res => res.json())
+    .then(res => res.data)
+    .catch(error => {
+      console.error(error);
+    });
 
 const get = endpoint => fetchAPI(endpoint);
 
@@ -57,6 +73,10 @@ const HTTP = {
 
   geo: {
     code(location) {
+      if (!location) {
+        return Promise.resolve([]);
+      }
+
       location = location.split(' ').join('+');
       return get('/geocoding/search?' + queryString.stringify({ location }));
     },
@@ -72,12 +92,17 @@ const HTTP = {
 
   user: {
     authenticate(username, password, remember = true) {
-      return post('/authenticate', { username, password }).then(setJWT);
+      if (!username || !password) {
+      }
+
+      return post('/authenticate', { username, password }).then(
+        token => (remember ? setJWT(token) : token)
+      );
     },
 
     authenticated() {
       return get('/authenticated')
-        .then(res => res.authorized)
+        .then(res => res.authenticated)
         .catch(() => false);
     }
   }

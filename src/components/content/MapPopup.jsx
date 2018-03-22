@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Modal from '../util/Modal';
 import HTTP from '../../util/http';
+import { EditIcon, TrashIcon } from '../../util/icons';
+import CreateProject from '../forms/CreateProject';
 
 const duration = 400;
 
@@ -33,7 +35,12 @@ class PopupContent extends Component {
   };
 
   edit() {
-    this.setState({ editing: true });
+    this.setState(({ editing }) => ({ editing: !editing }));
+    // this.props.updateButton(
+    //   <React.Fragment>
+    //     <SaveIcon />
+    //   </React.Fragment>
+    // );
   }
 
   async componentWillReceiveProps(nextProps) {
@@ -91,22 +98,29 @@ class PopupContent extends Component {
   render() {
     const {
       info: { status, description, category },
-      locationName
+      locationName,
+      editing
     } = this.state;
 
-    return (
-      <div className="modal--popup">
-        <p>Categorie: {category}</p>
-        <p>Status: {status}</p>
-        <p>Beschrijving: {description}</p>
-        <p>Locatie: {this.parseLocation(locationName)}</p>
-      </div>
-    );
+    if (editing) {
+      return <CreateProject />;
+    } else {
+      return (
+        <div className="modal--popup">
+          <p>Categorie: {category}</p>
+          <p>Status: {status}</p>
+          <p>Beschrijving: {description}</p>
+          <p>Locatie: {this.parseLocation(locationName)}</p>
+        </div>
+      );
+    }
   }
 }
 
 const MapPopup = props => {
-  const { bgtOnNumber, visible, onClose } = props;
+  const { bgtOnNumber, onClose } = props;
+
+  const visible = !!props.visible;
 
   return (
     <Modal
@@ -116,19 +130,21 @@ const MapPopup = props => {
       actions={[
         {
           type: 'edit',
-          name: 'Aanpassen',
+          name: (
+            <React.Fragment>
+              <EditIcon />
+              <span>Aanpassen</span>
+            </React.Fragment>
+          ),
           onClick: 'edit',
           align: 'left'
-        },
-        {
-          type: 'cancel',
-          name: 'Sluit',
-          onClick: onClose
         }
       ]}
       defaultStyle={{ transformOrigin: '0 0' }}
       transitionStyles={transitionStyles}
-      render={setRef => <PopupContent {...props} ref={setRef} />}
+      render={setRef => (
+        <PopupContent {...props} visible={visible} ref={setRef} />
+      )}
     />
   );
 };
