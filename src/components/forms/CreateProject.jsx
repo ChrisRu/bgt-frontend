@@ -8,7 +8,9 @@ import Select from 'react-select/lib/Select';
 import 'react-select/dist/react-select.css';
 
 export const FormInput = props => {
-  const { input, type, apiName, onChange, placeholder } = props;
+  const { input, type, apiName, onChange, placeholder, value } = props;
+
+  console.log(props);
 
   switch (input) {
     case 'input':
@@ -56,7 +58,7 @@ export const FormInput = props => {
             clearValueText="Verwijder inhoud"
             noResultsText="Geen resultaten"
             loadingPlaceholder="Locaties ophalen..."
-            loadOptions={throttle(loadOptions, 1000)}
+            loadOptions={throttle(loadOptions, 800)}
             labelKey={labelKey}
             valueKey={valueKey}
             value={value(props)}
@@ -111,13 +113,15 @@ class CreateProject extends Component {
     loading: false,
     error: null,
     data: {},
+    partial: false,
     formInfo: [
       {
         name: 'BGT Nummer',
-        apiName: 'BGTonNumber',
+        apiName: 'bgtOnNumber',
         placeholder: '123456',
         input: 'input',
-        type: 'text'
+        type: 'text',
+        value: ({ value }) => ({ value })
       },
       {
         name: 'Locatie',
@@ -190,7 +194,8 @@ class CreateProject extends Component {
         apiName: 'description',
         placeholder: 'Meet project in Den Haag',
         input: 'textarea',
-        type: 'text'
+        type: 'text',
+        value: ({ value }) => ({ value })
       },
       {
         name: 'Categorie',
@@ -231,23 +236,49 @@ class CreateProject extends Component {
     ]
   };
 
+  componentWillMount() {
+    this.setState({
+      data: this.props.data || {},
+      partial: !!this.props.data
+    });
+  }
+
   submit = () => {
     this.setState({ loading: true });
-    return HTTP.projects
-      .post('/projects', this.state.data)
-      .then(() => {
-        this.setState({
-          data: {},
-          loading: false
+
+    if (this.state.partial) {
+      return HTTP.projects
+        .edit(this.state.data)
+        .then(() => {
+          this.setState({
+            data: {},
+            loading: false
+          });
+          this.props.onClose(true);
+        })
+        .catch(error => {
+          this.setState({
+            error: error,
+            loading: false
+          });
         });
-        this.props.onClose(true);
-      })
-      .catch(error => {
-        this.setState({
-          error: error,
-          loading: false
+    } else {
+      return HTTP.projects
+        .create(this.state.data)
+        .then(() => {
+          this.setState({
+            data: {},
+            loading: false
+          });
+          this.props.onClose(true);
+        })
+        .catch(error => {
+          this.setState({
+            error: error,
+            loading: false
+          });
         });
-      });
+    }
   };
 
   onInputChange = event => {

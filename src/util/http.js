@@ -44,7 +44,9 @@ const get = endpoint => fetchAPI(endpoint);
 
 const post = (endpoint, body) => fetchAPI(endpoint, 'POST', body);
 
-const put = (endpoint, body) => fetchAPI(endpoint, 'PUT', body);
+// const put = (endpoint, body) => fetchAPI(endpoint, 'PUT', body);
+
+const patch = (endpoint, body) => fetchAPI(endpoint, 'PATCH', body);
 
 const remove = endpoint => fetchAPI(endpoint, 'DELETE');
 
@@ -63,7 +65,7 @@ const HTTP = {
     },
 
     edit(id, body) {
-      return put(`/projects/${id}`, body);
+      return patch(`/projects/${id}`, body);
     },
 
     delete(id) {

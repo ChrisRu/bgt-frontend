@@ -62,11 +62,11 @@ class Modal extends Component {
           timeout={0}
           onEntered={() => {
             if (this.modal.offsetHeight % 2 !== 0) {
-              this.modal.style.height = this.modal.offsetHeight + 1 + 'px';
+              this.modal.style.minHeight = this.modal.offsetHeight + 1 + 'px';
             }
 
             if (this.modal.offsetWidth % 2 !== 0) {
-              this.modal.style.width = this.modal.offsetWidth + 1 + 'px';
+              this.modal.style.minWidth = this.modal.offsetWidth + 1 + 'px';
             }
           }}
         >

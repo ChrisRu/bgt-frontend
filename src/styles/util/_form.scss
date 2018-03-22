@@ -1,6 +1,7 @@
 .form {
   display: flex;
   flex-flow: column nowrap;
+  padding-bottom: 1rem;
 
   &--item {
     display: flex;

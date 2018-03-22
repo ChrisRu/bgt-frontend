@@ -7,10 +7,11 @@ import Dashboard from './content/Dashboard';
 
 import CreateProject from './forms/CreateProject';
 
-import Login from './util/Login';
+import Login from './modals/Login';
 import Header from './util/Header';
 import Sidebar from './util/Sidebar';
 import Modal from './util/Modal';
+import MapPopup from './modals/MapPopup.jsx';
 import CreateButton from './util/CreateButton';
 import { PlusIcon } from '../util/icons';
 
@@ -25,7 +26,8 @@ class App extends Component {
     filter: null,
     authenticated: getJWT(),
     searchValue: '',
-    projects: []
+    projects: [],
+    openId: null
   };
 
   async componentDidMount() {
@@ -35,14 +37,12 @@ class App extends Component {
     const authenticated =
       ignoreAuthentication || (await HTTP.user.authenticated());
 
-    this.setState({
-      authenticated
-    });
-
-    if (authenticated) {
-      return this.getProjects();
-    }
+    this.login(authenticated);
   }
+
+  openPopup = id => {
+    this.setState({ openId: id });
+  };
 
   getProjects() {
     return HTTP.projects.getAll().then(projects => this.setState({ projects }));
@@ -68,85 +68,27 @@ class App extends Component {
 
   login = async authenticated => {
     this.setState({ authenticated });
-    return this.getProjects();
+
+    if (authenticated) {
+      this.props.history.push('/');
+      return this.getProjects();
+    }
   };
 
-  getApp() {
-    const { create } = this.state;
-    const { location: { pathname } } = this.props;
-
-    const projects = this.filterProjects(this.state.projects);
-
-    return (
-      <div className="App">
-        <Header
-          showSearch={!pathname.startsWith('/dashboard')}
-          onSearch={searchValue => this.setState({ searchValue })}
-          onFilter={filter => this.setState({ filter })}
-        />
-
-        <div className="App--content">
-          <Sidebar />
-
-          <Switch>
-            <Route path="/dashboard" render={() => <Dashboard />} />
-            <Route
-              path="/kaart"
-              render={() => (
-                <ContentMap
-                  projects={projects}
-                  googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
-                  loadingElement={<div />}
-                  containerElement={<div />}
-                  mapElement={<div />}
-                />
-              )}
-            />
-            <Route
-              path="/lijst"
-              render={() => <ContentList projects={projects} />}
-            />
-            <Redirect exact from="/" to="/kaart" />
-          </Switch>
-
-          <CreateButton onClick={() => this.setState({ create: true })} />
-
-          <Modal
-            visible={create}
-            onClose={this.closeModal}
-            title={
-              <React.Fragment>
-                <PlusIcon />
-                <span>Maak een nieuw project</span>
-              </React.Fragment>
-            }
-            actions={[
-              {
-                type: 'cancel',
-                name: 'Annuleer',
-                onClick: this.closeModal
-              },
-              {
-                type: 'confirm',
-                name: 'Creëer',
-                onClick: 'submit'
-              }
-            ]}
-            render={setRef => (
-              <CreateProject ref={setRef} onClose={this.closeModal} />
-            )}
-          />
-        </div>
-      </div>
+  getOpen = () => {
+    return this.state.projects.find(
+      project => project.id === this.state.openId
     );
-  }
-
-  getLogin() {
-    return <Login onLogin={this.login} />;
-  }
+  };
 
   render() {
-    const { authenticated } = this.state;
+    const { create, openId, authenticated } = this.state;
+    const { location: { pathname }, history } = this.props;
+    const projects = this.filterProjects(this.state.projects);
+
+    if (!authenticated && !history.location.pathname.includes('/login')) {
+      history.push('/login');
+    }
 
     return (
       <RootContext.Provider
@@ -154,7 +96,81 @@ class App extends Component {
           authenticated
         }}
       >
-        {authenticated ? this.getApp() : this.getLogin()}
+        <div className="App">
+          <Header
+            showSearch={!pathname.startsWith('/dashboard')}
+            onSearch={searchValue => this.setState({ searchValue })}
+            onFilter={filter => this.setState({ filter })}
+          />
+
+          <div className="App--content">
+            <Sidebar />
+
+            <Switch>
+              <Route
+                path="/login"
+                render={() => <Login onLogin={this.login} />}
+              />
+              <Route path="/dashboard" render={() => <Dashboard />} />
+              <Route
+                path="/kaart"
+                render={() => (
+                  <ContentMap
+                    onOpenPopup={this.openPopup}
+                    projects={projects}
+                    googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
+                    loadingElement={<div />}
+                    containerElement={<div />}
+                    mapElement={<div />}
+                  />
+                )}
+              />
+              <Route
+                path="/lijst"
+                render={() => (
+                  <ContentList
+                    onOpenPopup={this.openPopup}
+                    projects={projects}
+                  />
+                )}
+              />
+              <Redirect exact from="/" to="/kaart" />
+            </Switch>
+
+            <CreateButton onClick={() => this.setState({ create: true })} />
+
+            <Modal
+              visible={create}
+              onClose={this.closeModal}
+              title={
+                <React.Fragment>
+                  <PlusIcon />
+                  <span>Maak een nieuw project</span>
+                </React.Fragment>
+              }
+              actions={[
+                {
+                  type: 'cancel',
+                  name: 'Annuleer',
+                  onClick: this.closeModal
+                },
+                {
+                  type: 'confirm',
+                  name: 'Creëer',
+                  onClick: 'submit'
+                }
+              ]}
+              render={setRef => (
+                <CreateProject ref={setRef} onClose={this.closeModal} />
+              )}
+            />
+            <MapPopup
+              visible={openId}
+              onClose={() => this.setState({ openId: null })}
+              getData={this.getOpen}
+            />
+          </div>
+        </div>
       </RootContext.Provider>
     );
   }
