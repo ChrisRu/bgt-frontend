@@ -118,7 +118,7 @@ class App extends Component {
                   />
                 )}
               />
-              <Redirect exact from="/" to="/kaart" />
+              <Redirect exact strict from="/" to="/kaart" />
             </Switch>
 
             <CreateButton

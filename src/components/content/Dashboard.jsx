@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 import PieChart from 'recharts/lib/chart/PieChart';
 import Pie from 'recharts/lib/polar/Pie';
 import AreaChart from 'recharts/lib/chart/AreaChart';
@@ -10,23 +9,42 @@ import Tooltip from 'recharts/lib/component/Tooltip';
 import Legend from 'recharts/lib/component/Legend';
 import Cell from 'recharts/lib/component/Cell';
 
+import HTTP from '../util/services/http';
+
 class Dashboard extends Component {
   state = {
     COLORS: ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'],
-    pieData: [
-      { type: 'Nieuwbouw', value: 20 },
-      { type: 'Wijkmap', value: 8 },
-      { type: 'BAG', value: 2 },
-      { type: 'Anders', value: 4 }
-    ]
+    data: null
   };
 
+  async getStats() {
+    this.setState({ data: await HTTP.stats.get() });
+    console.log(this.state);
+  }
+
+  getMeasurementTypes() {
+    const { data } = this.state;
+    return data
+      ? data.measurementTypes.map(({ amount, category }) => ({
+          amount: amount || 0,
+          category: category || 'Anders'
+        }))
+      : [];
+  }
+
+  componentWillMount() {
+    return this.getStats();
+  }
+
   render() {
-    const { COLORS, pieData } = this.state;
+    const { COLORS, data } = this.state;
 
     return (
       <div className="dashboard">
-        <div className="dashboard__item dashboard__item--rapport">
+        <div
+          className="dashboard__item dashboard__item--rapport"
+          style={{ filter: 'grayscale(1)', opacity: 0.3 }}
+        >
           <h2 className="dashboard__title">Jaar Rapport</h2>
           <AreaChart
             width={800}
@@ -52,37 +70,41 @@ class Dashboard extends Component {
         <div className="dashboard__block">
           <div className="dashboard__item dashboard__item--stats">
             <h2 className="dashboard__title">Statistieken</h2>
-            <div className="dashboard__numbers">
-              <div
-                className="dashboard__number"
-                style={{ borderColor: COLORS[0] }}
-              >
-                <span className="dashboard__number-value">34</span>
-                <span className="dashboard__number-title">Open taken</span>
+            {data ? (
+              <div className="dashboard__numbers">
+                <div
+                  className="dashboard__number"
+                  style={{ borderColor: COLORS[0] }}
+                >
+                  <span className="dashboard__number-value">
+                    {data.projectsCount.openAmount || 0}
+                  </span>
+                  <span className="dashboard__number-title">Open taken</span>
+                </div>
+                <div
+                  className="dashboard__number"
+                  style={{ borderColor: COLORS[3] }}
+                >
+                  <span className="dashboard__number-value">
+                    {data.projectsCount.criticalAmount || 0}
+                  </span>
+                  <span className="dashboard__number-title">
+                    Hoge prioriteit taken
+                  </span>
+                </div>
               </div>
-              <div
-                className="dashboard__number"
-                style={{ borderColor: COLORS[3] }}
-              >
-                <span className="dashboard__number-value">7</span>
-                <span className="dashboard__number-title">
-                  Hoge prioriteit taken
-                </span>
-              </div>
-            </div>
+            ) : null}
           </div>
           <div className="dashboard__item dashboard__item-pie">
             <h2 className="dashboard__title">Type metingen</h2>
             <PieChart width={322} height={180}>
               <Pie
-                data={pieData}
-                dataKey="value"
-                nameKey="type"
-                cx={80}
-                cy="50%"
-                outerRadius={80}
+                data={this.getMeasurementTypes()}
+                dataKey="amount"
+                nameKey="category"
+                outerRadius={70}
               >
-                {pieData.map((entry, index) => (
+                {this.getMeasurementTypes().map((entry, index) => (
                   <Cell key={entry} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>

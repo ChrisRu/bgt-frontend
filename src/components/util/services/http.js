@@ -74,6 +74,12 @@ const HTTP = {
     }
   },
 
+  stats: {
+    get() {
+      return get('/stats');
+    }
+  },
+
   geo: {
     code(location) {
       if (!location) {

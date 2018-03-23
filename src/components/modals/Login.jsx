@@ -55,7 +55,7 @@ class Login extends Component {
     const { loading, error } = this.state;
 
     return (
-      <div className="modallogin-wrapper">
+      <div className="modal--login-wrapper">
         <div className="modal modal--login">
           <div className="modal__logo">
             <img src={logo} alt="BGT Logo" />
