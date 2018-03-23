@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { WarningIcon } from '../../util/icons';
-import HTTP from '../../util/http';
-import Show from '../util/Show';
-import FormControl from './FormControl';
-import Spinner from '../util/Spinner';
+
+import FormControl from './components/FormControl';
 import Confirm from '../modals/Confirm';
+import { WarningIcon } from '../util/static/icons';
+import HTTP from '../util/services/http';
+import Show from '../util/Show';
+import Spinner from '../util/Spinner';
 
 class CreateProject extends Component {
   state = {

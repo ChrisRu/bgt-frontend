@@ -1,33 +1,31 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 
-import ContentMap from './content/Map';
+import ContentMap from './content/map/Map';
 import ContentList from './content/Table';
 import Dashboard from './content/Dashboard';
+import Header from './content/header/Header';
+import Sidebar from './content/Sidebar';
 
-import CreateProject from './forms/CreateProject';
-
+import CreateProjectModal from './modals/project/Create';
 import Login from './modals/Login';
-import Header from './util/Header';
-import Sidebar from './util/Sidebar';
-import Modal from './util/Modal';
-import MapPopup from './modals/MapPopup.jsx';
-import CreateButton from './util/CreateButton';
-import { PlusIcon } from '../util/icons';
+import ProjectModal from './modals/project/Project';
 
-import { getJWT } from '../util/auth';
-import HTTP from '../util/http';
+import CreateButton from './util/buttons/CreateButton';
+
+import { getJWT } from './util/functions/auth';
+import HTTP from './util/services/http';
 
 export const RootContext = React.createContext();
 
 class App extends Component {
   state = {
-    create: false,
+    showCreateProjectModal: false,
     filter: null,
     authenticated: getJWT(),
     searchValue: '',
     projects: [],
-    openId: null
+    openProjectId: null
   };
 
   async componentDidMount() {
@@ -41,7 +39,7 @@ class App extends Component {
   }
 
   openPopup = id => {
-    this.setState({ openId: id });
+    this.setState({ openProjectId: id });
   };
 
   getProjects() {
@@ -58,14 +56,6 @@ class App extends Component {
     return projects;
   }
 
-  closeModal = createdNew => {
-    this.setState({ create: false });
-
-    if (createdNew) {
-      this.getProjects();
-    }
-  };
-
   login = async authenticated => {
     this.setState({ authenticated });
 
@@ -75,14 +65,8 @@ class App extends Component {
     }
   };
 
-  getOpen = () => {
-    return this.state.projects.find(
-      project => project.id === this.state.openId
-    );
-  };
-
   render() {
-    const { create, openId, authenticated } = this.state;
+    const { showCreateProjectModal, openProjectId, authenticated } = this.state;
     const { location: { pathname }, history } = this.props;
     const projects = this.filterProjects(this.state.projects);
 
@@ -96,14 +80,14 @@ class App extends Component {
           authenticated
         }}
       >
-        <div className="App">
+        <div className="app">
           <Header
             showSearch={!pathname.startsWith('/dashboard')}
             onSearch={searchValue => this.setState({ searchValue })}
             onFilter={filter => this.setState({ filter })}
           />
 
-          <div className="App--content">
+          <div className="app__content">
             <Sidebar />
 
             <Switch>
@@ -139,35 +123,25 @@ class App extends Component {
 
             <CreateButton onClick={() => this.setState({ create: true })} />
 
-            <Modal
-              visible={create}
-              onClose={this.closeModal}
-              title={
-                <React.Fragment>
-                  <PlusIcon />
-                  <span>Maak een nieuw project</span>
-                </React.Fragment>
-              }
-              actions={[
-                {
-                  type: 'cancel',
-                  name: 'Annuleer',
-                  onClick: this.closeModal
-                },
-                {
-                  type: 'confirm',
-                  name: 'Creëer',
-                  onClick: 'submit'
+            <CreateProjectModal
+              visible={showCreateProjectModal}
+              onClose={createdNew => {
+                this.setState({ showCreateProjectModal: false });
+
+                if (createdNew) {
+                  this.getProjects();
                 }
-              ]}
-              render={setRef => (
-                <CreateProject ref={setRef} onClose={this.closeModal} />
-              )}
+              }}
             />
-            <MapPopup
-              visible={openId}
-              onClose={() => this.setState({ openId: null })}
-              getData={this.getOpen}
+
+            <ProjectModal
+              visible={openProjectId}
+              onClose={() => this.setState({ openProjectId: null })}
+              getData={() =>
+                this.state.projects.find(
+                  project => project.id === this.state.openProjectId
+                )
+              }
             />
           </div>
         </div>

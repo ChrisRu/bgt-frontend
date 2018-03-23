@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Transition from 'react-transition-group/Transition';
-import { FilterIcon } from '../../../util/icons';
+
+import { FilterIcon } from '../../../util/static/icons';
 
 const duration = 300;
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
-import { CheckIcon } from '../../util/icons';
+
+import { CheckIcon } from '../../util/static/icons';
 
 class Category extends Component {
   state = {

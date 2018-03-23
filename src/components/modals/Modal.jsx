@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Transition from 'react-transition-group/Transition';
-import { CrossIcon } from '../../util/icons';
-import Show from '../util/Show';
 import classnames from 'classnames';
+
+import { CrossIcon } from '../util/static/icons';
+import Show from '../util/Show';
 
 const duration = 400;
 

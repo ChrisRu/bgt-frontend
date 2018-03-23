@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Map from 'react-leaflet/lib/Map';
 import TileLayer from 'react-leaflet/lib/TileLayer';
+
 import MarkerComponent from './Marker';
-import 'leaflet/dist/leaflet.css';
 
 class MapComponent extends Component {
   state = {

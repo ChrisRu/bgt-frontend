@@ -2,9 +2,8 @@ import React from 'react';
 import throttle from 'lodash/throttle';
 import SelectAsync from 'react-select/lib/Async';
 import Select from 'react-select/lib/Select';
-import 'react-select/dist/react-select.css';
 
-export const FormInput = props => {
+const FormInput = props => {
   const { input, type, apiName, onChange, placeholder, value } = props;
 
   switch (input) {

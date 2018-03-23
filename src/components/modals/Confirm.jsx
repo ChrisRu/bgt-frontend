@@ -1,6 +1,7 @@
 import React from 'react';
-import Modal from '../util/Modal';
-import { WarningIcon } from '../../util/icons';
+
+import Modal from './Modal';
+import { WarningIcon } from '../util/static/icons';
 
 const Confirm = ({
   visible,

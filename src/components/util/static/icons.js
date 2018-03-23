@@ -2,7 +2,7 @@ import React from 'react';
 
 export const SearchIcon = ({ onClick }) => (
   <svg
-    className="search--icon"
+    className="icon icon--search"
     width="66"
     height="67"
     viewBox="0 0 66 67"
@@ -58,7 +58,7 @@ export const FilterIcon = ({ onClick }) => (
     height="198"
     viewBox="0 0 198 198"
     xmlns="http://www.w3.org/2000/svg"
-    className="icon filter--icon"
+    className="icon icon--filter"
     onClick={onClick}
   >
     <title>Filteren</title>
@@ -70,14 +70,14 @@ export const FilterIcon = ({ onClick }) => (
 );
 
 export const CrossIcon = ({ onClick }) => (
-  <div className="icon cross--icon" onClick={onClick} title="Sluiten">
+  <div className="icon icon--cross" onClick={onClick} title="Sluiten">
     <span />
     <span />
   </div>
 );
 
 export const PlusIcon = ({ onClick }) => (
-  <div className="icon plus--icon" onClick={onClick} title="Toevoegen">
+  <div className="icon icon--plus" onClick={onClick} title="Toevoegen">
     <span />
     <span />
   </div>
@@ -89,7 +89,7 @@ export const DashboardIcon = ({ onClick }) => (
     height="110"
     viewBox="0 0 138 110"
     xmlns="http://www.w3.org/2000/svg"
-    className="icon dashboard--icon"
+    className="icon icon--dashboard"
     onClick={onClick}
   >
     <title>Dashboard</title>
@@ -104,7 +104,7 @@ export const MapsIcon = ({ onClick }) => (
     height="157"
     viewBox="0 0 132 157"
     xmlns="http://www.w3.org/2000/svg"
-    className="icon maps--icon"
+    className="icon icon--maps"
     onClick={onClick}
   >
     <title>Kaart</title>
@@ -121,7 +121,7 @@ export const ListIcon = ({ onClick }) => (
     height="157"
     viewBox="0 0 130 157"
     xmlns="http://www.w3.org/2000/svg"
-    className="icon list--icon"
+    className="icon icon--list"
     onClick={onClick}
   >
     <title>Lijst</title>
@@ -137,7 +137,7 @@ export const WarningIcon = ({ onClick }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 486.463 486.463"
-    className="icon warning--icon"
+    className="icon icon--warning"
     onClick={onClick}
   >
     <title>Waarschuwing</title>
@@ -153,7 +153,7 @@ export const EditIcon = ({ onClick }) => (
     height="158"
     viewBox="0 0 158 158"
     xmlns="http://www.w3.org/2000/svg"
-    className="icon edit--icon"
+    className="icon icon--edit"
     onClick={onClick}
   >
     <title>Aanpassen</title>
@@ -170,7 +170,7 @@ export const TrashIcon = ({ onClick }) => (
     height="212"
     viewBox="0 0 195 212"
     xmlns="http://www.w3.org/2000/svg"
-    className="icon trash--icon"
+    className="icon icon--trash"
     onClick={onClick}
   >
     <title>Verwijderen</title>
@@ -188,7 +188,7 @@ export const SaveIcon = ({ onClick }) => (
     height="178"
     viewBox="0 0 178 178"
     xmlns="http://www.w3.org/2000/svg"
-    className="icon save--icon"
+    className="icon icon--save"
     onClick={onClick}
   >
     <title>Opslaan</title>
@@ -204,7 +204,7 @@ export const CheckIcon = ({ onClick }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 512 512"
-    className="icon check--icon"
+    className="icon icon--check"
     onClick={onClick}
   >
     <title>Voldaan</title>

@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
+import Search from './components/Search';
+import Filter from './components/Filter';
+
+import Show from '../../util/Show';
+
 import logo from '../../../assets/logos/bgt.png';
-import Search from './Search';
-import Filter from './Filter';
-import Show from '../Show';
 
 class Header extends Component {
   state = {

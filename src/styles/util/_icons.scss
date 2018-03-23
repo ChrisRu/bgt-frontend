@@ -1,61 +1,63 @@
-.cross--icon {
-  $size: 1.5em;
-  $height: $size * 0.1;
+.icon {
+  &--cross {
+    $size: 1.5em;
+    $height: $size * 0.1;
 
-  width: $size;
-  height: $size;
-  position: relative;
-  cursor: pointer;
+    width: $size;
+    height: $size;
+    position: relative;
+    cursor: pointer;
 
-  &:hover span {
-    background-color: #444;
+    &:hover span {
+      background-color: #444;
+    }
+
+    span {
+      position: absolute;
+      background-color: #888;
+      border-radius: $height / 2;
+      transition: background-color 0.2s ease;
+
+      &:first-child {
+        width: $size;
+        height: $height;
+        transform: translate(0, $size / 2 - $height / 2) rotate(225deg);
+      }
+
+      &:last-child {
+        width: $height;
+        height: $size;
+        transform: translate($size / 2 - $height / 2, 0) rotate(45deg);
+      }
+    }
   }
 
-  span {
-    position: absolute;
-    background-color: #888;
-    border-radius: $height / 2;
-    transition: background-color 0.2s ease;
+  &--plus {
+    $size: 0.8em;
+    $height: $size * 0.2;
 
-    &:first-child {
-      width: $size;
-      height: $height;
-      transform: translate(0, $size / 2 - $height / 2) rotate(225deg);
-    }
+    width: $size;
+    height: $size;
+    position: relative;
+    cursor: pointer;
+    box-sizing: content-box;
 
-    &:last-child {
-      width: $height;
-      height: $size;
-      transform: translate($size / 2 - $height / 2, 0) rotate(45deg);
-    }
-  }
-}
+    span {
+      position: absolute;
+      background-color: #888;
+      border-radius: $height / 2;
 
-.plus--icon {
-  $size: 0.8em;
-  $height: $size * 0.2;
+      &:first-child {
+        width: $size;
+        height: $height;
+        transform: translate(0, $size / 2 - $height / 2);
+      }
 
-  width: $size;
-  height: $size;
-  position: relative;
-  cursor: pointer;
-  box-sizing: content-box;
-
-  span {
-    position: absolute;
-    background-color: #888;
-    border-radius: $height / 2;
-
-    &:first-child {
-      width: $size;
-      height: $height;
-      transform: translate(0, $size / 2 - $height / 2);
-    }
-
-    &:last-child {
-      width: $height;
-      height: $size;
-      transform: translate($size / 2 - $height / 2, 0);
+      &:last-child {
+        width: $height;
+        height: $size;
+        transform: translate($size / 2 - $height / 2, 0);
+      }
     }
   }
 }

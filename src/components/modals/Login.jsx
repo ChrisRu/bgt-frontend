@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
-import Logo from '../../assets/logos/bgt.png';
-import { setJWT } from '../../util/auth';
-import HTTP from '../../util/http';
-import { WarningIcon } from '../../util/icons';
+
+import { setJWT } from '../util/functions/auth';
+import HTTP from '../util/services/http';
+import { WarningIcon } from '../util/static/icons';
 import Spinner from '../util/Spinner';
+import logo from '../../assets/logos/bgt.png';
 
 class Login extends Component {
   state = {
@@ -57,7 +58,7 @@ class Login extends Component {
       <div className="modal--login-wrapper">
         <div className="modal modal--login">
           <div className="modal--logo">
-            <img src={Logo} alt="BGT Logo" />
+            <img src={logo} alt="BGT Logo" />
           </div>
           <div className={classnames('loading', { hidden: !loading })}>
             <Spinner />

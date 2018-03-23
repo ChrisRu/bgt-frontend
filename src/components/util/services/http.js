@@ -1,5 +1,6 @@
-import { getJWT, setJWT } from './auth';
 import queryString from 'query-string';
+
+import { getJWT, setJWT } from '../functions/auth';
 
 const createURL = partial => {
   let url = process.env.REACT_APP_API_URL;

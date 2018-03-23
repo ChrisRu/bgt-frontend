@@ -11,7 +11,7 @@
       width: 0;
     }
 
-    .search--icon {
+    .icon {
       transform: translateY(100%) scale(1.2);
       fill: #888;
       pointer-events: all;
@@ -41,13 +41,13 @@
     &:focus {
       border-color: rgba(0, 0, 0, 0.2);
 
-      & + .search--icon {
+      & + .icon {
         fill: #888 !important;
       }
     }
   }
 
-  &--icon {
+  .icon {
     position: absolute;
     width: 1em;
     height: 1em;

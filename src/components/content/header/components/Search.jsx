@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { SearchIcon } from '../../../util/icons';
 import classnames from 'classnames';
+
+import { SearchIcon } from '../../../util/static/icons';
 
 class Search extends Component {
   state = {

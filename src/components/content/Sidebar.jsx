@@ -1,17 +1,18 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { MapsIcon, ListIcon, DashboardIcon } from '../../util/icons';
+
+import { MapsIcon, ListIcon, DashboardIcon } from '../util/static/icons';
 
 const Sidebar = () => {
   return (
     <div className="sidebar">
-      <NavLink className="sidebar--item" to="/dashboard">
+      <NavLink className="sidebar__item" to="/dashboard">
         <DashboardIcon />
       </NavLink>
-      <NavLink className="sidebar--item" to="/kaart">
+      <NavLink className="sidebar__item" to="/kaart">
         <MapsIcon />
       </NavLink>
-      <NavLink className="sidebar--item" to="/lijst">
+      <NavLink className="sidebar__item" to="/lijst">
         <ListIcon />
       </NavLink>
     </div>

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import Modal from '../util/Modal';
-import HTTP from '../../util/http';
-import { EditIcon, SaveIcon, TrashIcon } from '../../util/icons';
-import CreateProject from '../forms/CreateProject';
-import Category from '../forms/Category';
+
+import Category from './Category';
+import Modal from '../Modal';
+import CreateProject from '../../forms/CreateProject';
+import HTTP from '../../util/services/http';
+import { EditIcon, SaveIcon, TrashIcon } from '../../util/static/icons';
 
 const duration = 400;
 
@@ -59,7 +60,7 @@ function parseLocation(location) {
   return res.join('');
 }
 
-class MapPopup extends Component {
+class Project extends Component {
   state = {
     locationName: null,
     editing: false,
@@ -208,4 +209,4 @@ class MapPopup extends Component {
   }
 }
 
-export default MapPopup;
+export default Project;

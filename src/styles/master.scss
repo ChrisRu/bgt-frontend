@@ -1,54 +1,21 @@
-$font-text: 'Lato', sans-serif;
-$font-header: 'Montserrat', sans-serif;
+@import 'variables';
+@import 'default';
 
-$bg: #f4f8f9;
-$bg-white: #fff;
-$success-color: #28a745;
-$danger-color: #dc3545;
-$bgt-text-color: #00295d;
-$bgt-highlight: #106bf7;
+@import 'content/header/filter';
+@import 'content/header/header';
+@import 'content/header/menu-button';
+@import 'content/header/search';
 
-@import 'components/header';
-@import 'components/map';
-@import 'components/sidebar';
-@import 'components/search';
-@import 'components/filter';
-@import 'components/table';
-@import 'components/dashboard';
-@import 'components/login';
+@import 'content/dashboard';
+@import 'content/map';
+@import 'content/sidebar';
+@import 'content/table';
 
-@import 'util/menu-button';
-@import 'util/create-button';
-@import 'util/modal';
+@import 'forms/form';
+
+@import 'modals/modal';
+@import 'modals/login';
+
+@import 'util/buttons/create-button';
 @import 'util/icons';
 @import 'util/spinner';
-@import 'util/form';
-
-html,
-body,
-#root {
-  height: 100%;
-}
-
-body {
-  font-family: $font-text;
-  background-color: $bg;
-}
-
-.hidden {
-  display: none;
-}
-
-.App {
-  display: flex;
-  height: 100%;
-  width: 100%;
-  flex-flow: column nowrap;
-  position: relative;
-
-  &--content {
-    flex: 1;
-    display: flex;
-    flex-flow: row nowrap;
-  }
-}

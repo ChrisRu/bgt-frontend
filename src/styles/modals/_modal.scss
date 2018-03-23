@@ -17,9 +17,6 @@ $sidebar-size: 4em;
   transform: scale(0) translate(0, 0);
   will-change: transform, opacity;
   backface-visibility: hidden;
-  filter: blur(0);
-  max-height: calc(100vh - 8rem);
-  overflow-y: auto;
 
   &--button {
     .icon {
@@ -111,6 +108,8 @@ $sidebar-size: 4em;
   &--body {
     padding: 0 1rem;
     flex: 1;
+    overflow-y: auto;
+    max-height: calc(100vh - 17rem);
   }
 
   &--footer {
