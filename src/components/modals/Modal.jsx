@@ -35,8 +35,8 @@ const transitionStyles = {
 
 const ActionButton = ({ type, onClick, name, callChild, align }) => (
   <button
-    className={classnames('button', `button--${type}`, 'modal--button', {
-      'modal--button-left': align === 'left'
+    className={classnames('button', `button--${type}`, 'modal__button', {
+      'modal__button-left': align === 'left'
     })}
     onClick={typeof onClick === 'string' ? callChild(onClick) : onClick}
   >
@@ -55,7 +55,7 @@ class Modal extends Component {
     const { children, render, title, onClose, visible, actions } = this.props;
 
     return (
-      <div className="modal--wrapper">
+      <div className="modal__wrapper">
         <Transition
           in={visible}
           timeout={0}
@@ -87,7 +87,7 @@ class Modal extends Component {
               <div className="modal__close">
                 <CrossIcon onClick={onClose} />
               </div>
-              <div className="modal--body">
+              <div className="modal__body">
                 {!children
                   ? render(child => {
                       this.child = child;
@@ -98,7 +98,7 @@ class Modal extends Component {
               <Show
                 visible={actions}
                 render={() => (
-                  <div className="modal___footer">
+                  <div className="modal__footer">
                     {actions.map(props => (
                       <ActionButton
                         {...props}

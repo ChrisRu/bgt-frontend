@@ -121,7 +121,9 @@ class App extends Component {
               <Redirect exact from="/" to="/kaart" />
             </Switch>
 
-            <CreateButton onClick={() => this.setState({ create: true })} />
+            <CreateButton
+              onClick={() => this.setState({ showCreateProjectModal: true })}
+            />
 
             <CreateProjectModal
               visible={showCreateProjectModal}

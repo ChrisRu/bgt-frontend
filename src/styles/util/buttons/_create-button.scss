@@ -13,18 +13,12 @@
   transition: background-color 0.2s ease;
   cursor: pointer;
 
-  &__icon {
+  .icon {
     $icon-size: $size * 0.5;
     $icon-width: $size * 0.08;
 
     span {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
       background-color: #fff;
-      border-radius: 1px;
 
       &:first-child {
         width: $icon-size;
