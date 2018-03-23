@@ -18,8 +18,10 @@ class Category extends Component {
     });
   }
 
-  edit = () => {
-    this.setState(({ edit }) => ({ edit: !edit }));
+  submit = () => {
+    this.setState({ edit: false });
+
+    // TODO: submit here
   };
 
   render() {
@@ -32,14 +34,18 @@ class Category extends Component {
           'category--done': done,
           'category--edit': edit
         })}
-        onClick={this.edit}
+        onClick={() => this.setState({ edit: true })}
       >
         {edit ? (
           <React.Fragment>
             <span className="category__name">{name}</span>
             <input type="text" className="input" />
             <input type="text" className="input" />
-            <button className="button button--confirm" type="submit">
+            <button
+              className="button button--confirm"
+              type="submit"
+              onClick={this.submit}
+            >
               Opslaan
             </button>
           </React.Fragment>

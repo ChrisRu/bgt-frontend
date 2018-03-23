@@ -19,7 +19,7 @@ $sidebar-size: 4em;
   backface-visibility: hidden;
   filter: blur(0);
   max-height: calc(100vh - 8rem);
-  overflow-y: scroll;
+  overflow-y: auto;
 
   &--button {
     .icon {

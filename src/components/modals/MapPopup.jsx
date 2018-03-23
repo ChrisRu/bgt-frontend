@@ -198,7 +198,7 @@ class MapPopup extends Component {
                   { type: 'controle_meting', name: 'Controle Meting' },
                   { type: 'verwerken', name: 'Verwerken' },
                   { type: 'eind_controle', name: 'Eind Controle' }
-                ].map(info => <Category {...info} />)}
+                ].map(info => <Category key={info.type} {...info} />)}
               </div>
             </div>
           )
