@@ -57,7 +57,7 @@ class Search extends Component {
     return (
       <div className={classnames('search', { closed })}>
         <input
-          className="search--input"
+          className="search__input"
           title="Zoek een locatie of nummer"
           placeholder="Zoeken..."
           onChange={this.onChange}
@@ -70,11 +70,11 @@ class Search extends Component {
         <SearchIcon onClick={() => this.open(true)} />
         {onDropdown &&
           open && (
-            <div className="search--dropdown">
+            <div className="search__dropdown">
               {results.map(result => (
                 <div
                   key={result}
-                  className="search--dropdown-item"
+                  className="search__dropdown-item"
                   onClick={() => {
                     onDropdown(result);
                     this.setState({ open: false });

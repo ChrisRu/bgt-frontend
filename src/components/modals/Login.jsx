@@ -55,9 +55,9 @@ class Login extends Component {
     const { loading, error } = this.state;
 
     return (
-      <div className="modal--login-wrapper">
+      <div className="modallogin-wrapper">
         <div className="modal modal--login">
-          <div className="modal--logo">
+          <div className="modal__logo">
             <img src={logo} alt="BGT Logo" />
           </div>
           <div className={classnames('loading', { hidden: !loading })}>
@@ -69,25 +69,25 @@ class Login extends Component {
           >
             <input
               placeholder="Gebruikersnaam"
-              className="input login--input"
+              className="input login__input"
               type="text"
               name="username"
               onChange={this.onChange}
             />
             <input
               placeholder="Wachtwoord"
-              className="input login--input"
+              className="input login__input"
               type="password"
               name="password"
               onChange={this.onChange}
             />
             {error ? (
-              <div className="login--error">
+              <div className="login__error">
                 <WarningIcon />
                 <span>{this.getErrorMessage(error)}</span>
               </div>
             ) : (
-              <button className="login--submit">Log In</button>
+              <button className="login__submit">Log In</button>
             )}
           </form>
         </div>

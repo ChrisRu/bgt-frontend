@@ -199,7 +199,7 @@ class CreateProject extends Component {
     const { formInfo, error, loading, data, openRemove } = this.state;
 
     return (
-      <div className="modal--content form">
+      <div className="modal__content form">
         {loading ? (
           <Spinner />
         ) : (
@@ -215,7 +215,7 @@ class CreateProject extends Component {
         <Show
           visible={error}
           render={() => (
-            <div className="login--error form--error">
+            <div className="login__error form__error">
               <WarningIcon />
               <span>{this.getErrorMessage(error)}</span>
             </div>

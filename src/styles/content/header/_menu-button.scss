@@ -9,7 +9,7 @@
   margin-top: 0.1rem;
   position: relative;
 
-  &--label {
+  &__label {
     height: 100%;
     position: absolute;
     top: 0;
@@ -19,7 +19,7 @@
     cursor: pointer;
   }
 
-  &--bar {
+  &__bar {
     background-color: black;
     opacity: 0.5;
     position: absolute;
@@ -41,16 +41,16 @@
     }
   }
 
-  &:hover &--bar {
+  &:hover &__bar {
     opacity: 1;
   }
 
-  #menu-button--inputbox {
+  #menu-button__inputbox {
     display: none;
   }
 
   &.open {
-    .menu-button--bar {
+    .menu-button__bar {
       &:nth-child(1) {
         top: 50%;
         transform: rotate(45deg);

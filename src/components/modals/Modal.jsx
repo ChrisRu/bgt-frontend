@@ -83,8 +83,8 @@ class Modal extends Component {
                 this.modal = modal;
               }}
             >
-              <h2 className="modal--title">{title}</h2>
-              <div className="modal--close">
+              <h2 className="modal__title">{title}</h2>
+              <div className="modal__close">
                 <CrossIcon onClick={onClose} />
               </div>
               <div className="modal--body">
@@ -98,7 +98,7 @@ class Modal extends Component {
               <Show
                 visible={actions}
                 render={() => (
-                  <div className="modal--footer">
+                  <div className="modal___footer">
                     {actions.map(props => (
                       <ActionButton
                         {...props}
@@ -113,7 +113,7 @@ class Modal extends Component {
           )}
         </Transition>
         <div
-          className={classnames('modal--overlay', { visible })}
+          className={classnames('modal__overlay', { visible })}
           onClick={onClose}
         />
       </div>

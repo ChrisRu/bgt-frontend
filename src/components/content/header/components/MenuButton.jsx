@@ -22,17 +22,17 @@ class MenuButton extends Component {
       <div className={classnames('menu-button', { open })}>
         <input
           type="checkbox"
-          id="menu-button--inputbox"
+          id="menu-button__inputbox"
           onChange={this.toggle}
         />
         <label
-          className="menu-button--label"
-          htmlFor="menu-button--inputbox"
+          className="menu-button__label"
+          htmlFor="menu-button__inputbox"
           title={open ? 'Sluit menu' : 'Open menu'}
         >
-          <div className="menu-button--bar" />
-          <div className="menu-button--bar" />
-          <div className="menu-button--bar" />
+          <div className="menu-button__bar" />
+          <div className="menu-button__bar" />
+          <div className="menu-button__bar" />
         </label>
       </div>
     );

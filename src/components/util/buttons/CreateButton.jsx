@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const CreateButton = ({ onClick }) => (
   <div className="create-button" onClick={onClick}>
-    <div className="create-button--icon">
+    <div className="create-button__icon">
       <span />
       <span />
     </div>

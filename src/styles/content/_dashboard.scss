@@ -3,7 +3,7 @@
   display: flex;
   flex-flow: row wrap;
 
-  &--item {
+  &__item {
     border-radius: 5px;
     background-color: $bg-white;
     margin: 1em 0 0 1em;
@@ -11,34 +11,34 @@
     padding: 1em;
     box-shadow: 0 2px 6px 3px rgba(0, 0, 0, 0.05);
 
-    &-pie {
+    &--pie {
       width: 332px;
       height: 220px;
     }
 
-    &-stats {
+    &--stats {
       width: 332px;
       height: 220px;
     }
 
-    &-rapport {
+    &--rapport {
       width: 800px;
       height: 488px;
       padding-left: 0;
 
-      .dashboard--title {
+      .dashboard__title {
         padding-left: 1em;
       }
     }
   }
 
-  &--title {
+  &__title {
     margin: 0.5em 0;
     font-size: 1.3em;
     letter-spacing: 0.5px;
   }
 
-  &--number {
+  &__number {
     display: inline-block;
     vertical-align: top;
     margin: 1em 0 0 1em;

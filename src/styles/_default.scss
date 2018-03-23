@@ -9,10 +9,6 @@ body {
   background-color: $bg;
 }
 
-.hidden {
-  display: none;
-}
-
 .app {
   display: flex;
   height: 100%;
@@ -24,5 +20,98 @@ body {
     flex: 1;
     display: flex;
     flex-flow: row nowrap;
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.input {
+  background-color: transparent;
+  outline: none;
+  border: 1px solid #ccc;
+  display: block;
+  font-family: $font-text;
+  font-size: 1em;
+  padding: 0.2em 0.3em;
+  margin: 0.4em 0;
+  border-radius: 3px;
+  width: 15rem;
+  box-sizing: border-box;
+
+  &:focus {
+    border-color: transparent;
+    box-shadow: 0 0 3px 1px darken($bgt-highlight, 10%);
+  }
+}
+
+.button {
+  background-color: transparent;
+  outline: none;
+  border: 0;
+  font-family: $font-text;
+  letter-spacing: 0.5px;
+  padding: 0.8em 1em;
+  border-radius: 5px;
+  display: block;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+  height: 3rem;
+
+  & + & {
+    margin-left: 1em;
+  }
+
+  &--confirm,
+  &--edit {
+    background-color: $bgt-highlight;
+    color: $bg-white;
+    outline: none;
+    box-shadow: 0 3px 6px 3px rgba($bgt-highlight, 0.1);
+
+    &:hover {
+      background-color: darken($bgt-highlight, 10%);
+    }
+
+    &:active {
+      background-color: darken($bgt-highlight, 15%);
+    }
+
+    &:focus {
+      box-shadow: 0 3px 6px 3px rgba($bgt-highlight, 0.2);
+    }
+  }
+
+  &--cancel {
+    color: #222222;
+    background-color: transparent;
+
+    &:hover {
+      background-color: $bg-white;
+    }
+
+    &:focus {
+      background-color: darken($bg-white, 5%);
+    }
+  }
+
+  &--danger {
+    background-color: $danger-color;
+    color: $bg-white;
+    outline: none;
+    box-shadow: 0 3px 6px 3px rgba($danger-color, 0.1);
+
+    &:hover {
+      background-color: darken($danger-color, 10%);
+    }
+
+    &:active {
+      background-color: darken($danger-color, 15%);
+    }
+
+    &:focus {
+      box-shadow: 0 3px 6px 3px rgba($danger-color, 0.2);
+    }
   }
 }

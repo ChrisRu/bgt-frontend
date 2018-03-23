@@ -18,7 +18,7 @@ $sidebar-size: 4em;
   will-change: transform, opacity;
   backface-visibility: hidden;
 
-  &--button {
+  &__button {
     .icon {
       fill: $bg-white;
       height: 1.2rem;
@@ -36,7 +36,7 @@ $sidebar-size: 4em;
     }
   }
 
-  &--title {
+  &__title {
     font-size: 1.4em;
     letter-spacing: 0.5px;
     margin: 2rem 2rem 1rem;
@@ -76,7 +76,7 @@ $sidebar-size: 4em;
     }
   }
 
-  &--overlay {
+  &__overlay {
     position: absolute;
     top: $header-size;
     left: $sidebar-size;
@@ -93,7 +93,7 @@ $sidebar-size: 4em;
     }
   }
 
-  &--close {
+  &__close {
     position: absolute;
     top: 1em;
     right: 1em;
@@ -105,14 +105,14 @@ $sidebar-size: 4em;
     }
   }
 
-  &--body {
+  &__body {
     padding: 0 1rem;
     flex: 1;
     overflow-y: auto;
     max-height: calc(100vh - 17rem);
   }
 
-  &--footer {
+  &__footer {
     display: flex;
     justify-content: flex-end;
     padding: 1rem;
@@ -121,7 +121,7 @@ $sidebar-size: 4em;
     border-bottom-left-radius: 5px;
   }
 
-  &--popup {
+  &__popup {
     min-width: 60vw;
 
     p:first-child {
@@ -160,75 +160,5 @@ $sidebar-size: 4em;
     opacity: 0.01;
     transform: scale(0);
     transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-  }
-}
-
-.button {
-  background-color: transparent;
-  outline: none;
-  border: 0;
-  font-family: $font-text;
-  letter-spacing: 0.5px;
-  padding: 0.8em 1em;
-  border-radius: 5px;
-  display: block;
-  transition: background-color 0.2s ease, box-shadow 0.2s ease;
-  cursor: pointer;
-  height: 3rem;
-
-  & + & {
-    margin-left: 1em;
-  }
-
-  &--confirm,
-  &--edit {
-    background-color: $bgt-highlight;
-    color: $bg-white;
-    outline: none;
-    box-shadow: 0 3px 6px 3px rgba($bgt-highlight, 0.1);
-
-    &:hover {
-      background-color: darken($bgt-highlight, 10%);
-    }
-
-    &:active {
-      background-color: darken($bgt-highlight, 15%);
-    }
-
-    &:focus {
-      box-shadow: 0 3px 6px 3px rgba($bgt-highlight, 0.2);
-    }
-  }
-
-  &--cancel {
-    color: #222222;
-    background-color: transparent;
-
-    &:hover {
-      background-color: $bg-white;
-    }
-
-    &:focus {
-      background-color: darken($bg-white, 5%);
-    }
-  }
-
-  &--danger {
-    background-color: $danger-color;
-    color: $bg-white;
-    outline: none;
-    box-shadow: 0 3px 6px 3px rgba($danger-color, 0.1);
-
-    &:hover {
-      background-color: darken($danger-color, 10%);
-    }
-
-    &:active {
-      background-color: darken($danger-color, 15%);
-    }
-
-    &:focus {
-      box-shadow: 0 3px 6px 3px rgba($danger-color, 0.2);
-    }
   }
 }

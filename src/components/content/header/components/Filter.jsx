@@ -36,7 +36,7 @@ const Filter = ({ onOpen, onChange, closed }) => (
             ...defaultStyle,
             ...transitionStyles[state]
           }}
-          className="filter--popup"
+          className="filter__popup"
         >
           <h3>Filter on categories:</h3>
           <p>W.I.P.</p>

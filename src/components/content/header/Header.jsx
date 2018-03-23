@@ -20,11 +20,11 @@ class Header extends Component {
 
     return (
       <header className="header">
-        <div className="header--logo">
+        <div className="header__logo">
           <img src={logo} alt="Logo Den Haag - Vrede en Recht" />
           <span>BGT</span>
         </div>
-        <div className="header--icons">
+        <div className="header__icons">
           <Show
             visible={showSearch}
             render={() => (

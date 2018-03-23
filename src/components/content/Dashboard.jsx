@@ -26,8 +26,8 @@ class Dashboard extends Component {
 
     return (
       <div className="dashboard">
-        <div className="dashboard--item dashboard--item-rapport">
-          <h2 className="dashboard--title">Jaar Rapport</h2>
+        <div className="dashboard__item dashboard__item--rapport">
+          <h2 className="dashboard__title">Jaar Rapport</h2>
           <AreaChart
             width={800}
             height={440}
@@ -49,30 +49,30 @@ class Dashboard extends Component {
             />
           </AreaChart>
         </div>
-        <div className="dashboard--block">
-          <div className="dashboard--item dashboard--item-stats">
-            <h2 className="dashboard--title">Statistieken</h2>
-            <div className="dashboard--numbers">
+        <div className="dashboard__block">
+          <div className="dashboard__item dashboard__item--stats">
+            <h2 className="dashboard__title">Statistieken</h2>
+            <div className="dashboard__numbers">
               <div
-                className="dashboard--number"
+                className="dashboard__number"
                 style={{ borderColor: COLORS[0] }}
               >
-                <span className="dashboard--number-value">34</span>
-                <span className="dashboard--number-title">Open taken</span>
+                <span className="dashboard__number-value">34</span>
+                <span className="dashboard__number-title">Open taken</span>
               </div>
               <div
-                className="dashboard--number"
+                className="dashboard__number"
                 style={{ borderColor: COLORS[3] }}
               >
-                <span className="dashboard--number-value">7</span>
-                <span className="dashboard--number-title">
+                <span className="dashboard__number-value">7</span>
+                <span className="dashboard__number-title">
                   Hoge prioriteit taken
                 </span>
               </div>
             </div>
           </div>
-          <div className="dashboard--item dashboard--item-pie">
-            <h2 className="dashboard--title">Type metingen</h2>
+          <div className="dashboard__item dashboard__item-pie">
+            <h2 className="dashboard__title">Type metingen</h2>
             <PieChart width={322} height={180}>
               <Pie
                 data={pieData}

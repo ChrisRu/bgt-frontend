@@ -96,7 +96,7 @@ const FormInput = props => {
 };
 
 const FormControl = props => (
-  <div className="form--item">
+  <div className="form__item">
     <label className="label" htmlFor={props.apiName}>
       {props.name}
     </label>

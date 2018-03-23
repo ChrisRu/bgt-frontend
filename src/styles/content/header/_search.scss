@@ -6,7 +6,7 @@
   position: relative;
 
   &.closed {
-    .search--input {
+    .search__input {
       transform: scaleX(0);
       width: 0;
     }
@@ -23,7 +23,7 @@
     }
   }
 
-  &--input {
+  &__input {
     box-sizing: border-box;
     padding: 0.3em 2em 0.3em 0.8em;
     width: 20em;
@@ -61,7 +61,7 @@
     pointer-events: none;
   }
 
-  &--dropdown {
+  &__dropdown {
     position: absolute;
     background-color: #fff;
     box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.2);
