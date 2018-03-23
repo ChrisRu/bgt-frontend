@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { SearchIcon } from '../../../util/icons';
+import classnames from 'classnames';
 
 class Search extends Component {
   state = {
@@ -53,7 +54,7 @@ class Search extends Component {
     const { closed, onDropdown } = this.props;
 
     return (
-      <div className={`search ${closed ? 'closed' : ''}`}>
+      <div className={classnames('search', { closed })}>
         <input
           className="search--input"
           title="Zoek een locatie of nummer"

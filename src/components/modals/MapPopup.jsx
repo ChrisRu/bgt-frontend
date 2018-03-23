@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Modal from '../util/Modal';
 import HTTP from '../../util/http';
-import { EditIcon, SaveIcon } from '../../util/icons';
+import { EditIcon, SaveIcon, TrashIcon } from '../../util/icons';
 import CreateProject from '../forms/CreateProject';
+import Category from '../forms/Category';
 
 const duration = 400;
 
@@ -70,18 +71,44 @@ class MapPopup extends Component {
     this.setState(({ editing }) => ({ editing: !editing }));
   };
 
-  getUpdateButton() {
-    return this.state.editing ? (
-      <React.Fragment>
-        <SaveIcon />
-        <span>Opslaan</span>
-      </React.Fragment>
-    ) : (
-      <React.Fragment>
-        <EditIcon />
-        <span>Aanpassen</span>
-      </React.Fragment>
-    );
+  getUpdateButtons() {
+    return this.state.editing
+      ? [
+          {
+            type: 'danger',
+            name: (
+              <React.Fragment key={3}>
+                <TrashIcon />
+                <span>Verwijder</span>
+              </React.Fragment>
+            ),
+            onClick: 'openRemove',
+            align: 'left'
+          },
+          {
+            type: 'confirm',
+            name: (
+              <React.Fragment key={2}>
+                <SaveIcon />
+                <span>Opslaan</span>
+              </React.Fragment>
+            ),
+            onClick: 'submit'
+          }
+        ]
+      : [
+          {
+            type: 'edit',
+            name: (
+              <React.Fragment key={1}>
+                <EditIcon />
+                <span>Aanpassen</span>
+              </React.Fragment>
+            ),
+            onClick: this.edit,
+            align: 'left'
+          }
+        ];
   }
 
   componentWillReceiveProps(nextProps) {
@@ -131,19 +158,16 @@ class MapPopup extends Component {
         visible={!!visible}
         onClose={this.close}
         title={`Project ${bgtOnNumber}`}
-        actions={[
-          {
-            type: 'edit',
-            name: this.getUpdateButton(),
-            onClick: this.edit,
-            align: 'left'
-          }
-        ]}
+        actions={[...this.getUpdateButtons()]}
         defaultStyle={{ transformOrigin: '0 0' }}
         transitionStyles={transitionStyles}
-        render={() =>
+        render={setRef =>
           editing ? (
-            <CreateProject data={{ ...info, location: locationName }} />
+            <CreateProject
+              ref={setRef}
+              onClose={this.close}
+              data={{ ...info, location: locationName }}
+            />
           ) : (
             <div className="modal--popup">
               <p>
@@ -158,6 +182,24 @@ class MapPopup extends Component {
               <p>
                 <strong>Locatie:</strong> {locationName}
               </p>
+              <div className="categories">
+                {[
+                  { type: 'voorbereiden', name: 'Voorbereiden', data: {} },
+                  { type: 'verkennen', name: 'Verkennen', data: {} },
+                  {
+                    type: 'controle verkenning',
+                    name: 'Controle Verkenning',
+                    data: {}
+                  },
+                  { type: 'grondslag', name: 'Grondslag', data: {} },
+                  { type: 'meetmap', name: 'Meetmap' },
+                  { type: 'stereokarteren', name: 'Stereokarteren' },
+                  { type: 'meten', name: 'Meten' },
+                  { type: 'controle_meting', name: 'Controle Meting' },
+                  { type: 'verwerken', name: 'Verwerken' },
+                  { type: 'eind_controle', name: 'Eind Controle' }
+                ].map(info => <Category {...info} />)}
+              </div>
             </div>
           )
         }

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Transition from 'react-transition-group/Transition';
 import { CrossIcon } from '../../util/icons';
 import Show from '../util/Show';
+import classnames from 'classnames';
 
 const duration = 400;
 
@@ -33,12 +34,9 @@ const transitionStyles = {
 
 const ActionButton = ({ type, onClick, name, callChild, align }) => (
   <button
-    className={`
-      button
-      button--${type}
-      modal--button
-      ${align === 'left' ? 'modal--button-left' : ''}
-    `}
+    className={classnames('button', `button--${type}`, 'modal--button', {
+      'modal--button-left': align === 'left'
+    })}
     onClick={typeof onClick === 'string' ? callChild(onClick) : onClick}
   >
     {name}
@@ -103,7 +101,7 @@ class Modal extends Component {
                     {actions.map(props => (
                       <ActionButton
                         {...props}
-                        key={props.name}
+                        key={props.type}
                         callChild={this.callChild}
                       />
                     ))}
@@ -114,7 +112,7 @@ class Modal extends Component {
           )}
         </Transition>
         <div
-          className={`modal--overlay ${visible ? 'visible' : ''}`}
+          className={classnames('modal--overlay', { visible })}
           onClick={onClose}
         />
       </div>

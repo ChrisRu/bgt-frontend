@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classnames from 'classnames';
 
 class MenuButton extends Component {
   state = {
@@ -18,7 +19,7 @@ class MenuButton extends Component {
   render() {
     const { open } = this.state;
     return (
-      <div className={`menu-button ${open ? 'open' : ''}`}>
+      <div className={classnames('menu-button', { open })}>
         <input
           type="checkbox"
           id="menu-button--inputbox"

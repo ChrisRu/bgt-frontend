@@ -2,111 +2,9 @@ import React, { Component } from 'react';
 import { WarningIcon } from '../../util/icons';
 import HTTP from '../../util/http';
 import Show from '../util/Show';
-import throttle from 'lodash/throttle';
-import SelectAsync from 'react-select/lib/Async';
-import Select from 'react-select/lib/Select';
-import 'react-select/dist/react-select.css';
-
-export const FormInput = props => {
-  const { input, type, apiName, onChange, placeholder, value } = props;
-
-  console.log(props);
-
-  switch (input) {
-    case 'input':
-      return (
-        <input
-          onChange={onChange}
-          id={apiName}
-          name={apiName}
-          placeholder={placeholder}
-          type={type}
-          className="input"
-        />
-      );
-    case 'textarea':
-      return (
-        <textarea
-          onChange={onChange}
-          id={apiName}
-          rows={5}
-          name={apiName}
-          placeholder={placeholder}
-          type={type}
-          className="input"
-        />
-      );
-
-    case 'select': {
-      if (props.switch.loadOptions) {
-        const {
-          loadOptions,
-          labelKey,
-          valueKey,
-          value,
-          onValueClick
-        } = props.switch;
-
-        return (
-          <SelectAsync
-            multi={false}
-            backspaceRemoves={false}
-            placeholder="Zoek..."
-            searchPromptText="Typ om te zoeken"
-            backspaceToRemoveMessage="Druk op backspace om {last label} te verwijderen"
-            clearAllText="Verwijder alle inhoud"
-            clearValueText="Verwijder inhoud"
-            noResultsText="Geen resultaten"
-            loadingPlaceholder="Locaties ophalen..."
-            loadOptions={throttle(loadOptions, 800)}
-            labelKey={labelKey}
-            valueKey={valueKey}
-            value={value(props)}
-            onChange={props.switch.onChange(props)}
-            onValueClick={onValueClick(props)}
-          />
-        );
-      } else {
-        const {
-          options,
-          value,
-          valueKey,
-          labelKey,
-          onValueClick
-        } = props.switch;
-
-        return (
-          <Select
-            multi={false}
-            backspaceRemoves={false}
-            placeholder="Zoek..."
-            backspaceToRemoveMessage="Druk op backspace om {last label} te verwijderen"
-            clearAllText="Verwijder alle inhoud"
-            clearValueText="Verwijder inhoud"
-            noResultsText="Geen resultaten"
-            value={value(props)}
-            valueKey={valueKey}
-            labelKey={labelKey}
-            options={options.map(option => ({ value: option, label: option }))}
-            onChange={props.switch.onChange(props)}
-            onValueClick={onValueClick(props)}
-          />
-        );
-      }
-    }
-    default:
-      return null;
-  }
-};
-
-export const FormControl = props => (
-  <div className="form--item">
-    <label className="label" htmlFor={props.apiName}>
-      {props.name}
-    </label>
-    <FormInput {...props} />
-  </div>
-);
+import FormControl from './FormControl';
+import Spinner from '../util/Spinner';
+import Confirm from '../modals/Confirm';
 
 class CreateProject extends Component {
   state = {
@@ -114,6 +12,7 @@ class CreateProject extends Component {
     error: null,
     data: {},
     partial: false,
+    openRemove: false,
     formInfo: [
       {
         name: 'BGT Nummer',
@@ -243,42 +142,33 @@ class CreateProject extends Component {
     });
   }
 
+  openRemove = () => {
+    this.setState({ openRemove: true });
+  };
+
+  remove = () => {
+    alert('REMOVED');
+  };
+
   submit = () => {
     this.setState({ loading: true });
 
-    if (this.state.partial) {
-      return HTTP.projects
-        .edit(this.state.data)
-        .then(() => {
-          this.setState({
-            data: {},
-            loading: false
-          });
-          this.props.onClose(true);
-        })
-        .catch(error => {
-          this.setState({
-            error: error,
-            loading: false
-          });
+    return HTTP.projects[this.state.partial ? 'edit' : 'create'](
+      this.state.data
+    )
+      .then(() => {
+        this.setState({
+          data: {},
+          loading: false
         });
-    } else {
-      return HTTP.projects
-        .create(this.state.data)
-        .then(() => {
-          this.setState({
-            data: {},
-            loading: false
-          });
-          this.props.onClose(true);
-        })
-        .catch(error => {
-          this.setState({
-            error: error,
-            loading: false
-          });
+        this.props.onClose(true);
+      })
+      .catch(error => {
+        this.setState({
+          error: error,
+          loading: false
         });
-    }
+      });
   };
 
   onInputChange = event => {
@@ -305,15 +195,12 @@ class CreateProject extends Component {
   }
 
   render() {
-    const { formInfo, error, loading, data } = this.state;
+    const { formInfo, error, loading, data, openRemove } = this.state;
 
     return (
       <div className="modal--content form">
         {loading ? (
-          <div className="spinner">
-            <div className="dot1" />
-            <div className="dot2" />
-          </div>
+          <Spinner />
         ) : (
           formInfo.map(item => (
             <FormControl
@@ -332,6 +219,11 @@ class CreateProject extends Component {
               <span>{this.getErrorMessage(error)}</span>
             </div>
           )}
+        />
+        <Confirm
+          visible={openRemove}
+          onConfirm={this.remove}
+          onClose={() => this.setState({ openRemove: false })}
         />
       </div>
     );

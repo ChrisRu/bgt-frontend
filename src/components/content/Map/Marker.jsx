@@ -1,7 +1,7 @@
 import React from 'react';
 import Marker from 'react-leaflet/lib/Marker';
 import Tooltip from 'react-leaflet/lib/Tooltip';
-import { icon } from 'leaflet/src/layer/marker/Icon';
+import { icon } from 'leaflet';
 
 const MarkerComponent = ({
   id,

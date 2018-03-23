@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import classnames from 'classnames';
 import Logo from '../../assets/logos/bgt.png';
 import { setJWT } from '../../util/auth';
 import HTTP from '../../util/http';
 import { WarningIcon } from '../../util/icons';
+import Spinner from '../util/Spinner';
 
 class Login extends Component {
   state = {
@@ -57,14 +59,11 @@ class Login extends Component {
           <div className="modal--logo">
             <img src={Logo} alt="BGT Logo" />
           </div>
-          <div className={`loading ${!loading ? 'hidden' : ''}`}>
-            <div className="spinner">
-              <div className="dot1" />
-              <div className="dot2" />
-            </div>
+          <div className={classnames('loading', { hidden: !loading })}>
+            <Spinner />
           </div>
           <form
-            className={`login ${loading ? 'hidden' : ''}`}
+            className={classnames('login', { hidden: loading })}
             onSubmit={this.submit}
           >
             <input

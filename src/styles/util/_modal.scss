@@ -5,7 +5,7 @@ $sidebar-size: 4em;
   position: fixed;
   top: calc(50% + #{$header-size / 2});
   left: calc(50% + #{$sidebar-size / 2});
-  background: $bg-white;
+  background-color: $bg-white;
   z-index: 5;
   border-radius: 5px;
   box-sizing: border-box;
@@ -18,6 +18,8 @@ $sidebar-size: 4em;
   will-change: transform, opacity;
   backface-visibility: hidden;
   filter: blur(0);
+  max-height: calc(100vh - 8rem);
+  overflow-y: scroll;
 
   &--button {
     .icon {
@@ -32,7 +34,7 @@ $sidebar-size: 4em;
       vertical-align: middle;
     }
 
-    &-left:last-child {
+    &:nth-last-child(2) {
       margin-right: auto !important;
     }
   }
@@ -83,7 +85,7 @@ $sidebar-size: 4em;
     left: $sidebar-size;
     bottom: 0;
     right: 0;
-    background: #000;
+    background-color: #000;
     opacity: 0.6;
     z-index: 0;
     transition: opacity 0.3s ease;
@@ -100,7 +102,7 @@ $sidebar-size: 4em;
     right: 1em;
 
     button {
-      background: none;
+      background-color: transparent;
       border: 0;
       outline: none;
     }
@@ -115,17 +117,17 @@ $sidebar-size: 4em;
     display: flex;
     justify-content: flex-end;
     padding: 1rem;
-    background: #e9e9e9;
+    background-color: #e9e9e9;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
-
-    .button:first-child {
-      margin-right: 1em;
-    }
   }
 
   &--popup {
-    min-width: 30rem;
+    min-width: 60vw;
+
+    p:first-child {
+      margin-top: 0;
+    }
   }
 }
 
@@ -163,7 +165,7 @@ $sidebar-size: 4em;
 }
 
 .button {
-  background: none;
+  background-color: transparent;
   outline: none;
   border: 0;
   font-family: $font-text;
@@ -174,6 +176,10 @@ $sidebar-size: 4em;
   transition: background-color 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
   height: 3rem;
+
+  & + & {
+    margin-left: 1em;
+  }
 
   &--confirm,
   &--edit {
@@ -205,6 +211,25 @@ $sidebar-size: 4em;
 
     &:focus {
       background-color: darken($bg-white, 5%);
+    }
+  }
+
+  &--danger {
+    background-color: $danger-color;
+    color: $bg-white;
+    outline: none;
+    box-shadow: 0 3px 6px 3px rgba($danger-color, 0.1);
+
+    &:hover {
+      background-color: darken($danger-color, 10%);
+    }
+
+    &:active {
+      background-color: darken($danger-color, 15%);
+    }
+
+    &:focus {
+      box-shadow: 0 3px 6px 3px rgba($danger-color, 0.2);
     }
   }
 }
