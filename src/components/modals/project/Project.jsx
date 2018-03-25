@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 
 import Category from './category/Category';
 import Modal from '../Modal';
-import CreateProject from '../../forms/CreateProject';
+import Form from '../../forms/Form';
 import HTTP from '../../util/services/http';
 import { EditIcon, SaveIcon, TrashIcon } from '../../util/static/icons';
+
+import project from '../../forms/models/project';
+import models from '../../forms/models';
 
 const duration = 400;
 
@@ -164,9 +167,11 @@ class Project extends Component {
         transitionStyles={transitionStyles}
         render={setRef =>
           editing ? (
-            <CreateProject
+            <Form
               ref={setRef}
+              form={project.form}
               onClose={this.close}
+              onSubmit={project.submit}
               data={{ ...info, location: locationName }}
             />
           ) : (
@@ -184,22 +189,7 @@ class Project extends Component {
                 <strong>Locatie:</strong> {locationName}
               </p>
               <div className="categories">
-                {[
-                  { type: 'voorbereiden', name: 'Voorbereiden', data: {} },
-                  { type: 'verkennen', name: 'Verkennen', data: {} },
-                  {
-                    type: 'controle verkenning',
-                    name: 'Controle Verkenning',
-                    data: {}
-                  },
-                  { type: 'grondslag', name: 'Grondslag', data: {} },
-                  { type: 'meetmap', name: 'Meetmap' },
-                  { type: 'stereokarteren', name: 'Stereokarteren' },
-                  { type: 'meten', name: 'Meten' },
-                  { type: 'controle_meting', name: 'Controle Meting' },
-                  { type: 'verwerken', name: 'Verwerken' },
-                  { type: 'eind_controle', name: 'Eind Controle' }
-                ].map(info => <Category key={info.type} {...info} />)}
+                {models.map(form => <Category key={form.type} {...form} />)}
               </div>
             </div>
           )

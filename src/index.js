@@ -8,6 +8,7 @@ import 'react-table/react-table.css';
 import 'react-select/dist/react-select.css';
 import './styles/master.css';
 import 'leaflet/dist/leaflet.css';
+import 'react-day-picker/lib/style.css';
 
 ReactDOM.render(
   <BrowserRouter>

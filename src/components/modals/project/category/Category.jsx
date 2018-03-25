@@ -7,54 +7,64 @@ import OpenCategory from './components/OpenCategory';
 
 class Category extends Component {
   state = {
-    done: false,
-    open: false,
-    edit: false
+    isOpen: false,
+    isEditing: false
   };
 
-  componentWillMount() {
-    this.componentWillReceiveProps(this.props);
-  }
-
-  componentWillReceiveProps(props) {
-    this.setState({
-      done: props.data
-    });
-  }
-
   open = () => {
-    this.setState({ open: true });
+    this.setState({ isOpen: true });
   };
 
   edit = () => {
-    this.setState({ edit: true });
+    this.setState({ isEditing: true });
   };
 
-  submit = () => {
-    this.setState({ open: false, edit: false });
+  close = event => {
+    event.preventDefault();
+    this.setState({ isEditing: false, isOpen: false });
+  };
+
+  submit = (...args) => {
+    this.props.submit(...args);
+    this.close();
   };
 
   render() {
-    const { name } = this.props;
-    const { done, open, edit } = this.state;
+    const { name = '', form = {}, data = {}, done } = this.props;
+    const { isOpen, isEditing } = this.state;
+
+    const isDone = done(data);
+
+    console.log(isOpen, isEditing, isDone);
 
     return (
       <div
         className={classnames('category', {
-          'category--done': done,
-          'category--open': open,
-          'category--edit': edit
+          'category--done': isDone,
+          'category--open': isOpen,
+          'category--edit': isEditing
         })}
-        onClick={() => this.setState({ open: true })}
       >
-        {open ? (
-          edit ? (
-            <EditCategory name={name} onSubmit={this.submit} />
+        {isOpen ? (
+          isEditing ? (
+            <EditCategory
+              name={name}
+              data={data}
+              form={form}
+              onSubmit={this.submit}
+              onClose={this.close}
+            />
           ) : (
-            <OpenCategory name={name} done={done} onEdit={this.edit} />
+            <OpenCategory
+              name={name}
+              data={data}
+              form={form}
+              done={isDone}
+              onEdit={this.edit}
+            />
           )
         ) : (
-          <ClosedCategory name={name} done={done} onOpen={this.open} />
+          <ClosedCategory name={name} done={isDone} onOpen={this.open} />
         )}
       </div>
     );

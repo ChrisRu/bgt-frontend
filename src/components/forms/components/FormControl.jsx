@@ -2,9 +2,17 @@ import React from 'react';
 import throttle from 'lodash/throttle';
 import SelectAsync from 'react-select/lib/Async';
 import Select from 'react-select/lib/Select';
+import DayPickerInput from 'react-day-picker/lib/src/DayPickerInput';
 
 const FormInput = props => {
-  const { input, type, apiName, onChange, placeholder, value } = props;
+  const {
+    input = 'input',
+    type = 'text',
+    placeholder = '',
+    value = ({ value }) => ({ value }),
+    apiName,
+    onChange
+  } = props;
 
   switch (input) {
     case 'input':
@@ -32,7 +40,17 @@ const FormInput = props => {
           className="input"
         />
       );
-
+    case 'date':
+      return (
+        <DayPickerInput
+          value={value}
+          onChange={onChange}
+          id={apiName}
+          name={apiName}
+          placeholder={placeholder}
+          className="input"
+        />
+      );
     case 'select': {
       if (props.switch.loadOptions) {
         const {

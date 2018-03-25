@@ -24,9 +24,18 @@ body {
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 
+.DayPickerInput {
+  flex: 1;
+
+  input {
+    width: 100% !important;
+  }
+}
+
+.DayPickerInput input,
 .input {
   background-color: transparent;
   outline: none;
@@ -67,22 +76,33 @@ body {
   }
 
   &--icon-only {
-    $padding: 0.2rem;
-    margin: 0;
-
-    padding: $padding * 2 $padding * 2 $padding;
-    height: $icon-size + ($padding * 4);
+    height: $icon-size;
+    width: 0;
     display: inline-block;
     vertical-align: middle;
-    border: 1px solid #aaa;
+
+    div.icon {
+      width: 0;
+      transform: translate(-0.5em, -50%);
+
+      span {
+        background-color: #888;
+      }
+    }
 
     svg {
       fill: #888;
+      width: initial;
+      transform: translate(-50%, -50%);
     }
 
     &:hover {
       svg {
         fill: #000;
+      }
+
+      .icon span {
+        background-color: #000;
       }
     }
   }

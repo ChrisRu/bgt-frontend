@@ -2,23 +2,30 @@
   display: flex;
   flex-flow: column nowrap;
   padding-bottom: 1rem;
+  min-width: 30rem;
 
   &__item {
-    display: flex;
-    flex-flow: row nowrap;
     margin: 0.25em 0;
+    display: block;
 
+    .DayPickerInput input {
+      margin: 0;
+    }
+
+    .DayPickerInput,
     .input {
-      width: 25rem;
-      margin: 0.2em 0;
+      display: block;
+      margin: -0.2em 0 0;
+      width: 100% !important;
     }
 
     .label {
-      color: #444;
+      color: #666;
       padding-right: 1em;
-      width: 7em;
-      text-align: right;
+      text-align: left;
       line-height: 2rem;
+      margin-bottom: 0;
+      font-size: 1rem;
     }
   }
 

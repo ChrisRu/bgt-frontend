@@ -3,9 +3,9 @@ import classnames from 'classnames';
 
 import { CheckIcon, EditIcon } from '../../../../util/static/icons';
 
-const OpenCategory = ({ name, done, onEdit }) => {
+const OpenCategory = ({ form, data, name, done, onEdit }) => {
   return (
-    <React.Fragment>
+    <div>
       <span className="category__name">{name}</span>
       <div className={classnames('category__icon', { hidden: !done })}>
         <CheckIcon />
@@ -17,7 +17,12 @@ const OpenCategory = ({ name, done, onEdit }) => {
       >
         <EditIcon />
       </button>
-    </React.Fragment>
+      <div className="category__content">
+        {Object.keys(data).map(() => {
+          return 'ay';
+        })}
+      </div>
+    </div>
   );
 };
 

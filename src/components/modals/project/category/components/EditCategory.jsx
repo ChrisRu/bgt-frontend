@@ -1,11 +1,21 @@
 import React from 'react';
 
-const EditCategory = ({ name, onSubmit }) => {
+import Form from '../../../../forms/Form';
+
+import { CrossIcon } from '../../../../util/static/icons';
+
+const EditCategory = ({ name, form, onSubmit, onClose }) => {
   return (
-    <React.Fragment>
+    <div>
       <span className="category__name">{name}</span>
-      <input type="text" className="input" />
-      <input type="text" className="input" />
+      <button
+        className="button button--cancel button--icon-only pull-right"
+        type="submit"
+        onClick={onClose}
+      >
+        <CrossIcon />
+      </button>
+      <Form form={form} />
       <button
         className="button button--confirm"
         type="submit"
@@ -13,7 +23,7 @@ const EditCategory = ({ name, onSubmit }) => {
       >
         Opslaan
       </button>
-    </React.Fragment>
+    </div>
   );
 };
 

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
 import Modal from '../Modal';
-import CreateProject from '../../forms/CreateProject';
+import Form from '../../forms/Form';
+import project from '../../forms/models/project';
 import { PlusIcon } from '../../util/static/icons';
 
 class CreateProjectModal extends Component {
@@ -30,7 +31,14 @@ class CreateProjectModal extends Component {
             onClick: 'submit'
           }
         ]}
-        render={setRef => <CreateProject ref={setRef} onClose={onClose} />}
+        render={setRef => (
+          <Form
+            ref={setRef}
+            form={project.form}
+            onSubmit={project.submit}
+            onClose={onClose}
+          />
+        )}
       />
     );
   }
