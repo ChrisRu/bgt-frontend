@@ -30,7 +30,8 @@ class App extends Component {
 
   async componentDidMount() {
     const authEnv = process.env.REACT_APP_AUTHENTICATE;
-    const ignoreAuthentication = !authEnv || authEnv.toLowerCase() === 'false';
+    const ignoreAuthentication =
+      authEnv && ['false', '0'].includes(String(authEnv).toLowerCase());
 
     const authenticated =
       ignoreAuthentication || (await HTTP.user.authenticated());

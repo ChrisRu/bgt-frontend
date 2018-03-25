@@ -35,8 +35,6 @@ class Category extends Component {
 
     const isDone = done(data);
 
-    console.log(isOpen, isEditing, isDone);
-
     return (
       <div
         className={classnames('category', {

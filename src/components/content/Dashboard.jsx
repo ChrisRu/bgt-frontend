@@ -19,7 +19,6 @@ class Dashboard extends Component {
 
   async getStats() {
     this.setState({ data: await HTTP.stats.get() });
-    console.log(this.state);
   }
 
   getMeasurementTypes() {
