@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Category from './Category';
+import Category from './category/Category';
 import Modal from '../Modal';
 import CreateProject from '../../forms/CreateProject';
 import HTTP from '../../util/services/http';

@@ -47,6 +47,8 @@ body {
 }
 
 .button {
+  $icon-size: 1.5rem;
+
   background-color: transparent;
   outline: none;
   border: 0;
@@ -58,6 +60,32 @@ body {
   transition: background-color 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
   height: 3rem;
+
+  svg {
+    height: $icon-size;
+    width: $icon-size;
+  }
+
+  &--icon-only {
+    $padding: 0.2rem;
+    margin: 0;
+
+    padding: $padding * 2 $padding * 2 $padding;
+    height: $icon-size + ($padding * 4);
+    display: inline-block;
+    vertical-align: middle;
+    border: 1px solid #aaa;
+
+    svg {
+      fill: #888;
+    }
+
+    &:hover {
+      svg {
+        fill: #000;
+      }
+    }
+  }
 
   & + & {
     margin-left: 1em;
@@ -114,4 +142,12 @@ body {
       box-shadow: 0 3px 6px 3px rgba($danger-color, 0.2);
     }
   }
+}
+
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
 }
