@@ -28,10 +28,34 @@
     position: absolute;
     right: 0;
     top: 4rem;
-    width: 400px;
+    width: 30rem;
     background-color: white;
     box-shadow: 0 3px 6px 3px rgba(0, 0, 0, 0.05);
     border-radius: 5px;
     padding: 0 1em 0.5em;
+  }
+
+  &__list {
+  }
+}
+
+.button {
+  &__filter {
+    color: #444;
+    border: 1px solid #e2e2e2;
+    box-sizing: border-box;
+    margin-bottom: 0.5em;
+    width: 100%;
+    margin-left: 0 !important;
+
+    &--active {
+      color: $bg-white;
+      background: $success-color;
+      border-color: transparent;
+    }
+  }
+
+  .divide {
+    margin: 0 0.5em;
   }
 }
