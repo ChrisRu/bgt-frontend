@@ -45,6 +45,7 @@ class Login extends Component {
   getErrorMessage = error => {
     switch (error.message) {
       case 'Failed to fetch':
+      case 'NetworkError when attempting to fetch resource.':
         return 'We kunnen helaas niet met de server verbinden';
       default:
         return 'Gebruikersnaam of wachtwoord is incorrect';
