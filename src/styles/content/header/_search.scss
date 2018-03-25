@@ -37,6 +37,7 @@
     transition: transform 0.2s ease, border-color 0.2s ease;
     will-change: transform, border-color;
     transform-origin: center right;
+    font-family: $font-text;
 
     &:focus {
       border-color: rgba(0, 0, 0, 0.2);

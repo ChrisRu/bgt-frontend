@@ -25,7 +25,8 @@ class App extends Component {
     authenticated: getJWT(),
     searchValue: '',
     projects: [],
-    openProjectId: null
+    openProjectId: null,
+    searchKeys: ['bgtOnNumber', 'status', 'description', 'category']
   };
 
   async componentDidMount() {
@@ -48,13 +49,21 @@ class App extends Component {
   }
 
   filterProjects(projects) {
-    const { filter } = this.state;
+    const { filter, searchKeys, searchValue } = this.state;
 
-    if (typeof filter === 'function') {
-      return projects.filter(filter);
-    }
+    return projects.filter(filter || (() => true)).filter(project => {
+      for (const key of searchKeys) {
+        if (
+          String(project[key] || '')
+            .toLocaleLowerCase()
+            .includes(searchValue.toLocaleLowerCase())
+        ) {
+          return true;
+        }
+      }
 
-    return projects;
+      return false;
+    });
   }
 
   login = async authenticated => {
