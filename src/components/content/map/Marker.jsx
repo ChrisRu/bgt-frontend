@@ -16,7 +16,7 @@ const MarkerComponent = ({
     position={[Number(latitude), Number(longtitude)]}
     icon={icon({
       iconUrl: `${process.env.PUBLIC_URL}/marker-${
-        ['red', 'yellow', 'green'][Math.floor(Math.random() * 3)]
+        ['red', 'yellow', 'green'][String(id).charCodeAt(1) % 3]
       }.png`,
       iconSize: [32, 32],
       iconAnchor: [14, 11],
