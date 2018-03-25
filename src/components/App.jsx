@@ -68,7 +68,7 @@ class App extends Component {
   render() {
     const { showCreateProjectModal, openProjectId, authenticated } = this.state;
     const { location: { pathname }, history } = this.props;
-    const projects = this.filterProjects(this.state.projects);
+    const projects = this.filterProjects(this.state.projects || []);
 
     if (!authenticated && !history.location.pathname.includes('/login')) {
       history.push('/login');
@@ -140,9 +140,7 @@ class App extends Component {
               visible={openProjectId}
               onClose={() => this.setState({ openProjectId: null })}
               getData={() =>
-                this.state.projects.find(
-                  project => project.id === this.state.openProjectId
-                )
+                projects.find(project => project.id === openProjectId)
               }
             />
           </div>
