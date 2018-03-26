@@ -1,9 +1,9 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import { CheckIcon, EditIcon } from '../../../../util/static/icons';
+import { CheckIcon, CrossIcon, EditIcon } from '../../../../util/static/icons';
 
-const OpenCategory = ({ form, data, name, done, onEdit }) => {
+const OpenCategory = ({ form, data, name, done, onEdit, onClose }) => {
   return (
     <div>
       <span className="category__name">{name}</span>
@@ -13,14 +13,25 @@ const OpenCategory = ({ form, data, name, done, onEdit }) => {
       <button
         className="button button--cancel button--icon-only pull-right"
         type="submit"
+        onClick={onClose}
+      >
+        <CrossIcon />
+      </button>
+      <button
+        className="button button--cancel button--icon-only pull-right"
+        type="submit"
         onClick={onEdit}
       >
         <EditIcon />
       </button>
       <div className="category__content">
-        {Object.keys(data).map(() => {
-          return 'ay';
-        })}
+        {form.map(item =>
+          <div className="category__item">
+            <div className="label">{item.name}</div>
+            <span className="divide">:</span>
+            <div className="value">{data[item.apiName] || ''}</div>
+          </div>
+        )}
       </div>
     </div>
   );

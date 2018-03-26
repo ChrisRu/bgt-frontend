@@ -59,6 +59,7 @@ class Category extends Component {
               form={form}
               done={isDone}
               onEdit={this.edit}
+              onClose={this.close}
             />
           )
         ) : (
