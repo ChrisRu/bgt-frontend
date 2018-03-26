@@ -102,7 +102,7 @@ class Filter extends Component {
                     onClick={() => this.addFilter(preset)}
                   >
                     <strong>{preset.keyName}</strong>
-                    <span class="divide">{preset.invert ? '≠' : '='}</span>
+                    <span className="divide">{preset.invert ? '≠' : '='}</span>
                     <span>{preset.value}</span>
                   </button>
                 ))}
