@@ -120,16 +120,6 @@ $sidebar-size: 4em;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
   }
-
-  &__popup {
-    table {
-      margin-bottom: 1rem;
-    }
-
-    td:first-child {
-      text-align: right;
-    }
-  }
 }
 
 .modal-animation-appear {

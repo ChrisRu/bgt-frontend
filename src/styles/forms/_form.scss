@@ -45,3 +45,21 @@
 .Select {
   flex: 1;
 }
+
+.table {
+  & + * {
+    margin-top: 1rem;
+  }
+
+  &__name {
+    text-align: right;
+  }
+
+  &__value {
+    font-weight: bold;
+
+    &.no-value {
+      font-weight: normal;
+    }
+  }
+}

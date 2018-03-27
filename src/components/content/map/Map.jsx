@@ -23,7 +23,7 @@ class MapComponent extends Component {
       Satelliet:
         'https://geodata.nationaalgeoregister.nl/luchtfoto/rgb/wmts/Actueel_ortho25/EPSG:3857/{z}/{x}/{y}.jpeg'
     },
-    tileLayerIndex: 'Basis'
+    tileLayerIndex: localStorage.getItem('tile-layer') || 'Basis'
   };
 
   createClusterIcon = el => {
@@ -53,7 +53,10 @@ class MapComponent extends Component {
     return tileLayers[tileLayerIndex] || tileLayers['Basis'];
   };
 
-  setTileLayer = tileLayerIndex => () => this.setState({ tileLayerIndex });
+  setTileLayer = tileLayerIndex => () => {
+    this.setState({ tileLayerIndex });
+    localStorage.setItem('tile-layer', tileLayerIndex);
+  };
 
   render() {
     const { projects, onOpenPopup } = this.props;

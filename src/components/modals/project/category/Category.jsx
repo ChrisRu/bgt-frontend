@@ -15,7 +15,8 @@ class Category extends Component {
     this.setState({ isOpen: true });
   };
 
-  edit = () => {
+  edit = event => {
+    event.stopPropagation();
     this.setState({ isEditing: true });
   };
 

@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
+import classnames from 'classnames';
 
 import Category from './category/Category';
 import Modal from '../Modal';
 import Form from '../../forms/Form';
 import HTTP from '../../util/services/http';
+import { parseLocation } from '../../util/functions/location';
 import { EditIcon, SaveIcon, TrashIcon } from '../../util/static/icons';
 
 import project from '../../forms/models/project';
 import models from '../../forms/models';
+import Table from '../../forms/components/Table';
 
 const duration = 400;
 
@@ -31,37 +34,6 @@ const transitionStyles = {
     transform: 'scale(0) translate(-50%, -50%)'
   }
 };
-
-function parseLocation(location) {
-  if (!location) {
-    return;
-  }
-
-  const { address: { road, house_number, city, suburb }, name } = location;
-
-  const res = [];
-
-  if (name) {
-    res.push(name);
-    res.push(', ');
-  }
-
-  if (road) {
-    res.push(road);
-  }
-
-  if (house_number) {
-    res.push(' ');
-    res.push(house_number);
-  }
-
-  if (city || suburb) {
-    res.push(', ');
-    res.push(city || suburb);
-  }
-
-  return res.join('');
-}
 
 class Project extends Component {
   state = {
@@ -155,7 +127,9 @@ class Project extends Component {
   render() {
     const { info, locationName, editing } = this.state;
     const { visible } = this.props;
-    const { status, description, category, bgtOnNumber } = info || {};
+    const { bgtOnNumber } = info || {};
+
+    const data = { ...info, location: locationName };
 
     return (
       <Modal
@@ -172,36 +146,32 @@ class Project extends Component {
               form={project.form}
               onClose={this.close}
               onSubmit={project.submit}
-              data={{ ...info, location: locationName }}
+              data={data}
             />
           ) : (
             <div className="modal__popup">
-              <table>
-                <tr>
-                  <td>Categorie:</td>
-                  <td>
-                    <strong>{category}</strong>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Status:</td>
-                  <td>
-                    <strong>{status}</strong>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Beschrijving:</td>
-                  <td>
-                    <strong>{description}</strong>
-                  </td>
-                </tr>
-                <tr>
-                  <td>Locatie:</td>
-                  <td>
-                    <strong>{locationName}</strong>
-                  </td>
-                </tr>
-              </table>
+              <Table form={project.form} data={data} />
+              <div className="timeline">
+                {models.map((form, index) => (
+                  <React.Fragment key={form.type}>
+                    <div
+                      className={classnames('timeline__bulb', {
+                        active: index === 0
+                      })}
+                    >
+                      <span className="timeline__bulb-content">
+                        {index + 1}
+                      </span>
+                      <span className="timeline__bulb-type">{form.name}</span>
+                    </div>
+                    <span
+                      className={classnames('timeline__arrow', {
+                        active: index === 0
+                      })}
+                    />
+                  </React.Fragment>
+                ))}
+              </div>
               <div className="categories">
                 {models.map(form => <Category key={form.type} {...form} />)}
               </div>

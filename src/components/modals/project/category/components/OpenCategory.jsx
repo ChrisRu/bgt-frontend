@@ -1,11 +1,12 @@
 import React from 'react';
 import classnames from 'classnames';
 
+import Table from '../../../../forms/components/Table';
 import { CheckIcon, CrossIcon, EditIcon } from '../../../../util/static/icons';
 
 const OpenCategory = ({ form, data, name, done, onEdit, onClose }) => {
   return (
-    <div>
+    <div onClick={onClose}>
       <span className="category__name">{name}</span>
       <div className={classnames('category__icon', { hidden: !done })}>
         <CheckIcon />
@@ -24,15 +25,7 @@ const OpenCategory = ({ form, data, name, done, onEdit, onClose }) => {
       >
         <EditIcon />
       </button>
-      <div className="category__content">
-        {form.map(item => (
-          <div key={item.apiName} className="category__item">
-            <div className="label">{item.name}</div>
-            <span className="divide">:</span>
-            <div className="value">{data[item.apiName] || ''}</div>
-          </div>
-        ))}
-      </div>
+      <Table className="margin-top-5" form={form} data={data} />
     </div>
   );
 };
