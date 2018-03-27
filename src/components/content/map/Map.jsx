@@ -85,7 +85,10 @@ class MapComponent extends Component {
             ))}
           </div>
           <TileLayer url={this.getTileLayer()} />
-          <MarkerClusterGroup iconCreateFunction={this.createClusterIcon}>
+          <MarkerClusterGroup
+            maxClusterRadius={50}
+            iconCreateFunction={this.createClusterIcon}
+          >
             {projects.map(project => (
               <MarkerComponent
                 onClick={() => onOpenPopup(project.id)}
