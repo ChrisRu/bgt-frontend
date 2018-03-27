@@ -122,10 +122,12 @@ $sidebar-size: 4em;
   }
 
   &__popup {
-    min-width: 60vw;
+    table {
+      margin-bottom: 1rem;
+    }
 
-    p:first-child {
-      margin-top: 0;
+    td:first-child {
+      text-align: right;
     }
   }
 }

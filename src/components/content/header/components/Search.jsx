@@ -42,14 +42,6 @@ class Search extends Component {
     }
   };
 
-  // componentDidMount() {
-  //   window.addEventListener('keypress', this.focus);
-  // }
-
-  // componentWillUnmount() {
-  //   window.removeEventListener('keypress', this.focus);
-  // }
-
   render() {
     const { results, open } = this.state;
     const { closed, onDropdown } = this.props;
@@ -78,8 +70,7 @@ class Search extends Component {
                   onClick={() => {
                     onDropdown(result);
                     this.setState({ open: false });
-                  }}
-                >
+                  }}>
                   {result.display_name}
                 </div>
               ))}

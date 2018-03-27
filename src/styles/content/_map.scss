@@ -31,6 +31,10 @@
   left: 0.5em;
 }
 
+.leaflet-pane .leaflet-tooltip-pane > div > * {
+  margin: 0 !important;
+}
+
 .map__selector {
   z-index: 400;
   float: right;

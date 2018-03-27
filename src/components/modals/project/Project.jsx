@@ -175,19 +175,33 @@ class Project extends Component {
               data={{ ...info, location: locationName }}
             />
           ) : (
-            <div className="modal--popup">
-              <p>
-                <strong>Categorie:</strong> {category}
-              </p>
-              <p>
-                <strong>Status:</strong> {status}
-              </p>
-              <p>
-                <strong>Beschrijving:</strong> {description}
-              </p>
-              <p>
-                <strong>Locatie:</strong> {locationName}
-              </p>
+            <div className="modal__popup">
+              <table>
+                <tr>
+                  <td>Categorie:</td>
+                  <td>
+                    <strong>{category}</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Status:</td>
+                  <td>
+                    <strong>{status}</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Beschrijving:</td>
+                  <td>
+                    <strong>{description}</strong>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Locatie:</td>
+                  <td>
+                    <strong>{locationName}</strong>
+                  </td>
+                </tr>
+              </table>
               <div className="categories">
                 {models.map(form => <Category key={form.type} {...form} />)}
               </div>

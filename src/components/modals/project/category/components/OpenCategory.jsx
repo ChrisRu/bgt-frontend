@@ -25,13 +25,13 @@ const OpenCategory = ({ form, data, name, done, onEdit, onClose }) => {
         <EditIcon />
       </button>
       <div className="category__content">
-        {form.map(item =>
-          <div className="category__item">
+        {form.map(item => (
+          <div key={item.apiName} className="category__item">
             <div className="label">{item.name}</div>
             <span className="divide">:</span>
             <div className="value">{data[item.apiName] || ''}</div>
           </div>
-        )}
+        ))}
       </div>
     </div>
   );
