@@ -13,8 +13,8 @@
 
 .leaflet-touch .leaflet-control-layers,
 .leaflet-touch .leaflet-bar {
-  border: 0;
-  box-shadow: 0 3px 5px 3px rgba(0, 0, 0, 0.2);
+  border: 0 !important;
+  box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.2) !important;
 }
 
 .leaflet-bottom {
@@ -29,4 +29,42 @@
   top: auto;
   bottom: 0.5em;
   left: 0.5em;
+}
+
+.map__selector {
+  z-index: 400;
+  float: right;
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+  flex-flow: column nowrap;
+  box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.2) !important;
+
+  &-button {
+    flex: 1;
+    font-family: $font-text;
+    background-color: $bg-white;
+    color: #282828;
+    font-size: 0.8rem;
+    border: 0;
+    padding: 0.3rem 0.6em;
+    transition: background-color 0.2s ease;
+    cursor: pointer;
+
+    & + & {
+      border-top: 1px solid #ccc;
+    }
+
+    &:hover {
+      background-color: darken($bg-white, 5%);
+    }
+
+    &.active {
+      background-color: $bgt-highlight;
+      color: $bg-white;
+    }
+  }
 }
