@@ -35,40 +35,64 @@
   margin: 0 !important;
 }
 
-.map__selector {
-  z-index: 400;
-  float: right;
-  position: relative;
-  border-radius: 4px;
-  overflow: hidden;
-  display: flex;
-  margin-top: 0.5rem;
-  margin-right: 0.5rem;
-  flex-flow: column nowrap;
-  box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.2) !important;
+.map {
+  &__selector {
+    z-index: 400;
+    float: right;
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    margin-top: 0.5rem;
+    margin-right: 0.5rem;
+    flex-flow: column nowrap;
+    box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.2) !important;
 
-  &-button {
-    flex: 1;
-    font-family: $font-text;
-    background-color: $bg-white;
-    color: #282828;
-    font-size: 0.8rem;
-    border: 0;
-    padding: 0.3rem 0.6em;
-    transition: background-color 0.2s ease;
-    cursor: pointer;
+    &-button {
+      flex: 1;
+      font-family: $font-text;
+      background-color: $bg-white;
+      color: #282828;
+      font-size: 0.8rem;
+      border: 0;
+      padding: 0.3rem 0.6em;
+      transition: background-color 0.2s ease;
+      cursor: pointer;
 
-    & + & {
-      border-top: 1px solid #ccc;
-    }
+      & + & {
+        border-top: 1px solid #ccc;
+      }
 
-    &:hover {
-      background-color: darken($bg-white, 5%);
-    }
+      &:hover {
+        background-color: darken($bg-white, 5%);
+      }
 
-    &.active {
-      background-color: $bgt-highlight;
-      color: $bg-white;
+      &.active {
+        background-color: $bgt-highlight;
+        color: $bg-white;
+      }
     }
   }
+
+  &__icon {
+    flex: 1;
+    background-size: 100% 100%;
+    background-repeat: none;
+    text-align: center;
+    line-height: 28px;
+    font-size: 18px;
+    font-weight: bold;
+    transition: transform 0.2s ease;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+}
+
+.leaflet-div-icon {
+  background-color: transparent !important;
+  color: white;
+  display: flex !important;
+  border: 0 !important;
 }

@@ -75,14 +75,19 @@ class App extends Component {
     }
   };
 
-  render() {
-    const { showCreateProjectModal, openProjectId, authenticated } = this.state;
-    const { location: { pathname }, history } = this.props;
-    const projects = this.filterProjects(this.state.projects || []);
+  componentWillMount() {
+    const { authenticated } = this.state;
+    const { history } = this.props;
 
     if (!authenticated && !history.location.pathname.includes('/login')) {
       history.push('/login');
     }
+  }
+
+  render() {
+    const { showCreateProjectModal, openProjectId, authenticated } = this.state;
+    const { location: { pathname } } = this.props;
+    const projects = this.filterProjects(this.state.projects || []);
 
     return (
       <RootContext.Provider

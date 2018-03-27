@@ -68,7 +68,7 @@ class Dashboard extends Component {
         </div>
         <div className="dashboard__block">
           <div className="dashboard__item dashboard__item--stats">
-            <h2 className="dashboard__title">Statistieken</h2>
+            <h2 className="dashboard__title">Projecten</h2>
             {data ? (
               <div className="dashboard__numbers">
                 <div
@@ -78,7 +78,7 @@ class Dashboard extends Component {
                   <span className="dashboard__number-value">
                     {data.projectsCount.openAmount || 0}
                   </span>
-                  <span className="dashboard__number-title">Open taken</span>
+                  <span className="dashboard__number-title">Open</span>
                 </div>
                 <div
                   className="dashboard__number"
@@ -88,7 +88,7 @@ class Dashboard extends Component {
                     {data.projectsCount.criticalAmount || 0}
                   </span>
                   <span className="dashboard__number-title">
-                    Hoge prioriteit taken
+                    Hoge prioriteit
                   </span>
                 </div>
               </div>

@@ -91,7 +91,7 @@ class Filter extends Component {
               }}
               className="filter__popup"
             >
-              <h3>Filter on categories:</h3>
+              <h3>Filter:</h3>
               <div className="filter__list">
                 {presets.map(preset => (
                   <button

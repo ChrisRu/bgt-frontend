@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Map from 'react-leaflet/lib/Map';
 import TileLayer from 'react-leaflet/lib/TileLayer';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
-import { icon } from 'leaflet';
+import { divIcon } from 'leaflet';
 import classnames from 'classnames';
 
 import MarkerComponent from './Marker';
@@ -38,12 +38,17 @@ class MapComponent extends Component {
 
     const clusterColor = colors[colorIndex];
 
-    const iconUrl = `${process.env.PUBLIC_URL}/cluster-${clusterColor}.png`;
-    return icon({
-      iconUrl,
-      iconSize: [32, 32],
-      iconAnchor: [16, 16],
-      popupAnchor: [16, 16]
+    const iconUrl = `${
+      process.env.PUBLIC_URL
+    }/cluster-${clusterColor}.png`.replace(' ', '');
+
+    return divIcon({
+      html: `
+        <span class="map__icon map__icon--${clusterColor}" style="background-image: url(${iconUrl})">
+          ${el.getChildCount()}
+        </span>
+      `,
+      iconSize: [28, 28]
     });
   };
 
