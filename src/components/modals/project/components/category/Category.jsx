@@ -7,12 +7,11 @@ import OpenCategory from './components/OpenCategory';
 
 class Category extends Component {
   state = {
-    isOpen: false,
     isEditing: false
   };
 
   open = () => {
-    this.setState({ isOpen: true });
+    this.props.onOpen();
   };
 
   edit = event => {
@@ -22,7 +21,8 @@ class Category extends Component {
 
   close = event => {
     event.preventDefault();
-    this.setState({ isEditing: false, isOpen: false });
+    this.props.onClose();
+    this.setState({ isEditing: false });
   };
 
   submit = (...args) => {
@@ -31,8 +31,8 @@ class Category extends Component {
   };
 
   render() {
-    const { name = '', form = {}, data = {}, done } = this.props;
-    const { isOpen, isEditing } = this.state;
+    const { name = '', form = {}, data = {}, done, open } = this.props;
+    const { isEditing } = this.state;
 
     const isDone = done(data);
 
@@ -40,11 +40,11 @@ class Category extends Component {
       <div
         className={classnames('category', {
           'category--done': isDone,
-          'category--open': isOpen,
+          'category--open': open,
           'category--edit': isEditing
         })}
       >
-        {isOpen ? (
+        {open ? (
           isEditing ? (
             <EditCategory
               name={name}

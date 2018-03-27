@@ -1,8 +1,12 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import Table from '../../../../forms/components/Table';
-import { CheckIcon, CrossIcon, EditIcon } from '../../../../util/static/icons';
+import Table from '../../../../../forms/components/Table';
+import {
+  CheckIcon,
+  CrossIcon,
+  EditIcon
+} from '../../../../../util/static/icons';
 
 const OpenCategory = ({ form, data, name, done, onEdit, onClose }) => {
   return (

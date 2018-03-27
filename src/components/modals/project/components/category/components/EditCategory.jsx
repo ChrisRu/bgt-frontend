@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Form from '../../../../forms/Form';
+import Form from '../../../../../forms/Form';
 
-import { CrossIcon } from '../../../../util/static/icons';
+import { CrossIcon } from '../../../../../util/static/icons';
 
 const EditCategory = ({ name, form, onSubmit, onClose }) => {
   return (

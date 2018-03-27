@@ -64,9 +64,20 @@ class MapComponent extends Component {
   };
 
   markerClick = project => {
-    this.setState({ lat: project.latitude, lng: project.longtitude });
+    this.setState({
+      lat: Number(project.latitude),
+      lng: Number(project.longtitude)
+    });
     this.props.onOpenPopup(project.id);
   };
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.state.zoom !== nextState.zoom) {
+      return false;
+    }
+
+    return true;
+  }
 
   render() {
     const { projects } = this.props;

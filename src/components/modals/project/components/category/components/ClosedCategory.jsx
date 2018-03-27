@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import { CheckIcon } from '../../../../util/static/icons';
+import { CheckIcon } from '../../../../../util/static/icons';
 
 const ClosedCategory = ({ name, done, onOpen }) => {
   return (

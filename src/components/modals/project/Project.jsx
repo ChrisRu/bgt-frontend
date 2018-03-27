@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import classnames from 'classnames';
 
-import Category from './category/Category';
+import Timeline from './components/Timeline';
+import Categories from './components/Categories';
 import Modal from '../Modal';
 import Form from '../../forms/Form';
 import HTTP from '../../util/services/http';
@@ -40,7 +40,8 @@ class Project extends Component {
     locationName: null,
     editing: false,
     isFetching: false,
-    info: null
+    info: null,
+    openIndex: []
   };
 
   edit = () => {
@@ -124,8 +125,24 @@ class Project extends Component {
     this.props.onClose(...args);
   };
 
+  openItem = (index, toggle = false) => {
+    if (toggle && this.state.openIndex.includes(index)) {
+      return this.closeItem(index);
+    }
+
+    this.setState(({ openIndex }) => ({
+      openIndex: [...openIndex, index]
+    }));
+  };
+
+  closeItem = index => {
+    this.setState(({ openIndex }) => ({
+      openIndex: openIndex.filter(i => i !== index)
+    }));
+  };
+
   render() {
-    const { info, locationName, editing } = this.state;
+    const { info, locationName, editing, openIndex } = this.state;
     const { visible } = this.props;
     const { bgtOnNumber } = info || {};
 
@@ -151,30 +168,17 @@ class Project extends Component {
           ) : (
             <div className="modal__popup">
               <Table form={project.form} data={data} />
-              <div className="timeline">
-                {models.map((form, index) => (
-                  <React.Fragment key={form.type}>
-                    <div
-                      className={classnames('timeline__bulb', {
-                        active: index === 0
-                      })}
-                    >
-                      <span className="timeline__bulb-content">
-                        {index + 1}
-                      </span>
-                      <span className="timeline__bulb-type">{form.name}</span>
-                    </div>
-                    <span
-                      className={classnames('timeline__arrow', {
-                        active: index === 0
-                      })}
-                    />
-                  </React.Fragment>
-                ))}
-              </div>
-              <div className="categories">
-                {models.map(form => <Category key={form.type} {...form} />)}
-              </div>
+              <Timeline
+                onOpen={this.openItem}
+                models={models}
+                openIndex={openIndex}
+              />
+              <Categories
+                onOpen={this.openItem}
+                onClose={this.closeItem}
+                models={models}
+                openIndex={openIndex}
+              />
             </div>
           )
         }
