@@ -37,6 +37,10 @@ class App extends Component {
     const authenticated =
       ignoreAuthentication || (await HTTP.user.authenticated());
 
+    if (authenticated === false) {
+      this.props.history.push('/login');
+    }
+
     this.login(authenticated);
   }
 
@@ -74,15 +78,6 @@ class App extends Component {
       return this.getProjects();
     }
   };
-
-  componentWillMount() {
-    const { authenticated } = this.state;
-    const { history } = this.props;
-
-    if (!authenticated && !history.location.pathname.includes('/login')) {
-      history.push('/login');
-    }
-  }
 
   render() {
     const { showCreateProjectModal, openProjectId, authenticated } = this.state;
@@ -133,7 +128,11 @@ class App extends Component {
                   />
                 )}
               />
-              <Redirect exact strict from="/" to="/kaart" />
+              {authenticated ? (
+                <Redirect exact strict from="/" to="/kaart" />
+              ) : (
+                <Redirect exact strict from="/" to="/login" />
+              )}
             </Switch>
 
             <CreateButton
