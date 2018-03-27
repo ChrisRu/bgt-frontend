@@ -63,14 +63,24 @@ class MapComponent extends Component {
     localStorage.setItem('tile-layer', tileLayerIndex);
   };
 
+  markerClick = project => {
+    this.setState({ lat: project.latitude, lng: project.longtitude });
+    this.props.onOpenPopup(project.id);
+  };
+
   render() {
-    const { projects, onOpenPopup } = this.props;
+    const { projects } = this.props;
     const { lat, lng, zoom, minZoom, tileLayers, tileLayerIndex } = this.state;
     const position = [lat, lng];
 
     return (
       <React.Fragment>
-        <Map center={position} zoom={zoom} minZoom={minZoom}>
+        <Map
+          center={position}
+          zoom={zoom}
+          minZoom={minZoom}
+          onViewportChange={({ zoom }) => this.setState({ zoom })}
+        >
           <div className="map__selector">
             {Object.keys(tileLayers).map(layer => (
               <button
@@ -91,7 +101,7 @@ class MapComponent extends Component {
           >
             {projects.map(project => (
               <MarkerComponent
-                onClick={() => onOpenPopup(project.id)}
+                onClick={() => this.markerClick(project)}
                 key={project.bgtOnNumber}
                 {...project}
               />
