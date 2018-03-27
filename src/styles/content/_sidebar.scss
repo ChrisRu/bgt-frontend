@@ -25,6 +25,10 @@
       transform: scale(1.1);
     }
 
+    &:last-child {
+      margin-top: auto;
+    }
+
     svg {
       width: $icon-size;
       height: $icon-size;
