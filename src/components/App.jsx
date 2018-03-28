@@ -81,7 +81,7 @@ class App extends Component {
 
   render() {
     const { showCreateProjectModal, openProjectId, authenticated } = this.state;
-    const { location: { pathname } } = this.props;
+    const { location: { pathname }, history } = this.props;
     const projects = this.filterProjects(this.state.projects || []);
 
     return (
@@ -129,9 +129,11 @@ class App extends Component {
                 )}
               />
               {authenticated ? (
-                <Redirect exact strict from="/" to="/kaart" />
+                history.location.pathname === '/' ? (
+                  <Redirect exact strict from="/" to="/kaart" />
+                ) : null
               ) : (
-                <Redirect exact strict from="/" to="/login" />
+                <Redirect to="/login" />
               )}
             </Switch>
 
