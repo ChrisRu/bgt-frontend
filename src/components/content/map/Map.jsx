@@ -27,6 +27,10 @@ class MapComponent extends Component {
   };
 
   createClusterIcon = el => {
+    if (!el) {
+      return;
+    }
+
     const colors = ['red', 'yellow', 'green'];
 
     const colorIndex = el.getAllChildMarkers().reduce((max, marker) => {
