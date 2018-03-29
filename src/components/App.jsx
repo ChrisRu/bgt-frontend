@@ -39,9 +39,9 @@ class App extends Component {
 
     if (authenticated === false) {
       this.props.history.push('/login');
+    } else {
+      this.login(authenticated, false);
     }
-
-    this.login(authenticated);
   }
 
   openPopup = id => {
@@ -70,18 +70,21 @@ class App extends Component {
     });
   }
 
-  login = async authenticated => {
+  login = async (authenticated, redirect = true) => {
     this.setState({ authenticated });
 
     if (authenticated) {
-      this.props.history.push('/');
+      if (redirect) {
+        this.props.history.push('/');
+      }
+
       return this.getProjects();
     }
   };
 
   render() {
     const { showCreateProjectModal, openProjectId, authenticated } = this.state;
-    const { location: { pathname }, history } = this.props;
+    const { location: { pathname } } = this.props;
     const projects = this.filterProjects(this.state.projects || []);
 
     return (
@@ -129,9 +132,7 @@ class App extends Component {
                 )}
               />
               {authenticated ? (
-                history.location.pathname === '/' ? (
-                  <Redirect exact strict from="/" to="/kaart" />
-                ) : null
+                <Redirect exact strict from="/" to="/kaart" />
               ) : (
                 <Redirect to="/login" />
               )}
