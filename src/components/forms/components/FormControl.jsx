@@ -1,5 +1,4 @@
 import React from 'react';
-import throttle from 'lodash/throttle';
 import SelectAsync from 'react-select/lib/Async';
 import Select from 'react-select/lib/Select';
 import DayPickerInput from 'react-day-picker/lib/src/DayPickerInput';
@@ -72,7 +71,7 @@ const FormInput = props => {
             clearValueText="Verwijder inhoud"
             noResultsText="Geen resultaten"
             loadingPlaceholder="Locaties ophalen..."
-            loadOptions={throttle(loadOptions, 800)}
+            loadOptions={loadOptions}
             labelKey={labelKey}
             valueKey={valueKey}
             value={value(props)}
