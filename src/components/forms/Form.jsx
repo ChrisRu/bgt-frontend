@@ -34,7 +34,7 @@ class Form extends Component {
     this.setState({ loading: true });
 
     return this.props
-      .submit(this.state.data)
+      .onSubmit(this.state.data)
       .then(() => {
         this.setState({
           data: {},

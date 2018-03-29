@@ -174,6 +174,7 @@ class Project extends Component {
                 openIndex={openIndex}
               />
               <Categories
+                onSubmit={() => alert('Dit werkt helaas nog even niet.')}
                 onOpen={this.openItem}
                 onClose={this.closeItem}
                 models={models}
