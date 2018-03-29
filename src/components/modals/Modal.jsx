@@ -38,7 +38,7 @@ const ActionButton = ({ type, onClick, name, callChild, align }) => (
     className={classnames('button', `button--${type}`, 'modal__button', {
       'modal__button-left': align === 'left'
     })}
-    onClick={typeof onClick === 'string' ? callChild(onClick) : onClick}
+    onClick={typeof onClick === 'string' ? () => callChild(onClick) : onClick}
   >
     {name}
   </button>
@@ -46,8 +46,10 @@ const ActionButton = ({ type, onClick, name, callChild, align }) => (
 
 class Modal extends Component {
   callChild = methodName => {
-    if (this.child) {
-      return this.child[methodName].bind(this.child);
+    if (this.child && this.child[methodName]) {
+      return this.child[methodName].call(this.child);
+    } else {
+      console.error(`Child method "${methodName}" does not exist`);
     }
   };
 

@@ -7,6 +7,7 @@ const Confirm = ({
   visible,
   title = 'Actie bevestigen',
   message = 'Weet u zeker dat u dit wilt verwijderen?',
+  actionMessage = 'Verwijder',
   onClose,
   onConfirm
 }) => (
@@ -14,6 +15,10 @@ const Confirm = ({
     visible={visible}
     onClose={onClose}
     title={title}
+    defaultStyle={{
+      minWidth: '300px',
+      transformOrigin: '0 0'
+    }}
     actions={[
       {
         type: 'cancel',
@@ -25,19 +30,18 @@ const Confirm = ({
         onClick: onClose
       },
       {
-        type: 'warning',
+        type: 'danger',
         name: (
           <React.Fragment>
             <WarningIcon />
-            <span>Confirm</span>
+            <span>{actionMessage}</span>
           </React.Fragment>
         ),
         onClick: onConfirm
       }
     ]}
-    defaultStyle={{ transformOrigin: '0 0' }}
   >
-    {message}
+    <p>{message}</p>
   </Modal>
 );
 
