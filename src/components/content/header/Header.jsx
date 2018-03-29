@@ -28,17 +28,19 @@ class Header extends Component {
           <Show
             visible={showSearch}
             render={() => (
-              <Search
-                closed={searchClosed}
-                onOpen={state => this.setState({ searchClosed: state })}
-                onChange={onSearch}
-              />
+              <React.Fragment>
+                <Search
+                  closed={searchClosed}
+                  onOpen={state => this.setState({ searchClosed: state })}
+                  onChange={onSearch}
+                />
+                <Filter
+                  closed={filterClosed}
+                  onOpen={state => this.setState({ filterClosed: state })}
+                  onChange={onFilter}
+                />
+              </React.Fragment>
             )}
-          />
-          <Filter
-            closed={filterClosed}
-            onOpen={state => this.setState({ filterClosed: state })}
-            onChange={onFilter}
           />
         </div>
       </header>
