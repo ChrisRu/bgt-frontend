@@ -2,7 +2,7 @@ import React from 'react';
 
 import Form from '../../../../../forms/Form';
 
-import { CrossIcon } from '../../../../../util/static/icons';
+import { CrossIcon, SaveIcon } from '../../../../../util/static/icons';
 
 const EditCategory = ({ name, form, onSubmit, onClose }) => {
   return (
@@ -16,13 +16,16 @@ const EditCategory = ({ name, form, onSubmit, onClose }) => {
         <CrossIcon />
       </button>
       <Form form={form} />
-      <button
-        className="button button--confirm"
-        type="submit"
-        onClick={onSubmit}
-      >
-        Opslaan
-      </button>
+      <div className="category__buttons">
+        <button
+          className="button button--confirm"
+          type="submit"
+          onClick={onSubmit}
+        >
+          <SaveIcon />
+          Opslaan
+        </button>
+      </div>
     </div>
   );
 };

@@ -75,6 +75,14 @@ body {
     width: $icon-size;
   }
 
+  &:not(&--icon-only) svg {
+    height: $icon-size / 1.2;
+    width: $icon-size / 1.2;
+    fill: $bg-white;
+    vertical-align: middle;
+    margin-right: 0.5em;
+  }
+
   &--icon-only {
     height: $icon-size;
     width: 0;
