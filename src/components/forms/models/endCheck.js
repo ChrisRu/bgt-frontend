@@ -4,7 +4,7 @@ export default {
   type: 'endCheck',
   name: 'Eind Controle',
   done: data => !!data.endDate,
-  submit: (data, partial) => HTTP.endChecks[partial ? 'edit' : 'create'](data),
+  submit: (data, partial) => HTTP.endCheck[partial ? 'edit' : 'create'](data),
   form: [
     {
       name: 'Naam',

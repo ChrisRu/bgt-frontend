@@ -4,7 +4,7 @@ export default {
   type: 'exploring',
   name: 'Verkennen',
   done: data => !!data.endDate,
-  submit: (data, partial) => HTTP.explorings[partial ? 'edit' : 'create'](data),
+  submit: (data, partial) => HTTP.exploring[partial ? 'edit' : 'create'](data),
   form: [
     {
       name: 'M2',

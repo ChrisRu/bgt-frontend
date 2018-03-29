@@ -5,7 +5,7 @@ export default {
   name: 'Meetmap',
   done: data => !!data.endDate,
   submit: (data, partial) =>
-    HTTP.measurementMaps[partial ? 'edit' : 'create'](data),
+    HTTP.measurementMap[partial ? 'edit' : 'create'](data),
   form: [
     {
       name: 'Naam',

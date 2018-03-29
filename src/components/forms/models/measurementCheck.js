@@ -5,7 +5,7 @@ export default {
   name: 'Meting controle',
   done: data => !!data.endDate,
   submit: (data, partial) =>
-    HTTP.measurementChecks[partial ? 'edit' : 'create'](data),
+    HTTP.measurementCheck[partial ? 'edit' : 'create'](data),
   form: [
     {
       name: 'Naam',

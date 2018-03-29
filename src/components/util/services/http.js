@@ -1,6 +1,7 @@
 import queryString from 'query-string';
 
 import { getJWT, setJWT } from '../functions/auth';
+import models from '../../forms/models';
 
 const createURL = partial => {
   let url = process.env.REACT_APP_API_URL;
@@ -42,37 +43,22 @@ const fetchAPI = (endpoint, method = 'GET', body = null) =>
     });
 
 const get = endpoint => fetchAPI(endpoint);
-
 const post = (endpoint, body) => fetchAPI(endpoint, 'POST', body);
-
-// const put = (endpoint, body) => fetchAPI(endpoint, 'PUT', body);
-
+const put = (endpoint, body) => fetchAPI(endpoint, 'PUT', body);
 const patch = (endpoint, body) => fetchAPI(endpoint, 'PATCH', body);
-
 const remove = endpoint => fetchAPI(endpoint, 'DELETE');
 
+const createEndPoints = name => ({
+  getAll: () => get(`/${name}`),
+  get: id => get(`/${name}/${id}`),
+  create: body => post(`/${name}`, body),
+  edit: (id, body) => patch(`/${name}/${id}`, body),
+  editComplete: (id, body) => put(`/${name}/${id}`, body),
+  delete: id => remove(`/${name}/${id}`)
+});
+
 const HTTP = {
-  projects: {
-    getAll() {
-      return get('/projects');
-    },
-
-    get(id) {
-      return get(`/projects/${id}`);
-    },
-
-    create(body) {
-      return post(`/projects`, body);
-    },
-
-    edit(id, body) {
-      return patch(`/projects/${id}`, body);
-    },
-
-    delete(id) {
-      return remove(`/projects/${id}`);
-    }
-  },
+  projects: createEndPoints('projects'),
 
   stats: {
     get() {
@@ -116,5 +102,9 @@ const HTTP = {
     }
   }
 };
+
+models.forEach(({ type }) => {
+  HTTP[type] = createEndPoints(type);
+});
 
 export default HTTP;

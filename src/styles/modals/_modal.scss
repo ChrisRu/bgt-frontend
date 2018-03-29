@@ -110,6 +110,10 @@ $sidebar-size: 4em;
     flex: 1;
     overflow-y: auto;
     max-height: calc(100vh - 17rem);
+
+    p:first-child {
+      margin-top: 0;
+    }
   }
 
   &__footer {

@@ -5,7 +5,7 @@ export default {
   name: 'Verkennen Controle',
   done: data => !!data.endDate,
   submit: (data, partial) =>
-    HTTP.exploringChecks[partial ? 'edit' : 'create'](data),
+    HTTP.exploringCheck[partial ? 'edit' : 'create'](data),
   form: [
     {
       name: 'Naam',

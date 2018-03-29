@@ -5,7 +5,7 @@ export default {
   name: 'Meting',
   done: data => data.startDate && data.endDate,
   submit: (data, partial) =>
-    HTTP.measurements[partial ? 'edit' : 'create'](data),
+    HTTP.measurement[partial ? 'edit' : 'create'](data),
   form: [
     {
       name: 'Bedrijf',

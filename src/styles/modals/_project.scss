@@ -36,6 +36,11 @@
     }
   }
 
+  &__buttons {
+    display: flex;
+    justify-content: flex-end;
+  }
+
   &__icon {
     margin-left: 0.5rem;
     display: inline-block;

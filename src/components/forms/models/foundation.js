@@ -4,8 +4,7 @@ export default {
   type: 'foundation',
   name: 'Grondslag',
   done: data => data.startDate && data.endDate,
-  submit: (data, partial) =>
-    HTTP.foundations[partial ? 'edit' : 'create'](data),
+  submit: (data, partial) => HTTP.foundation[partial ? 'edit' : 'create'](data),
   form: [
     {
       name: 'Meting Naam',

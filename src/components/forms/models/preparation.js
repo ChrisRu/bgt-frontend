@@ -3,9 +3,9 @@ import HTTP from '../../util/services/http';
 export default {
   type: 'preparation',
   name: 'Voorbereiding',
-  done: data => true || !!data.endDate,
+  done: data => !!data.endDate,
   submit: (data, partial) =>
-    HTTP.preparations[partial ? 'edit' : 'create'](data),
+    HTTP.preparation[partial ? 'edit' : 'create'](data),
   form: [
     {
       name: 'Naam',
