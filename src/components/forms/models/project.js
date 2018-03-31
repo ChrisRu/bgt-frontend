@@ -16,25 +16,25 @@ export default {
       placeholder: 'Duindorp, Den Haag',
       input: 'select',
       switch: {
-        value: ({ value }) => ({ display_name: value }),
-        onChange: ({ onChange, apiName }) => e => {
+        value: v => v.value,
+        onChange: ({ onChange, apiName }) => value => {
           onChange({
             target: {
               name: apiName,
-              value: e ? e.display_name : ''
+              value
             }
           });
         },
-        onValueClick: ({ onChange, apiName }) => e => {
+        onValueClick: ({ onChange, apiName }) => value => {
           onChange({
             target: {
               name: apiName,
-              value: e ? e.display_name : ''
+              value
             }
           });
         },
-        valueKey: 'display_name',
-        labelKey: 'display_name',
+        valueKey: 'value',
+        labelKey: 'value',
         loadOptions: input =>
           HTTP.geo.code(input).then(options => ({ options }))
       }

@@ -72,8 +72,15 @@ const HTTP = {
         return Promise.resolve([]);
       }
 
-      location = location.split(' ').join('+');
-      return get('/geocoding/search?' + queryString.stringify({ location }));
+      return get(`/geocoding/search/${location}`);
+    },
+
+    getDetails(key) {
+      if (!key) {
+        return Promise.resolve([]);
+      }
+
+      return get(`/geocoding/getDetails/${key}`);
     },
 
     search(location) {
@@ -81,7 +88,7 @@ const HTTP = {
     },
 
     reverse(lat, lon) {
-      return get('/geocoding/reverse?' + queryString.stringify({ lat, lon }));
+      return get('/geocoding/reverse/' + queryString.stringify({ lat, lon }));
     }
   },
 

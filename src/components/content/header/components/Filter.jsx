@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Transition from 'react-transition-group/Transition';
 import classnames from 'classnames';
 
-import { FilterIcon } from '../../../util/static/icons';
+import { FilterIcon, SearchIcon } from '../../../util/static/icons';
 
 const duration = 300;
 
@@ -30,6 +30,8 @@ const transitionStyles = {
 class Filter extends Component {
   state = {
     filters: [],
+    searchValue: '',
+    searchKeys: ['bgtOnNumber', 'status', 'category', 'description'],
     presets: [
       {
         keyName: 'Categorie',
@@ -54,9 +56,17 @@ class Filter extends Component {
       }
     ]
   };
+
+  addSearchFilter = () => {
+    const { value } = this.input;
+
+    this.setState({ searchValue: value });
+
+    this.pushFilters();
+  };
+
   addFilter = filter => {
     let { filters } = this.state;
-    const { onChange } = this.props;
 
     let existIndex = filters.indexOf(filter);
     if (existIndex === -1) {
@@ -67,11 +77,19 @@ class Filter extends Component {
 
     this.setState({ filters: filters });
 
-    onChange(project =>
-      filters.every(
-        ({ key, value, invert }) =>
-          invert ? project[key] === value : project[key] !== value
-      )
+    this.pushFilters();
+  };
+
+  pushFilters = () => {
+    const { onChange } = this.props;
+    const { filters, searchKeys, searchValue } = this.state;
+
+    onChange(
+      project =>
+        filters.every(
+          ({ key, value, invert }) =>
+            invert ? project[key] === value : project[key] !== value
+        ) && searchKeys.some(key => project[key].includes(searchValue))
     );
   };
 
@@ -92,6 +110,19 @@ class Filter extends Component {
               className="filter__popup"
             >
               <h3>Filter:</h3>
+              <div className="search">
+                <input
+                  className="input"
+                  type="text"
+                  title="Zoek op project..."
+                  placeholder="Zoek op project..."
+                  ref={input => {
+                    this.input = input;
+                  }}
+                  onChange={this.addSearchFilter}
+                />
+                <SearchIcon title="Zoek op project" />
+              </div>
               <div className="filter__list">
                 {presets.map(preset => (
                   <button

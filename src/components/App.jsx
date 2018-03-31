@@ -25,6 +25,7 @@ class App extends Component {
     authenticated: getJWT(),
     searchValue: '',
     projects: [],
+    searchMarker: null,
     openProjectId: null,
     searchKeys: ['bgtOnNumber', 'status', 'description', 'category']
   };
@@ -43,6 +44,12 @@ class App extends Component {
       this.login(authenticated, false);
     }
   }
+
+  onPositionClick = async key => {
+    this.setState({
+      searchMarker: await HTTP.geo.getDetails(key).catch(console.error)
+    });
+  };
 
   openPopup = id => {
     this.setState({ openProjectId: id });
@@ -83,7 +90,12 @@ class App extends Component {
   };
 
   render() {
-    const { showCreateProjectModal, openProjectId, authenticated } = this.state;
+    const {
+      showCreateProjectModal,
+      openProjectId,
+      authenticated,
+      searchMarker
+    } = this.state;
     const { location: { pathname } } = this.props;
     const projects = this.filterProjects(this.state.projects || []);
 
@@ -98,6 +110,7 @@ class App extends Component {
             showSearch={!pathname.startsWith('/dashboard')}
             onSearch={searchValue => this.setState({ searchValue })}
             onFilter={filter => this.setState({ filter })}
+            onPositionClick={this.onPositionClick}
           />
 
           <div className="app__content">
@@ -113,6 +126,7 @@ class App extends Component {
                 path="/kaart"
                 render={() => (
                   <ContentMap
+                    searchMarker={searchMarker}
                     onOpenPopup={this.openPopup}
                     projects={projects}
                     googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"

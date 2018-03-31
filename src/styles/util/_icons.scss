@@ -32,6 +32,18 @@
     }
   }
 
+  &--loading {
+    .spinner {
+      margin: 0;
+      width: 1em;
+      height: 1em;
+
+      div {
+        background-color: #444;
+      }
+    }
+  }
+
   &--plus {
     $size: 0.8em;
     $height: $size * 0.2;

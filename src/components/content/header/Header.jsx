@@ -16,7 +16,7 @@ class Header extends Component {
 
   render() {
     const { searchClosed, filterClosed } = this.state;
-    const { onSearch, onFilter, showSearch } = this.props;
+    const { onSearch, onFilter, showSearch, onPositionClick } = this.props;
 
     return (
       <header className="header">
@@ -33,6 +33,10 @@ class Header extends Component {
                   closed={searchClosed}
                   onOpen={state => this.setState({ searchClosed: state })}
                   onChange={onSearch}
+                  onDropdown={(...args) => {
+                    onPositionClick(...args);
+                    this.setState({ searchClosed: true });
+                  }}
                 />
                 <Filter
                   closed={filterClosed}

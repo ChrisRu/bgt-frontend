@@ -6,13 +6,15 @@ import { divIcon } from 'leaflet';
 import classnames from 'classnames';
 
 import MarkerComponent from './Marker';
+import SearchMarker from './SearchMarker';
+import convertRdToGeo from '../../util/functions/coordinates';
 
 class MapComponent extends Component {
   state = {
     lat: 52.0704978,
     lng: 4.3006999,
-    zoom: 12,
-    minZoom: 8,
+    zoom: 13,
+    minZoom: 9,
     tileLayers: {
       Basis:
         'https://geodata.nationaalgeoregister.nl/tiles/service/wmts/brtachtergrondkaart/EPSG:3857/{z}/{x}/{y}.png',
@@ -83,15 +85,27 @@ class MapComponent extends Component {
     return true;
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (
+      nextProps.searchMarker &&
+      nextProps.searchMarker !== this.props.searchMarker
+    ) {
+      const {
+        geometry: { coordinates: [rdLat, rdLon] }
+      } = nextProps.searchMarker;
+      const [lat, lon] = convertRdToGeo(rdLat, rdLon);
+      this.setState({ lat, lon, zoom: 14 });
+    }
+  }
+
   render() {
-    const { projects } = this.props;
+    const { projects, searchMarker } = this.props;
     const { lat, lng, zoom, minZoom, tileLayers, tileLayerIndex } = this.state;
-    const position = [lat, lng];
 
     return (
       <React.Fragment>
         <Map
-          center={position}
+          center={[lat, lng]}
           zoom={zoom}
           minZoom={minZoom}
           onViewportChange={({ zoom }) => this.setState({ zoom })}
@@ -121,6 +135,7 @@ class MapComponent extends Component {
                 {...project}
               />
             ))}
+            {searchMarker ? <SearchMarker {...searchMarker} /> : null}
           </MarkerClusterGroup>
         </Map>
       </React.Fragment>

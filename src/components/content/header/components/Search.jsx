@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import { SearchIcon } from '../../../util/static/icons';
+import HTTP from '../../../util/services/http';
+import { SearchIcon, LoadingIcon } from '../../../util/static/icons';
 
 class Search extends Component {
   state = {
-    open: false
+    fetching: false,
+    results: []
   };
 
   onChange = async event => {
@@ -16,6 +18,18 @@ class Search extends Component {
 
     if (this.props.onChange) {
       this.props.onChange(value);
+      this.setState({ fetching: true });
+      this.setState({
+        results: await HTTP.geo.code('Den Haag ' + value),
+        fetching: false
+      });
+    }
+  };
+
+  onKeyDown = event => {
+    const { results } = this.state;
+    if (event.keyCode === 13 && results.length > 0) {
+      this.props.onDropdown(results[0].key);
     }
   };
 
@@ -35,47 +49,56 @@ class Search extends Component {
   };
 
   blur = () => {
-    this.setState({ open: false, focus: false });
-
     if (this.input.value === '') {
       this.props.onOpen(true);
     }
   };
 
   render() {
-    const { results, open } = this.state;
+    const { results, fetching } = this.state;
     const { closed, onDropdown } = this.props;
 
     return (
-      <div className={classnames('search', { closed })}>
+      <div
+        className={classnames('search', {
+          'search--is-closed': closed,
+          'search--has-results': results.length > 0
+        })}
+      >
         <input
           className="search__input"
-          title="Zoek een locatie of nummer"
-          placeholder="Zoeken..."
+          title="Zoek op de kaart"
+          placeholder="Zoek op de kaart..."
           onChange={this.onChange}
           ref={input => {
             this.input = input;
           }}
-          onFocus={() => this.setState({ focus: true })}
+          onFocus={this.focus}
           onBlur={this.blur}
         />
-        <SearchIcon onClick={() => this.open(true)} />
-        {onDropdown &&
-          open && (
-            <div className="search__dropdown">
-              {results.map(result => (
-                <div
-                  key={result}
-                  className="search__dropdown-item"
-                  onClick={() => {
-                    onDropdown(result);
-                    this.setState({ open: false });
-                  }}>
-                  {result.display_name}
-                </div>
-              ))}
-            </div>
-          )}
+        {!fetching ? (
+          <SearchIcon
+            title="Zoek op de kaart"
+            onClick={() => this.open(true)}
+          />
+        ) : (
+          <LoadingIcon />
+        )}
+        {!closed && results.length > 0 ? (
+          <div className="search__dropdown">
+            {results.map(result => (
+              <div
+                key={result.key}
+                className="search__dropdown-item"
+                onClick={() => {
+                  onDropdown(result.key);
+                }}
+              >
+                {result.value}
+              </div>
+            ))}
+          </div>
+        ) : null}
       </div>
     );
   }
