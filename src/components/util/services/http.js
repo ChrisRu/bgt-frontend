@@ -83,6 +83,10 @@ const HTTP = {
       return get(`/geocoding/getDetails/${key}`);
     },
 
+    getMeldingen() {
+      return get(`/geocoding/terugmeldingen`);
+    },
+
     search(location) {
       return this.code(location);
     },

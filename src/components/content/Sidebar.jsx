@@ -1,7 +1,12 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import { MapsIcon, ListIcon, DashboardIcon } from '../util/static/icons';
+import {
+  MapsIcon,
+  ListIcon,
+  DashboardIcon,
+  NotificationIcon
+} from '../util/static/icons';
 
 const Sidebar = () => {
   return (
@@ -11,6 +16,9 @@ const Sidebar = () => {
       </NavLink>
       <NavLink className="sidebar__item" to="/lijst">
         <ListIcon />
+      </NavLink>
+      <NavLink className="sidebar__item" to="/terugmeldingen">
+        <NotificationIcon title="Terug Meldingen" />
       </NavLink>
       <NavLink className="sidebar__item" to="/dashboard">
         <DashboardIcon />

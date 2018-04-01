@@ -6,6 +6,7 @@ import ContentList from './content/Table';
 import Dashboard from './content/Dashboard';
 import Header from './content/header/Header';
 import Sidebar from './content/Sidebar';
+import MeldingenMap from './content/map/MeldingenMap';
 
 import CreateProjectModal from './modals/project/Create';
 import Login from './modals/Login';
@@ -27,7 +28,8 @@ class App extends Component {
     projects: [],
     searchMarker: null,
     openProjectId: null,
-    searchKeys: ['bgtOnNumber', 'status', 'description', 'category']
+    searchKeys: ['bgtOnNumber', 'status', 'description', 'category'],
+    terugmeldingen: []
   };
 
   async componentDidMount() {
@@ -129,10 +131,6 @@ class App extends Component {
                     searchMarker={searchMarker}
                     onOpenPopup={this.openPopup}
                     projects={projects}
-                    googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
-                    loadingElement={<div />}
-                    containerElement={<div />}
-                    mapElement={<div />}
                   />
                 )}
               />
@@ -144,6 +142,10 @@ class App extends Component {
                     projects={projects}
                   />
                 )}
+              />
+              <Route
+                path="/terugmeldingen"
+                render={() => <MeldingenMap searchMarker={searchMarker} />}
               />
               {authenticated ? (
                 <Redirect exact strict from="/" to="/kaart" />
