@@ -37,16 +37,24 @@ const fetchAPI = (endpoint, method = 'GET', body = null) =>
       return res;
     })
     .then(res => res.json())
+    .then(res => {
+      if (String(res).startsWith('<!DOCTYPE html>')) {
+        throw new Error('Wrong endpoint');
+      }
+
+      return res;
+    })
     .then(res => res.data)
     .catch(error => {
       console.error(error);
     });
 
-const get = endpoint => fetchAPI(endpoint);
-const post = (endpoint, body) => fetchAPI(endpoint, 'POST', body);
-const put = (endpoint, body) => fetchAPI(endpoint, 'PUT', body);
-const patch = (endpoint, body) => fetchAPI(endpoint, 'PATCH', body);
-const remove = endpoint => fetchAPI(endpoint, 'DELETE');
+const get = endpoint => fetchAPI(endpoint.toLowerCase());
+const post = (endpoint, body) => fetchAPI(endpoint.toLowerCase(), 'POST', body);
+const put = (endpoint, body) => fetchAPI(endpoint.toLowerCase(), 'PUT', body);
+const patch = (endpoint, body) =>
+  fetchAPI(endpoint.toLowerCase(), 'PATCH', body);
+const remove = endpoint => fetchAPI(endpoint.toLowerCase(), 'DELETE');
 
 const createEndPoints = name => ({
   getAll: () => get(`/${name}`),

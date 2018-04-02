@@ -41,7 +41,8 @@ class Project extends Component {
     editing: false,
     isFetching: false,
     info: null,
-    openIndex: []
+    openIndex: [],
+    models: models
   };
 
   edit = () => {
@@ -107,10 +108,19 @@ class Project extends Component {
 
     const { longtitude, latitude } = info;
 
+    const [location, newModels] = await Promise.all([
+      HTTP.geo.reverse(latitude, longtitude),
+      Promise.all(
+        models.map(async model => ({
+          ...model,
+          data: await HTTP[model.type].get(info.id).catch(() => null)
+        }))
+      )
+    ]);
+
     this.setState({
-      locationName:
-        parseLocation(await HTTP.geo.reverse(latitude, longtitude)) ||
-        'Kan locatie niet vinden',
+      locationName: parseLocation(location) || 'Kan locatie niet vinden',
+      models: newModels,
       isFetching: false
     });
   }
@@ -142,7 +152,7 @@ class Project extends Component {
   };
 
   render() {
-    const { info, locationName, editing, openIndex } = this.state;
+    const { info, locationName, editing, openIndex, models } = this.state;
     const { visible } = this.props;
     const { bgtOnNumber } = info || {};
 
@@ -174,6 +184,7 @@ class Project extends Component {
                 openIndex={openIndex}
               />
               <Categories
+                projectId={data.id}
                 onOpen={this.openItem}
                 onClose={this.closeItem}
                 models={models}

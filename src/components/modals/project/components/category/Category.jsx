@@ -20,7 +20,6 @@ class Category extends Component {
   };
 
   close = event => {
-    event.preventDefault();
     this.props.onClose();
     this.setState({ isEditing: false });
   };
@@ -31,10 +30,10 @@ class Category extends Component {
   };
 
   render() {
-    const { name = '', form = {}, data = {}, done, open } = this.props;
+    const { name = '', form = {}, data, done, open, projectId } = this.props;
     const { isEditing } = this.state;
 
-    const isDone = done(data);
+    const isDone = done(data || {});
 
     return (
       <div
@@ -50,13 +49,14 @@ class Category extends Component {
               name={name}
               data={data}
               form={form}
+              projectId={projectId}
               onSubmit={this.submit}
               onClose={this.close}
             />
           ) : (
             <OpenCategory
               name={name}
-              data={data}
+              data={data || {}}
               form={form}
               done={isDone}
               onEdit={this.edit}

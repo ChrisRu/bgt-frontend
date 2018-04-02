@@ -55,13 +55,20 @@ class Form extends Component {
       event.persist();
     }
 
-    this.setState(prevState => ({
-      ...prevState,
-      data: {
-        ...prevState.data,
-        [event.target.name]: event.target.value
+    this.setState(
+      prevState => ({
+        ...prevState,
+        data: {
+          ...prevState.data,
+          [event.target.name]: event.target.value
+        }
+      }),
+      () => {
+        if (this.props.onChange) {
+          this.props.onChange(this.state.data);
+        }
       }
-    }));
+    );
   };
 
   getErrorMessage(error) {
