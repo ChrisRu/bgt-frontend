@@ -35,7 +35,6 @@ const FormInput = props => {
           rows={5}
           name={apiName}
           placeholder={placeholder}
-          type={type}
           className="input"
         />
       );

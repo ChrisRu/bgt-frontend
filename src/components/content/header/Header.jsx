@@ -53,7 +53,6 @@ class Header extends Component {
 }
 
 Header.propTypes = {
-  onSearch: PropTypes.func.isRequired,
   onFilter: PropTypes.func.isRequired
 };
 

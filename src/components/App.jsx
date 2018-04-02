@@ -28,7 +28,6 @@ class App extends Component {
     projects: [],
     searchMarker: null,
     openProjectId: null,
-    searchKeys: ['bgtOnNumber', 'status', 'description', 'category'],
     terugmeldingen: []
   };
 
@@ -62,21 +61,9 @@ class App extends Component {
   }
 
   filterProjects(projects) {
-    const { filter, searchKeys, searchValue } = this.state;
+    const { filter } = this.state;
 
-    return projects.filter(filter || (() => true)).filter(project => {
-      for (const key of searchKeys) {
-        if (
-          String(project[key] || '')
-            .toLocaleLowerCase()
-            .includes(searchValue.toLocaleLowerCase())
-        ) {
-          return true;
-        }
-      }
-
-      return false;
-    });
+    return projects.filter(filter || (() => true));
   }
 
   login = async (authenticated, redirect = true) => {
@@ -110,7 +97,6 @@ class App extends Component {
         <div className="app">
           <Header
             showSearch={!pathname.startsWith('/dashboard')}
-            onSearch={searchValue => this.setState({ searchValue })}
             onFilter={filter => this.setState({ filter })}
             onPositionClick={this.onPositionClick}
           />

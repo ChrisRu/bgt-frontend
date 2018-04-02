@@ -4,7 +4,7 @@ import Form from '../../../../../forms/Form';
 
 import { CrossIcon, SaveIcon } from '../../../../../util/static/icons';
 
-const EditCategory = ({ name, form, onSubmit, onClose }) => {
+const EditCategory = ({ name, form, data, onSubmit, onClose }) => {
   return (
     <div>
       <span className="category__name">{name}</span>
@@ -15,7 +15,7 @@ const EditCategory = ({ name, form, onSubmit, onClose }) => {
       >
         <CrossIcon />
       </button>
-      <Form form={form} />
+      <Form form={form} data={data} />
       <div className="category__buttons">
         <button
           className="button button--confirm"

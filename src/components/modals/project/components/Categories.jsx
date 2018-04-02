@@ -10,6 +10,7 @@ const Categories = ({ models, openIndex, onOpen, onClose }) => {
           open={openIndex.includes(index)}
           onOpen={() => onOpen(index)}
           onClose={() => onClose(index)}
+          onSubmit={data => form.submit(data)}
           key={form.type}
           {...form}
         />

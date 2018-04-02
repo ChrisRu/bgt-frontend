@@ -14,7 +14,7 @@ class MapComponent extends Component {
     lat: 52.0704978,
     lng: 4.3006999,
     zoom: 13,
-    minZoom: 9,
+    minZoom: 8,
     tileLayers: {
       Basis:
         'https://geodata.nationaalgeoregister.nl/tiles/service/wmts/brtachtergrondkaart/EPSG:3857/{z}/{x}/{y}.png',
@@ -135,8 +135,8 @@ class MapComponent extends Component {
                 {...project}
               />
             ))}
-            {searchMarker ? <SearchMarker {...searchMarker} /> : null}
           </MarkerClusterGroup>
+          {searchMarker ? <SearchMarker {...searchMarker} /> : null}
         </Map>
       </React.Fragment>
     );

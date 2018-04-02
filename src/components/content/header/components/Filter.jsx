@@ -57,14 +57,6 @@ class Filter extends Component {
     ]
   };
 
-  addSearchFilter = () => {
-    const { value } = this.input;
-
-    this.setState({ searchValue: value });
-
-    this.pushFilters();
-  };
-
   addFilter = filter => {
     let { filters } = this.state;
 
@@ -82,14 +74,20 @@ class Filter extends Component {
 
   pushFilters = () => {
     const { onChange } = this.props;
-    const { filters, searchKeys, searchValue } = this.state;
+    const { filters, searchKeys } = this.state;
 
     onChange(
       project =>
         filters.every(
           ({ key, value, invert }) =>
             invert ? project[key] === value : project[key] !== value
-        ) && searchKeys.some(key => project[key].includes(searchValue))
+        ) &&
+        searchKeys.some(
+          key =>
+            project[key]
+              ? String(project[key]).includes(this.input.value)
+              : false
+        )
     );
   };
 
@@ -119,7 +117,7 @@ class Filter extends Component {
                   ref={input => {
                     this.input = input;
                   }}
-                  onChange={this.addSearchFilter}
+                  onChange={this.pushFilters}
                 />
                 <SearchIcon title="Zoek op project" />
               </div>

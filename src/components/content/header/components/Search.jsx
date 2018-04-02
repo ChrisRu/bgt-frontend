@@ -18,12 +18,13 @@ class Search extends Component {
 
     if (this.props.onChange) {
       this.props.onChange(value);
-      this.setState({ fetching: true });
-      this.setState({
-        results: await HTTP.geo.code('Den Haag ' + value),
-        fetching: false
-      });
     }
+
+    this.setState({ fetching: true });
+    this.setState({
+      results: await HTTP.geo.code('Den Haag ' + value),
+      fetching: false
+    });
   };
 
   onKeyDown = event => {
@@ -105,7 +106,6 @@ class Search extends Component {
 }
 
 Search.propTypes = {
-  onChange: PropTypes.func.isRequired,
   onDropdown: PropTypes.func,
   closed: PropTypes.bool.isRequired,
   onOpen: PropTypes.func.isRequired
