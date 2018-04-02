@@ -96,3 +96,12 @@
   display: flex !important;
   border: 0 !important;
 }
+
+.leaflet-tooltip-pane {
+  min-width: 300px;
+
+  strong {
+    white-space: normal;
+    vertical-align: top;
+  }
+}
