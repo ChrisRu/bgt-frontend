@@ -92,7 +92,7 @@ const HTTP = {
     },
 
     reverse(lat, lon) {
-      return get('/geocoding/reverse/' + queryString.stringify({ lat, lon }));
+      return get('/geocoding/reverse?' + queryString.stringify({ lat, lon }));
     }
   },
 
