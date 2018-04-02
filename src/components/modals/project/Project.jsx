@@ -98,7 +98,7 @@ class Project extends Component {
     }
   }
 
-  async componentDidUpdate() {
+  componentDidUpdate() {
     const { info, locationName } = this.state;
     const { visible } = this.props;
 
@@ -106,6 +106,11 @@ class Project extends Component {
       return;
     }
 
+    this.fetchAll();
+  }
+
+  fetchAll = async () => {
+    const { info } = this.state;
     const { longtitude, latitude } = info;
 
     const [location, newModels] = await Promise.all([
@@ -123,7 +128,7 @@ class Project extends Component {
       models: newModels,
       isFetching: false
     });
-  }
+  };
 
   close = (...args) => {
     this.setState({
@@ -187,6 +192,7 @@ class Project extends Component {
                 projectId={data.id}
                 onOpen={this.openItem}
                 onClose={this.closeItem}
+                onReload={this.fetchAll}
                 models={models}
                 openIndex={openIndex}
               />

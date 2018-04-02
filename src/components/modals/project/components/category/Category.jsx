@@ -25,7 +25,7 @@ class Category extends Component {
   };
 
   submit = (...args) => {
-    this.props.submit(...args);
+    this.props.onSubmit(...args);
     this.close();
   };
 
@@ -56,7 +56,7 @@ class Category extends Component {
           ) : (
             <OpenCategory
               name={name}
-              data={data || {}}
+              data={data}
               form={form}
               done={isDone}
               onEdit={this.edit}

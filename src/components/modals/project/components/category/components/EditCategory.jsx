@@ -17,7 +17,7 @@ class EditCategory extends Component {
   }
 
   onChange = newData => {
-    this.setState({ data: newData });
+    this.setState({ data: { ...this.state.data, ...newData } });
   };
 
   submit = () => {

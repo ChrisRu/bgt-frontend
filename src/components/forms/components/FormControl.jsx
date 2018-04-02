@@ -8,7 +8,7 @@ const FormInput = props => {
     input = 'input',
     type = 'text',
     placeholder = '',
-    value = ({ value }) => ({ value }),
+    value,
     apiName,
     onChange
   } = props;
@@ -42,7 +42,14 @@ const FormInput = props => {
       return (
         <DayPickerInput
           value={value}
-          onChange={onChange}
+          onDayChange={date => {
+            onChange({
+              target: {
+                name: apiName,
+                value: date
+              }
+            });
+          }}
           id={apiName}
           name={apiName}
           placeholder={placeholder}

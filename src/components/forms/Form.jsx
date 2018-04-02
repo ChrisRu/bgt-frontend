@@ -15,11 +15,15 @@ class Form extends Component {
     openRemove: false
   };
 
-  componentWillMount() {
+  componentWillMount(props = {}) {
     this.setState({
-      data: this.props.data || {},
-      partial: !!this.props.data
+      data: props.data || this.props.data || {},
+      partial: !!props.data || !!this.props.data
     });
+  }
+
+  componentWillReceiveProps(props) {
+    this.componentWillMount(props);
   }
 
   openRemove = () => {
@@ -94,7 +98,7 @@ class Form extends Component {
               key={item.apiName}
               {...item}
               onChange={this.onInputChange}
-              value={data[item.apiName] || ''}
+              value={data[item.apiName]}
             />
           ))
         )}

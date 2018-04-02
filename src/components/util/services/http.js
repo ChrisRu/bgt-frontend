@@ -60,8 +60,8 @@ const createEndPoints = name => ({
   getAll: () => get(`/${name}`),
   get: id => get(`/${name}/${id}`),
   create: body => post(`/${name}`, body),
-  edit: (id, body) => patch(`/${name}/${id}`, body),
-  editComplete: (id, body) => put(`/${name}/${id}`, body),
+  edit: body => patch(`/${name}/${body.projectId}`, body),
+  editComplete: body => put(`/${name}/${body.projectId}`, body),
   delete: id => remove(`/${name}/${id}`)
 });
 

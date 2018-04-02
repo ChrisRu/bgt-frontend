@@ -1,4 +1,5 @@
 import HTTP from '../../util/services/http';
+import convertRdToGeo from '../../util/functions/coordinates';
 
 export default {
   type: 'project',
@@ -17,19 +18,33 @@ export default {
       input: 'select',
       switch: {
         value: v => v.value,
-        onChange: ({ onChange, apiName }) => value => {
+        onChange: ({ onChange, apiName }) => async value => {
+          const [latitude, longitude] = convertRdToGeo(
+            ...(await HTTP.geo.getDetails(value.key)).geometry.coordinates
+          );
           onChange({
             target: {
               name: apiName,
-              value
+              value: {
+                latitude,
+                longitude,
+                ...value
+              }
             }
           });
         },
-        onValueClick: ({ onChange, apiName }) => value => {
+        onValueClick: ({ onChange, apiName }) => async value => {
+          const [latitude, longitude] = convertRdToGeo(
+            ...(await HTTP.geo.getDetails(value.key)).geometry.coordinates
+          );
           onChange({
             target: {
               name: apiName,
-              value
+              value: {
+                latitude,
+                longitude,
+                ...value
+              }
             }
           });
         },

@@ -8,7 +8,7 @@ const Timeline = ({ models, openIndex, onOpen }) => {
         <React.Fragment key={form.type}>
           <div
             className={classnames('timeline__bulb', {
-              active: index === 0,
+              active: form.done(form.data || {}),
               open: openIndex.includes(index)
             })}
             onClick={() => onOpen(index, true)}
@@ -18,7 +18,7 @@ const Timeline = ({ models, openIndex, onOpen }) => {
           </div>
           <span
             className={classnames('timeline__arrow', {
-              active: index === 0
+              active: form.done(form.data || {})
             })}
           />
         </React.Fragment>
