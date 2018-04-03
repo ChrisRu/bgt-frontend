@@ -19,7 +19,7 @@ export default {
       switch: {
         value: v => v.value,
         onChange: ({ onChange, apiName }) => async value => {
-          const [latitude, longitude] = convertRdToGeo(
+          const [latitude, longtitude] = convertRdToGeo(
             ...(await HTTP.geo.getDetails(value.key)).geometry.coordinates
           );
           onChange({
@@ -27,14 +27,14 @@ export default {
               name: apiName,
               value: {
                 latitude,
-                longitude,
+                longtitude,
                 ...value
               }
             }
           });
         },
         onValueClick: ({ onChange, apiName }) => async value => {
-          const [latitude, longitude] = convertRdToGeo(
+          const [latitude, longtitude] = convertRdToGeo(
             ...(await HTTP.geo.getDetails(value.key)).geometry.coordinates
           );
           onChange({
@@ -42,7 +42,7 @@ export default {
               name: apiName,
               value: {
                 latitude,
-                longitude,
+                longtitude,
                 ...value
               }
             }
