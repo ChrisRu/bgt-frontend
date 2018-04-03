@@ -151,17 +151,17 @@ class MapComponent extends Component {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (
-      nextProps.searchMarker &&
-      nextProps.searchMarker !== this.props.searchMarker
-    ) {
+  static getDerivedStateFromProps(nextProps, nextState) {
+    if (nextProps.searchMarker && !Array.isArray(nextProps.searchMarker)) {
       const {
         geometry: { coordinates: [rdLat, rdLon] }
       } = nextProps.searchMarker;
+
       const [lat, lon] = convertRdToGeo(rdLat, rdLon);
-      this.setState({ lat, lon, zoom: 14 });
+      return { ...nextState, lat, lon };
     }
+
+    return nextState;
   }
 
   render() {
@@ -205,7 +205,9 @@ class MapComponent extends Component {
             {meldingen.map(project => (
               <MarkerComponent key={project.id} {...project} />
             ))}
-            {searchMarker ? <SearchMarker {...searchMarker} /> : null}
+            {searchMarker && !Array.isArray(searchMarker) ? (
+              <SearchMarker {...searchMarker} />
+            ) : null}
           </MarkerClusterGroup>
         </Map>
       </React.Fragment>

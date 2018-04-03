@@ -54,7 +54,8 @@ class MapComponent extends Component {
           ${el.getChildCount()}
         </span>
       `,
-      iconSize: [28, 28]
+      iconSize: [28, 28],
+      iconAnchor: [14, 14]
     });
   };
 
@@ -85,17 +86,17 @@ class MapComponent extends Component {
     return true;
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (
-      nextProps.searchMarker &&
-      nextProps.searchMarker !== this.props.searchMarker
-    ) {
+  static getDerivedStateFromProps(nextProps, nextState) {
+    if (nextProps.searchMarker && !Array.isArray(nextProps.searchMarker)) {
       const {
         geometry: { coordinates: [rdLat, rdLon] }
       } = nextProps.searchMarker;
+
       const [lat, lon] = convertRdToGeo(rdLat, rdLon);
-      this.setState({ lat, lon, zoom: 14 });
+      return { ...nextState, lat, lon };
     }
+
+    return nextState;
   }
 
   render() {
@@ -136,7 +137,9 @@ class MapComponent extends Component {
               />
             ))}
           </MarkerClusterGroup>
-          {searchMarker ? <SearchMarker {...searchMarker} /> : null}
+          {searchMarker && !Array.isArray(searchMarker) ? (
+            <SearchMarker {...searchMarker} />
+          ) : null}
         </Map>
       </React.Fragment>
     );

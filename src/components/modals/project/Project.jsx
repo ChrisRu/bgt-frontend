@@ -77,13 +77,15 @@ class Project extends Component {
       : [];
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (!this.state.info) {
+  static getDerivedStateFromProps(nextProps, nextState) {
+    if (!nextState.info) {
       const info = nextProps.getData();
       if (info) {
-        this.setState({ info, isFetching: true });
+        return { ...nextState, info, isFetching: true };
       }
     }
+
+    return nextState;
   }
 
   componentDidUpdate() {

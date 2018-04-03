@@ -57,7 +57,6 @@ class App extends Component {
   };
 
   getProjects = () => {
-    console.log('reload');
     return HTTP.projects.getAll().then(projects => this.setState({ projects }));
   };
 

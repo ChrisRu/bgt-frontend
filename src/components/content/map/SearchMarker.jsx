@@ -5,7 +5,7 @@ import { icon } from 'leaflet';
 
 import convertRdToGeo from '../../util/functions/coordinates';
 
-const SearchMarkerComponent = ({
+const SearchMarker = ({
   displayString,
   geometry: { coordinates: [lat, lon] },
   objectId
@@ -15,8 +15,9 @@ const SearchMarkerComponent = ({
     icon={icon({
       iconUrl: `${process.env.PUBLIC_URL}/marker-blue.png`,
       iconSize: [32, 32],
-      iconAnchor: [14, 11],
-      popupAnchor: [48, 48]
+      iconAnchor: [16, 32],
+      popupAnchor: [48, 48],
+      shadowAnchor: [16, 32]
     })}
   >
     <Tooltip>
@@ -27,4 +28,4 @@ const SearchMarkerComponent = ({
   </Marker>
 );
 
-export default SearchMarkerComponent;
+export default SearchMarker;

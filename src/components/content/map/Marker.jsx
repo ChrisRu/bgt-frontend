@@ -31,8 +31,6 @@ const getColor = dateString => {
     }
   ];
 
-  console.log(date, addDays(date, 30 * 5));
-
   return colors.find(color => date > addDays(date, color.days)).color;
 };
 
@@ -52,8 +50,9 @@ const MarkerComponent = ({
     icon={icon({
       iconUrl: `${process.env.PUBLIC_URL}/marker-${getColor(exploreDate)}.png`,
       iconSize: [32, 32],
-      iconAnchor: [14, 11],
-      popupAnchor: [48, 48]
+      iconAnchor: [16, 32],
+      popupAnchor: [48, 48],
+      shadowAnchor: [16, 32]
     })}
     onClick={() => onClick(id)}
   >

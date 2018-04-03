@@ -32,7 +32,13 @@ class Header extends Component {
                 <Search
                   closed={searchClosed}
                   onOpen={state => this.setState({ searchClosed: state })}
-                  onChange={onSearch}
+                  onChange={(...args) => {
+                    if (onSearch) {
+                      onSearch(...args);
+                    }
+
+                    onPositionClick(null);
+                  }}
                   onDropdown={(...args) => {
                     onPositionClick(...args);
                     this.setState({ searchClosed: true });

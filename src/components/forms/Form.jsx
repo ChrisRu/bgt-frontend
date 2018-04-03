@@ -15,15 +15,12 @@ class Form extends Component {
     openRemove: false
   };
 
-  componentWillMount(props = {}) {
-    this.setState({
-      data: props.data || this.props.data || {},
-      partial: !!props.data || !!this.props.data
-    });
-  }
-
-  componentWillReceiveProps(props) {
-    this.componentWillMount(props);
+  static getDerivedStateFromProps(nextProps, nextState) {
+    return {
+      ...nextState,
+      data: nextProps.data || {},
+      partial: !!nextProps.data
+    };
   }
 
   openRemove = () => {
