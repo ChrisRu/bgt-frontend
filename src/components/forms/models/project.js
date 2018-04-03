@@ -5,6 +5,7 @@ export default {
   type: 'project',
   name: 'Project',
   submit: (data, partial) => HTTP.projects[partial ? 'edit' : 'create'](data),
+  remove: id => HTTP.projects.remove(id),
   form: [
     {
       name: 'BGT Nummer',
@@ -14,7 +15,7 @@ export default {
     {
       name: 'Locatie',
       apiName: 'location',
-      placeholder: 'Duindorp, Den Haag',
+      placeholder: 'Spui, Den Haag',
       input: 'select',
       switch: {
         value: v => v.value,

@@ -6,7 +6,7 @@ import Modal from '../Modal';
 import Form from '../../forms/Form';
 import HTTP from '../../util/services/http';
 import { parseLocation } from '../../util/functions/location';
-import { EditIcon, SaveIcon, TrashIcon } from '../../util/static/icons';
+import { SaveIcon, TrashIcon } from '../../util/static/icons';
 
 import project from '../../forms/models/project';
 import models from '../../forms/models';
@@ -74,19 +74,7 @@ class Project extends Component {
             onClick: 'submit'
           }
         ]
-      : [
-          {
-            type: 'edit',
-            name: (
-              <React.Fragment key={1}>
-                <EditIcon />
-                <span>Aanpassen</span>
-              </React.Fragment>
-            ),
-            onClick: this.edit,
-            align: 'left'
-          }
-        ];
+      : [];
   }
 
   componentWillReceiveProps(nextProps) {
@@ -109,9 +97,13 @@ class Project extends Component {
     this.fetchAll();
   }
 
-  fetchAll = async () => {
+  fetchAll = async (reload = false) => {
     const { info } = this.state;
     const { longtitude, latitude } = info;
+
+    if (reload && this.props.onReload) {
+      this.props.onReload();
+    }
 
     const [location, newModels] = await Promise.all([
       HTTP.geo.reverse(latitude, longtitude),
@@ -178,11 +170,12 @@ class Project extends Component {
               form={project.form}
               onClose={this.close}
               onSubmit={project.submit}
+              onRemove={project.remove}
               data={data}
             />
           ) : (
             <div className="modal__popup">
-              <Table form={project.form} data={data} />
+              <Table form={project.form} data={data} onEdit={this.edit} />
               <Timeline
                 onOpen={this.openItem}
                 models={models}
@@ -192,7 +185,7 @@ class Project extends Component {
                 projectId={data.id}
                 onOpen={this.openItem}
                 onClose={this.closeItem}
-                onReload={this.fetchAll}
+                onReload={() => this.fetchAll(true)}
                 models={models}
                 openIndex={openIndex}
               />

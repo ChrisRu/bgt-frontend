@@ -31,7 +31,7 @@ class Form extends Component {
   };
 
   remove = () => {
-    alert('REMOVED');
+    this.props.onRemove(this.state.data.id);
   };
 
   submit = () => {

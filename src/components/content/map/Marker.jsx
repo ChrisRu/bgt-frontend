@@ -3,6 +3,39 @@ import Marker from 'react-leaflet/lib/Marker';
 import Tooltip from 'react-leaflet/lib/Tooltip';
 import { icon } from 'leaflet';
 
+function addDays(date, days) {
+  var result = new Date(date);
+  result.setDate(result.getDate() + days);
+  return result;
+}
+
+const getColor = dateString => {
+  if (!dateString || dateString === '0001-01-01T00:00:00+00:00') {
+    return 'gray';
+  }
+
+  const date = new Date(dateString);
+
+  const colors = [
+    {
+      color: 'red',
+      days: 30 * 5
+    },
+    {
+      color: 'yellow',
+      days: 30 * 3
+    },
+    {
+      color: 'green',
+      days: -1
+    }
+  ];
+
+  console.log(date, addDays(date, 30 * 5));
+
+  return colors.find(color => date > addDays(date, color.days)).color;
+};
+
 const MarkerComponent = ({
   id,
   bgtOnNumber,
@@ -10,14 +43,14 @@ const MarkerComponent = ({
   description,
   latitude,
   longtitude,
-  onClick
+  onClick,
+  exploreDate,
+  ...rest
 }) => (
   <Marker
     position={[Number(latitude), Number(longtitude)]}
     icon={icon({
-      iconUrl: `${process.env.PUBLIC_URL}/marker-${
-        ['red', 'yellow', 'green'][String(id).charCodeAt(1) % 3]
-      }.png`,
+      iconUrl: `${process.env.PUBLIC_URL}/marker-${getColor(exploreDate)}.png`,
       iconSize: [32, 32],
       iconAnchor: [14, 11],
       popupAnchor: [48, 48]

@@ -41,7 +41,7 @@ const FormInput = props => {
     case 'date':
       return (
         <DayPickerInput
-          value={value}
+          value={value ? new Date(value).toLocaleDateString() : undefined}
           onDayChange={date => {
             onChange({
               target: {

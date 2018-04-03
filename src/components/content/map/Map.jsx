@@ -33,14 +33,14 @@ class MapComponent extends Component {
       return;
     }
 
-    const colors = ['red', 'yellow', 'green'];
+    const colors = ['red', 'yellow', 'green', 'gray'];
 
     const colorIndex = el.getAllChildMarkers().reduce((max, marker) => {
       const { iconUrl } = marker.options.icon.options;
 
       const index = colors.indexOf(iconUrl.match(/marker-(.+)\./)[1]);
       return index < max ? index : max;
-    }, 2);
+    }, colors.length - 1);
 
     const clusterColor = colors[colorIndex];
 
@@ -131,7 +131,7 @@ class MapComponent extends Component {
             {projects.map(project => (
               <MarkerComponent
                 onClick={() => this.markerClick(project)}
-                key={project.bgtOnNumber}
+                key={project.id}
                 {...project}
               />
             ))}

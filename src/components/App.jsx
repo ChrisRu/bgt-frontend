@@ -56,9 +56,10 @@ class App extends Component {
     this.setState({ openProjectId: id });
   };
 
-  getProjects() {
+  getProjects = () => {
+    console.log('reload');
     return HTTP.projects.getAll().then(projects => this.setState({ projects }));
-  }
+  };
 
   filterProjects(projects) {
     const { filter } = this.state;
@@ -158,6 +159,7 @@ class App extends Component {
             <ProjectModal
               visible={openProjectId}
               onClose={() => this.setState({ openProjectId: null })}
+              onReload={this.getProjects}
               getData={() =>
                 projects.find(project => project.id === openProjectId)
               }

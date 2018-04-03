@@ -64,4 +64,20 @@
       font-weight: normal;
     }
   }
+
+  & + .icon {
+    top: 3em;
+    right: 1em;
+    position: absolute;
+    float: right;
+    width: 1.5em;
+    height: 1.5em;
+    fill: #888;
+    transition: fill 0.2s ease;
+    cursor: pointer;
+
+    &:hover {
+      fill: #222;
+    }
+  }
 }
