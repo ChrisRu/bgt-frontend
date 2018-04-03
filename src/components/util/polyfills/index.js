@@ -4,3 +4,4 @@ import './Array.findIndex';
 import './String.includes';
 import './String.startsWith';
 import './String.endsWith';
+import './Number.IsNan';
