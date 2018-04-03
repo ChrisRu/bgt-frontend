@@ -11,6 +11,8 @@ import 'leaflet/dist/leaflet.css';
 import 'react-day-picker/lib/style.css';
 import 'react-leaflet-markercluster/dist/styles.min.css';
 
+import './components/util/polyfills/startsWith.js';
+
 ReactDOM.render(
   <BrowserRouter>
     <App />
