@@ -1,5 +1,6 @@
 if (!Array.prototype.includes) {
-  Object.defineProperty(Array.prototype, "includes", {
+  // eslint-disable-next-line
+  Object.defineProperty(Array.prototype, 'includes', {
     value: function(searchElement, fromIndex) {
       if (this == null) {
         throw new TypeError('"this" is null or not defined');

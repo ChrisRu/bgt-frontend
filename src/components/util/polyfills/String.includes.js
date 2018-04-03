@@ -1,7 +1,7 @@
 if (!String.prototype.includes) {
+  // eslint-disable-next-line
   String.prototype.includes = function(search, start) {
-    "use strict";
-    if (typeof start !== "number") {
+    if (typeof start !== 'number') {
       start = 0;
     }
 
