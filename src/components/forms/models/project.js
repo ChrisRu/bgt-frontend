@@ -4,8 +4,19 @@ import convertRdToGeo from '../../util/functions/coordinates';
 export default {
   type: 'project',
   name: 'Project',
-  submit: (data, partial) => HTTP.projects[partial ? 'edit' : 'create'](data),
-  remove: id => HTTP.projects.remove(id),
+  submit: (data, partial) =>
+    new Promise((resolve, reject) =>
+      HTTP.projects[partial ? 'edit' : 'create'](data)
+        .then(resolve)
+        .catch(reject)
+    ),
+  remove: id =>
+    new Promise((resolve, reject) =>
+      HTTP.projects
+        .remove(id)
+        .then(resolve)
+        .catch(reject)
+    ),
   form: [
     {
       name: 'BGT Nummer',

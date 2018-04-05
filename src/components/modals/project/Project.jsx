@@ -74,7 +74,17 @@ class Project extends Component {
             onClick: 'submit'
           }
         ]
-      : [];
+      : [
+          {
+            type: 'cancel',
+            name: (
+              <React.Fragment key={2}>
+                <span>Annuleer</span>
+              </React.Fragment>
+            ),
+            onClick: this.close
+          }
+        ];
   }
 
   static getDerivedStateFromProps(nextProps, nextState) {

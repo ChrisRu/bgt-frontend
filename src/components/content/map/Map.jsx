@@ -9,11 +9,16 @@ import MarkerComponent from './Marker';
 import SearchMarker from './SearchMarker';
 import convertRdToGeo from '../../util/functions/coordinates';
 
+const getPosition = () => {
+  const item = window.localStorage.getItem('position');
+  return item ? JSON.parse(item) : { center: [] };
+};
+
 class MapComponent extends Component {
   state = {
-    lat: 52.0704978,
-    lng: 4.3006999,
-    zoom: 13,
+    lat: getPosition().center[0] || 52.0704978,
+    lng: getPosition().center[1] || 4.3006999,
+    zoom: getPosition().zoom || 13,
     minZoom: 8,
     tileLayers: {
       Basis:
@@ -25,7 +30,7 @@ class MapComponent extends Component {
       Satelliet:
         'https://geodata.nationaalgeoregister.nl/luchtfoto/rgb/wmts/Actueel_ortho25/EPSG:3857/{z}/{x}/{y}.jpeg'
     },
-    tileLayerIndex: localStorage.getItem('tile-layer') || 'Basis'
+    tileLayerIndex: window.localStorage.getItem('tile-layer') || 'Basis'
   };
 
   createClusterIcon = el => {
@@ -71,10 +76,6 @@ class MapComponent extends Component {
   };
 
   markerClick = project => {
-    this.setState({
-      lat: Number(project.latitude),
-      lng: Number(project.longtitude)
-    });
     this.props.onOpenPopup(project.id);
   };
 
@@ -99,6 +100,11 @@ class MapComponent extends Component {
     return nextState;
   }
 
+  updateViewport = ({ zoom, center }) => {
+    window.localStorage.setItem('position', JSON.stringify({ zoom, center }));
+    this.setState({ zoom });
+  };
+
   render() {
     const { projects, searchMarker } = this.props;
     const { lat, lng, zoom, minZoom, tileLayers, tileLayerIndex } = this.state;
@@ -109,7 +115,7 @@ class MapComponent extends Component {
           center={[lat, lng]}
           zoom={zoom}
           minZoom={minZoom}
-          onViewportChange={({ zoom }) => this.setState({ zoom })}
+          onViewportChange={this.updateViewport}
         >
           <div className="map__selector">
             {Object.keys(tileLayers).map(layer => (

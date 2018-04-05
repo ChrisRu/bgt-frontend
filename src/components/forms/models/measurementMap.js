@@ -5,7 +5,11 @@ export default {
   name: 'Meetmap',
   done: data => !!data.endDate,
   submit: (data, partial) =>
-    HTTP.measurementMap[partial ? 'edit' : 'create'](data),
+    new Promise((resolve, reject) =>
+      HTTP.measurementMap[partial ? 'edit' : 'create'](data)
+        .then(resolve)
+        .catch(reject)
+    ),
   form: [
     {
       name: 'Naam',

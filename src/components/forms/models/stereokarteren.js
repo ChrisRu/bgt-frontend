@@ -5,7 +5,11 @@ export default {
   name: 'Stereokarteren',
   done: data => data.startDate && data.endDate,
   submit: (data, partial) =>
-    HTTP.stereokarteren[partial ? 'edit' : 'create'](data),
+    new Promise((resolve, reject) =>
+      HTTP.stereokarteren[partial ? 'edit' : 'create'](data)
+        .then(resolve)
+        .catch(reject)
+    ),
   form: [
     {
       name: 'Naam',

@@ -5,7 +5,11 @@ export default {
   name: 'Voorbereiding',
   done: data => !!data.endDate,
   submit: (data, partial) =>
-    HTTP.preparation[partial ? 'edit' : 'create'](data),
+    new Promise((resolve, reject) =>
+      HTTP.preparation[partial ? 'edit' : 'create'](data)
+        .then(resolve)
+        .catch(reject)
+    ),
   form: [
     {
       name: 'Naam',

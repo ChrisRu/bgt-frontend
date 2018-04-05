@@ -55,6 +55,11 @@ body {
   }
 }
 
+.form__item .input[type='checkbox'] {
+  width: 16px !important;
+  margin-top: 4px;
+}
+
 .button {
   $icon-size: 1.5rem;
 

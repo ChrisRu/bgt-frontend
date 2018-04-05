@@ -5,7 +5,8 @@ import {
   MapsIcon,
   ListIcon,
   DashboardIcon,
-  NotificationIcon
+  NotificationIcon,
+  PersonIcon
 } from '../util/static/icons';
 
 const Sidebar = () => {
@@ -22,6 +23,9 @@ const Sidebar = () => {
       </NavLink>
       <NavLink className="sidebar__item" to="/dashboard">
         <DashboardIcon />
+      </NavLink>
+      <NavLink className="sidebar__item" to="/accounts">
+        <PersonIcon />
       </NavLink>
     </div>
   );

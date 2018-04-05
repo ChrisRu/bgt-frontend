@@ -4,7 +4,12 @@ export default {
   type: 'processing',
   name: 'Verwerken',
   done: data => data.startDate && data.endDate,
-  submit: (data, partial) => HTTP.processing[partial ? 'edit' : 'create'](data),
+  submit: (data, partial) =>
+    new Promise((resolve, reject) =>
+      HTTP.processing[partial ? 'edit' : 'create'](data)
+        .then(resolve)
+        .catch(reject)
+    ),
   form: [
     {
       name: 'Naam',

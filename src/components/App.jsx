@@ -3,6 +3,7 @@ import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
 
 import ContentMap from './content/map/Map';
 import ContentList from './content/Table';
+import ContentAccounts from './content/Accounts';
 import Dashboard from './content/Dashboard';
 import Header from './content/header/Header';
 import Sidebar from './content/Sidebar';
@@ -133,6 +134,7 @@ class App extends Component {
                 path="/terugmeldingen"
                 render={() => <MeldingenMap searchMarker={searchMarker} />}
               />
+              <Route path="/accounts" render={() => <ContentAccounts />} />
               {authenticated ? (
                 <Redirect exact strict from="/" to="/kaart" />
               ) : (

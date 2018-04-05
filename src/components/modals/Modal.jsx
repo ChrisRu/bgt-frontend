@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Transition from 'react-transition-group/Transition';
 import classnames from 'classnames';
+import debounce from 'lodash/debounce';
 
 import { CrossIcon } from '../util/static/icons';
 import Show from '../util/Show';
@@ -53,24 +54,45 @@ class Modal extends Component {
     }
   };
 
+  updateSize = () => {
+    if (!this.modal) {
+      return;
+    }
+
+    console.log('update size');
+
+    this.modal.style.minHeight = 'auto';
+    this.modal.style.minWidth = 'auto';
+
+    if (this.modal.offsetHeight % 2 !== 0) {
+      this.modal.style.minHeight = this.modal.offsetHeight + 1 + 'px';
+    }
+
+    if (this.modal.offsetWidth % 2 !== 0) {
+      this.modal.style.minWidth = this.modal.offsetWidth + 1 + 'px';
+    }
+  };
+
+  resize = () => debounce(this.updateSize, 100);
+
+  componentDidUpdate() {
+    this.updateSize();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.resize);
+  }
+
+  componentWillMount() {
+    window.addEventListener('resize', this.resize);
+  }
+
   render() {
     const { children, render, title, onClose, visible, actions } = this.props;
 
     return (
       <div className="modal__wrapper">
-        <Transition
-          in={visible}
-          timeout={0}
-          onEntered={() => {
-            if (this.modal.offsetHeight % 2 !== 0) {
-              this.modal.style.minHeight = this.modal.offsetHeight + 1 + 'px';
-            }
-
-            if (this.modal.offsetWidth % 2 !== 0) {
-              this.modal.style.minWidth = this.modal.offsetWidth + 1 + 'px';
-            }
-          }}
-        >
+        <Transition in={visible} timeout={0} onEntered={this.updateSize}>
           {state => (
             <div
               style={{

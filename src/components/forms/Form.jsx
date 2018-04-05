@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import FormControl from './components/FormControl';
 import Confirm from '../modals/Confirm';
-import { WarningIcon } from '../util/static/icons';
+import { WarningIcon, CheckIcon } from '../util/static/icons';
 import Show from '../util/Show';
 import Spinner from '../util/Spinner';
 
@@ -10,6 +10,7 @@ class Form extends Component {
   state = {
     loading: false,
     error: null,
+    success: null,
     data: {},
     partial: false,
     openRemove: false
@@ -34,14 +35,20 @@ class Form extends Component {
   submit = () => {
     this.setState({ loading: true });
 
+    const { data } = this.state;
+
     return this.props
-      .onSubmit(this.state.data)
+      .onSubmit(data, !data.id)
       .then(() => {
         this.setState({
           data: {},
-          loading: false
+          loading: false,
+          success: this.props.successMessage
         });
-        this.props.onClose(true);
+
+        if (this.props.onClose) {
+          this.props.onClose(true);
+        }
       })
       .catch(error => {
         this.setState({
@@ -59,6 +66,8 @@ class Form extends Component {
     this.setState(
       prevState => ({
         ...prevState,
+        error: null,
+        success: null,
         data: {
           ...prevState.data,
           [event.target.name]: event.target.value
@@ -82,7 +91,7 @@ class Form extends Component {
   }
 
   render() {
-    const { error, loading, data, openRemove } = this.state;
+    const { error, loading, data, openRemove, success } = this.state;
     const { form } = this.props;
 
     return (
@@ -105,6 +114,15 @@ class Form extends Component {
             <div className="login__error form__error">
               <WarningIcon />
               <span>{this.getErrorMessage(error)}</span>
+            </div>
+          )}
+        />
+        <Show
+          visible={success}
+          render={() => (
+            <div className="login__success form__success">
+              <CheckIcon />
+              <span>{success}</span>
             </div>
           )}
         />

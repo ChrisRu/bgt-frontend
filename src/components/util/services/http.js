@@ -25,17 +25,6 @@ const fetchAPI = (endpoint, method = 'GET', body = null) =>
     },
     body: body ? JSON.stringify(body) : undefined
   })
-    .then(res => {
-      if (res.status !== 200) {
-        throw new Error(res.statusText);
-      }
-
-      if (res.error) {
-        throw new Error(res.error.message);
-      }
-
-      return res;
-    })
     .then(res => res.json())
     .then(res => {
       if (String(res).startsWith('<!DOCTYPE html>')) {
@@ -44,10 +33,7 @@ const fetchAPI = (endpoint, method = 'GET', body = null) =>
 
       return res;
     })
-    .then(res => res.data)
-    .catch(error => {
-      console.error(error);
-    });
+    .then(res => res.data);
 
 const get = endpoint => fetchAPI(endpoint.toLowerCase());
 const post = (endpoint, body) => fetchAPI(endpoint.toLowerCase(), 'POST', body);
@@ -118,6 +104,14 @@ const HTTP = {
       return get('/authenticated')
         .then(res => res.authenticated)
         .catch(() => false);
+    },
+
+    create(data) {
+      return post('/users/create', data);
+    },
+
+    get() {
+      return get('/users/current');
     }
   }
 };

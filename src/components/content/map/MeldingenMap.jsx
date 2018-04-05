@@ -72,11 +72,16 @@ const MarkerComponent = ({
   </Marker>
 );
 
+const getPosition = () => {
+  const item = window.localStorage.getItem('position');
+  return item ? JSON.parse(item) : { center: [] };
+};
+
 class MapComponent extends Component {
   state = {
-    lat: 52.0704978,
-    lng: 4.3006999,
-    zoom: 13,
+    lat: getPosition().center[0] || 52.0704978,
+    lng: getPosition().center[1] || 4.3006999,
+    zoom: getPosition().zoom || 13,
     minZoom: 8,
     tileLayers: {
       Basis:
@@ -164,6 +169,11 @@ class MapComponent extends Component {
     return nextState;
   }
 
+  updateViewport = ({ zoom, center }) => {
+    window.localStorage.setItem('position', JSON.stringify({ zoom, center }));
+    this.setState({ zoom });
+  };
+
   render() {
     const { searchMarker } = this.props;
     const {
@@ -182,7 +192,7 @@ class MapComponent extends Component {
           center={[lat, lng]}
           zoom={zoom}
           minZoom={minZoom}
-          onViewportChange={({ zoom }) => this.setState({ zoom })}
+          onViewportChange={this.updateViewport}
         >
           <div className="map__selector">
             {Object.keys(tileLayers).map(layer => (

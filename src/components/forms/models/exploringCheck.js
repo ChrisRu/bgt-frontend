@@ -5,7 +5,11 @@ export default {
   name: 'Verkennen Controle',
   done: data => !!data.endDate,
   submit: (data, partial) =>
-    HTTP.exploringCheck[partial ? 'edit' : 'create'](data),
+    new Promise((resolve, reject) =>
+      HTTP.exploringCheck[partial ? 'edit' : 'create'](data)
+        .then(resolve)
+        .catch(reject)
+    ),
   form: [
     {
       name: 'Naam',
