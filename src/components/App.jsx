@@ -110,7 +110,10 @@ class App extends Component {
                 path="/login"
                 render={() => <Login onLogin={this.login} />}
               />
-              <Route path="/dashboard" render={() => <Dashboard />} />
+              <Route
+                path="/dashboard"
+                render={() => <Dashboard onOpenPopup={this.openPopup} />}
+              />
               <Route
                 path="/kaart"
                 render={() => (
@@ -134,7 +137,7 @@ class App extends Component {
                 path="/terugmeldingen"
                 render={() => <MeldingenMap searchMarker={searchMarker} />}
               />
-              <Route path="/accounts" render={() => <ContentAccounts />} />
+              <Route path="/gebruikers" render={() => <ContentAccounts />} />
               {authenticated ? (
                 <Redirect exact strict from="/" to="/kaart" />
               ) : (

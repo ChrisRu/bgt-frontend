@@ -1,19 +1,26 @@
 import React, { Component } from 'react';
 import PieChart from 'recharts/lib/chart/PieChart';
 import Pie from 'recharts/lib/polar/Pie';
-import AreaChart from 'recharts/lib/chart/AreaChart';
-import Area from 'recharts/lib/cartesian/Area';
-import XAxis from 'recharts/lib/cartesian/XAxis';
-import YAxis from 'recharts/lib/cartesian/YAxis';
+import ReactTable from 'react-table';
 import Tooltip from 'recharts/lib/component/Tooltip';
 import Legend from 'recharts/lib/component/Legend';
 import Cell from 'recharts/lib/component/Cell';
+import { getColor } from './map/Marker';
 
 import HTTP from '../util/services/http';
 
 class Dashboard extends Component {
   state = {
     COLORS: ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'],
+    tableSettings: {
+      previousText: 'Vorige',
+      nextText: 'Volgende',
+      loadingText: 'Laden...',
+      noDataText: 'Geen data gevonden',
+      pageText: 'Pagina',
+      ofText: 'van',
+      rowsText: 'rijen'
+    },
     data: null
   };
 
@@ -35,36 +42,59 @@ class Dashboard extends Component {
     return this.getStats();
   }
 
+  getDeadline(date) {
+    const deadline = new Date(date.valueOf());
+    deadline.setDate(deadline.getDate() + 30 * 6);
+    return deadline.toLocaleDateString('nl-NL', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  }
+
+  getHighPriorityCount(projects) {
+    return (projects || []).filter(project => {
+      const deadline = new Date(project.exploreDate);
+      deadline.setDate(deadline.getDate() + 30 * 5);
+      return new Date() > deadline;
+    }).length;
+  }
+
   render() {
-    const { COLORS, data } = this.state;
+    const { COLORS, data, tableSettings } = this.state;
+    const { onOpenPopup } = this.props;
 
     return (
       <div className="dashboard">
-        <div
-          className="dashboard__item dashboard__item--rapport"
-          style={{ filter: 'grayscale(1)', opacity: 0.3 }}
-        >
-          <h2 className="dashboard__title">Jaar Rapport</h2>
-          <AreaChart
-            width={800}
-            height={440}
-            data={[
-              { x: 100, name: 'Januari' },
-              { x: 621, name: 'Februari' },
-              { x: 340, name: 'Maart' }
-            ]}
-            margin={{ top: 20, right: 20 }}
-          >
-            <XAxis dataKey="name" />
-            <YAxis />
-            <Tooltip />
-            <Area
-              type="monotone"
-              dataKey="x"
-              stroke={COLORS[1]}
-              fill={COLORS[1]}
+        <div className="dashboard__item dashboard__item--priorities">
+          <h2 className="dashboard__title">Deadlines</h2>
+          {data ? (
+            <ReactTable
+              columns={[
+                {
+                  Header: 'BGT Nummer',
+                  accessor: 'bgtOnNumber'
+                },
+                {
+                  Header: 'Deadline',
+                  accessor: 'exploreDate',
+                  Cell: ({ value }) => (
+                    <span className={`status status--${getColor(value)}`}>
+                      {this.getDeadline(value)}
+                    </span>
+                  )
+                }
+              ]}
+              data={(data.priorities || []).slice(-5)}
+              getTdProps={(state, rowInfo, column, instance) => ({
+                onClick: () => onOpenPopup(rowInfo ? rowInfo.original.id : null)
+              })}
+              showPagination={false}
+              defaultPageSize={(data.priorities || []).length || 3}
+              {...tableSettings}
             />
-          </AreaChart>
+          ) : null}
         </div>
         <div className="dashboard__block">
           <div className="dashboard__item dashboard__item--stats">
@@ -76,7 +106,7 @@ class Dashboard extends Component {
                   style={{ borderColor: COLORS[0] }}
                 >
                   <span className="dashboard__number-value">
-                    {data.projectsCount.openAmount || 0}
+                    {(data.projectsCount || {}).openAmount || 0}
                   </span>
                   <span className="dashboard__number-title">Open</span>
                 </div>
@@ -85,7 +115,7 @@ class Dashboard extends Component {
                   style={{ borderColor: COLORS[3] }}
                 >
                   <span className="dashboard__number-value">
-                    {data.projectsCount.criticalAmount || 0}
+                    {this.getHighPriorityCount(data.priorities)}
                   </span>
                   <span className="dashboard__number-title">
                     Hoge prioriteit

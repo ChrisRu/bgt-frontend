@@ -2,6 +2,7 @@
   flex: 1;
   display: flex;
   flex-flow: row wrap;
+  align-items: flex-start;
 
   &__item {
     border-radius: 5px;
@@ -21,13 +22,58 @@
       height: 220px;
     }
 
-    &--rapport {
+    &--priorities {
       width: 800px;
-      height: 488px;
       padding-left: 0;
+      padding-right: 0;
 
       .dashboard__title {
         padding-left: 1em;
+      }
+
+      .status {
+        &.status {
+          &--red::before {
+            background-color: #b83333;
+          }
+          &--green::before {
+            background-color: #64bd55;
+          }
+          &--yellow::before {
+            background-color: #c9b81c;
+          }
+          &--blue::before {
+            background-color: #3c87bd;
+          }
+        }
+
+        &::before {
+          content: '';
+          display: block;
+          float: left;
+          margin-right: 0.8em;
+          margin-left: 0.2em;
+
+          $size: 0.7rem;
+
+          border-radius: 50%;
+          margin-top: 0.3rem;
+          width: $size;
+          height: $size;
+          display: block;
+          background-color: #b8b8b8;
+        }
+      }
+
+      .ReactTable .rt-tbody .rt-tr-group {
+        box-shadow: none;
+        border-radius: 0;
+        margin-bottom: 0;
+        border-top: 1px solid #e2e2e2;
+
+        &:hover {
+          box-shadow: none;
+        }
       }
     }
   }
@@ -54,7 +100,7 @@
       font-size: 1em;
       margin-bottom: 0.5em;
       position: relative;
-      top: 20%;
+      top: 22%;
       color: #666;
     }
 
@@ -62,7 +108,7 @@
       display: block;
       font-size: 2.6em;
       position: relative;
-      top: 20%;
+      top: 25%;
     }
   }
 }
