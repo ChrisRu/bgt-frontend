@@ -30,6 +30,10 @@ class Form extends Component {
 
   remove = () => {
     this.props.onRemove(this.state.data.id);
+    this.setState({ openRemove: false });
+    if (this.props.onClose) {
+      this.props.onClose(true);
+    }
   };
 
   submit = () => {

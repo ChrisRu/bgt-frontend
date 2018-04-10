@@ -59,7 +59,7 @@ const HTTP = {
     create: body => post(`/projects`, body),
     edit: body => put(`/projects/${body.id}`, body),
     editComplete: body => patch(`/projects/${body.id}`, body),
-    delete: id => remove(`/projects/${id}`)
+    remove: id => remove(`/projects/${id}`)
   },
 
   stats: {

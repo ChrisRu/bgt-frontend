@@ -16,7 +16,8 @@ const Confirm = ({
     onClose={onClose}
     title={title}
     defaultStyle={{
-      minWidth: '300px',
+      minWidth: '320px',
+      width: '350px',
       transformOrigin: '0 0'
     }}
     actions={[
