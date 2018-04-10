@@ -24,7 +24,7 @@ const Sidebar = () => {
       <NavLink className="sidebar__item" to="/dashboard">
         <DashboardIcon />
       </NavLink>
-      <NavLink className="sidebar__item" to="/accounts">
+      <NavLink className="sidebar__item" to="/gebruikers">
         <PersonIcon />
       </NavLink>
     </div>

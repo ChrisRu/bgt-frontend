@@ -54,10 +54,11 @@ const MarkerComponent = ({
           <p>
             Registratie:{' '}
             <strong>
-              {new Date(tijdstip_registratie).toLocaleDateString(undefined, {
-                hour: '2-digit',
-                minute: '2-digit',
-                hour12: false
+              {new Date(tijdstip_registratie).toLocaleDateString('nl-NL', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
               })}
             </strong>
           </p>

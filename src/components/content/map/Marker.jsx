@@ -4,16 +4,17 @@ import Tooltip from 'react-leaflet/lib/Tooltip';
 import { icon } from 'leaflet';
 
 function addDays(date, days) {
-  var result = new Date(date);
+  const result = new Date(date.valueOf());
   result.setDate(result.getDate() + days);
   return result;
 }
 
-const getColor = dateString => {
+export const getColor = dateString => {
   if (!dateString || dateString === '0001-01-01T00:00:00+00:00') {
     return 'gray';
   }
 
+  const currentDate = new Date();
   const date = new Date(dateString);
 
   const colors = [
@@ -27,11 +28,13 @@ const getColor = dateString => {
     },
     {
       color: 'green',
-      days: -1
+      days: -1000
     }
   ];
 
-  return colors.find(color => date > addDays(date, color.days)).color;
+  const color = colors.find(color => currentDate > addDays(date, color.days));
+
+  return color ? color.color : 'gray';
 };
 
 const MarkerComponent = ({
@@ -42,8 +45,7 @@ const MarkerComponent = ({
   latitude,
   longtitude,
   onClick,
-  exploreDate,
-  ...rest
+  exploreDate
 }) => (
   <Marker
     position={[Number(latitude), Number(longtitude)]}

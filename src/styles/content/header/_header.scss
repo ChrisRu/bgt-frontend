@@ -28,6 +28,12 @@
       margin-left: 0.5em;
       display: inline-block;
       font-family: $font-header;
+
+      &.header__current-route {
+        margin-left: 1em;
+        opacity: 0.5;
+        font-size: 0.9em;
+      }
     }
   }
 

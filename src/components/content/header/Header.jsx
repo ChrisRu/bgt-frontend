@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
 import Search from './components/Search';
 import Filter from './components/Filter';
@@ -14,6 +15,34 @@ class Header extends Component {
     filterClosed: true
   };
 
+  get routeName() {
+    const { pathname } = this.props.location;
+
+    if (pathname.includes('/login')) {
+      return 'Log In';
+    }
+
+    if (pathname.includes('/kaart')) {
+      return 'Project Kaart';
+    }
+
+    if (pathname.includes('/lijst')) {
+      return 'Project Lijst';
+    }
+
+    if (pathname.includes('/terugmeldingen')) {
+      return 'Terug Meldingen';
+    }
+
+    if (pathname.includes('/dashboard')) {
+      return 'Dashboard';
+    }
+
+    if (pathname.includes('/gebruikers')) {
+      return 'Gebruikers';
+    }
+  }
+
   render() {
     const { searchClosed, filterClosed } = this.state;
     const { onSearch, onFilter, showSearch, onPositionClick } = this.props;
@@ -23,6 +52,7 @@ class Header extends Component {
         <div className="header__logo">
           <img src={logo} alt="Logo Den Haag - Vrede en Recht" />
           <span>BGT</span>
+          <span className="header__current-route">{this.routeName}</span>
         </div>
         <div className="header__icons">
           <Show
@@ -62,4 +92,4 @@ Header.propTypes = {
   onFilter: PropTypes.func.isRequired
 };
 
-export default Header;
+export default withRouter(Header);

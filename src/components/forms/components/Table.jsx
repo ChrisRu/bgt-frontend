@@ -6,7 +6,12 @@ import { EditIcon } from '../../util/static/icons';
 const format = (value, apiName) => {
   if (value != null) {
     if (apiName.toLowerCase().includes('date')) {
-      return new Date(value).toLocaleDateString();
+      return new Date(value).toLocaleDateString('nl-NL', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
     }
 
     if (apiName.toLowerCase().includes('isadmin')) {

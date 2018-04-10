@@ -41,7 +41,16 @@ const FormInput = props => {
     case 'date':
       return (
         <DayPickerInput
-          value={value ? new Date(value).toLocaleDateString() : undefined}
+          value={
+            value
+              ? new Date(value).toLocaleDateString('nl-NL', {
+                  weekday: 'long',
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric'
+                })
+              : undefined
+          }
           onDayChange={date => {
             onChange({
               target: {
