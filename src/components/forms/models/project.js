@@ -6,7 +6,7 @@ export default {
   name: 'Project',
   submit: (data, partial) =>
     new Promise((resolve, reject) =>
-      HTTP.projects[partial ? 'edit' : 'create'](data)
+      HTTP.projects[partial ? 'create' : 'edit'](data)
         .then(resolve)
         .catch(reject)
     ),

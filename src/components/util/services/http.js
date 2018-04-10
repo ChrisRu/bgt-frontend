@@ -17,11 +17,12 @@ const createURL = partial => {
 };
 
 const fetchAPI = (endpoint, method = 'GET', body = null) =>
+  console.log(endpoint, method, body) ||
   fetch(createURL(endpoint), {
     method,
     headers: {
       Authorization: 'Bearer ' + getJWT(),
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json; charset=utf-8'
     },
     body: body ? JSON.stringify(body) : undefined
   })
@@ -46,13 +47,20 @@ const createEndPoints = name => ({
   getAll: () => get(`/${name}`),
   get: id => get(`/${name}/${id}`),
   create: body => post(`/${name}`, body),
-  edit: body => patch(`/${name}/${body.projectId}`, body),
+  edit: body => patch(`/${name}/${body.projectId || body.id}`, body),
   editComplete: body => put(`/${name}/${body.projectId}`, body),
   delete: id => remove(`/${name}/${id}`)
 });
 
 const HTTP = {
-  projects: createEndPoints('projects'),
+  projects: {
+    getAll: () => get(`/projects`),
+    get: id => get(`/projects/${id}`),
+    create: body => post(`/projects`, body),
+    edit: body => put(`/projects/${body.id}`, body),
+    editComplete: body => patch(`/projects/${body.id}`, body),
+    delete: id => remove(`/projects/${id}`)
+  },
 
   stats: {
     get() {
